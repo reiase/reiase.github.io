@@ -1,0 +1,8 @@
+.vscode/settings.json
+desktop.ini
+Pipfile
+Pipfile.lock
+test-env.yml
+payload.json
+.obsidian/
+__pycache__/

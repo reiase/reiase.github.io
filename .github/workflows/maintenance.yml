@@ -1,0 +1,17 @@
+name: Repository maintenance
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  maintenance:
+    uses: ObsidianPublisher/actions/.github/workflows/maintenance.yml@main
+    with:
+      CLEAN: true
+      DRY_RUN: false
+    secrets:
+      GH_PAT: ${{ secrets.GITHUB_TOKEN }}
+      author_name: "Github Actions [bot]"
+      author_email: "github-actions[bot]@users.noreply.github.com"
+    

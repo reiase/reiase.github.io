@@ -32,11 +32,17 @@ Kaplan Scaling Law发表于2020年，同年OpenAI也正式发表了GPT3。因此
 	$L(C_{min})=\left ( \frac{C_c^{min}}{C}\right )^{\alpha_C^{min}}; \alpha_C^{min} \simeq 0.050, C_C^{min} \simeq 3.1 \times 10^8\  (PFdays)$ 
 
 直观一点就是说影响loss的主要因素是N、D和C。随着三者的指数增长，loss线性下降：
+
 ![[Pasted image 20240123203148.png]]
+
 另一方面模型结构超参、学习器的超参没那么重要，整体对loss影响不大：
+
 ![[Pasted image 20240123203610.png]]
+
 有些参数在一到两个尺度内变化，而对最终的loss影响在2%以内。而学习率只要不过于小，或者衰减过于迅速，对最终loss的影响并不大。
+
 ![[Pasted image 20240124081651.png]]
+
 Kaplan Scaling Law最为重大的意义在于两点：
 - 给出了影响模型效果的主要因素模型参数规模N和训练数据规模D，并认为其他超参是次要因素，影响不大，因此也就避免了LLM上继续黑盒炼丹；
 - 给出了对Loss的预测方法，只要指数增长N、D和算力C，即可获得loss的线性改进；
@@ -53,6 +59,7 @@ Chinchila Scaling Law由DeepMind发表于2022年，同年Google发表了PaLM（L
 | 固定C，搜索最优N和D | 0.49 | 0.51 |
 | 拟合L(N,D)，搜索最优N和D | 0.46 | 0.54 |
 | Kaplan Scaling Law | 0.73 | 0.27 |
+
 其中第三种实现拟合了如下关系
 	$L(N,D)=E+\frac{A}{N^{\alpha}}+\frac{B}{D^{\beta}}$
 其中$E$刻画的是理想模型的loss，$\frac{A}{N^{\alpha}}$刻画的是有限模型参数对loss的影响，$\frac{B}{D^{\beta}}$刻画的是有限数据量对loss的影响。基于这个拟合出来的loss，可以绘制如下图像：

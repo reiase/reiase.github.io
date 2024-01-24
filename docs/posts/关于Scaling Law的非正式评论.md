@@ -43,10 +43,41 @@ Kaplan Scaling Law最为重大的意义在于两点：
 根据Kaplan Scaling Law，GPT3的175B参数需要300B token训练，约每个参数1.7个token（具体参考[[kaplan vs chinchilla]]）。
 
 ### Chinchila Scaling Law
-Chinchila Scaling Law由DeepMind发表于2022年，同年Google发表了PaLM（Language Modeling with Pathways[^4]）。
+Chinchila Scaling Law由DeepMind发表于2022年，同年Google发表了PaLM（Language Modeling with Pathways[^4]）。Chinchila Scaling Law 关注求解算力约束下，最优模型规模N与数据规模D，即：
+	$N_{opt}(C), D_{opt}(C) = \underset{N, D, \ s.t.\ FLOPs(N,D)=C}{\arg\min} L(N, D)$
+最终可以拟合出来N、D与算力C之间的关系：$N_{opt} \propto  C^a, D_{opt} \propto C^b$。DeepMind给出了三种实现：
+
+| 实现 | 参数$a$ | 参数$b$ |
+| ---- | ---- | ---- |
+| 固定N，搜索最优D | 0.50 | 0.50 |
+| 固定C，搜索最优N和D | 0.49 | 0.51 |
+| 拟合L(N,D)，搜索最优N和D | 0.46 | 0.54 |
+| Kaplan Scaling Law | 0.73 | 0.27 |
+其中第三种实现拟合了如下关系
+	$L(N,D)=E+\frac{A}{N^{\alpha}}+\frac{B}{D^{\beta}}$
+其中$E$刻画的是理想模型的loss，$\frac{A}{N^{\alpha}}$刻画的是有限模型参数对loss的影响，$\frac{B}{D^{\beta}}$刻画的是有限数据量对loss的影响。基于这个拟合出来的loss，可以绘制如下图像：
+![[Pasted image 20240124165321.png]]
+在左图中，每条loss等高线都有一个算力最优点，这些算力最优点又在log-log坐标上连成了一条近似直线，直线上的点即Chinchilla Optimal点。达到Chinchilla Optimal，每个参数大约需要20个token。
+
+## Beyond Power Law Scaling
+Kaplan Scaling Law与Chinchilla Scaling Law所给出的都是数据与loss之间的Power Law，即数据指数增长，loss线性改进。根据Chinchilla Scaling Law，大模型的参数规模与数据量仍有2-3个数量级的提升空间：
+
+| Model size(params) | Training tokens (round) | Training data used (estimate) | How much data is that? If 1 book is about 500KB of text (estimate) |
+| ---- | ---- | ---- | ---- |
+| 70B | 1.4 Trillion | 2.3TB | More books than in The Kindle store on Amazon US (6.4M). |
+| 250B | 5 Trillion | 8.3TB | All 30 libraries at Yale University (16.6M). |
+| 500B | 10 Trillion | 16.6TB | The Google Books collection (33.2M). |
+| 1T | 20 Trillion | 33.3TB | The US Library of Congress (66.6M). |
+| 10T | 200 Trillion | 333TB | All US public libraries combined (666M). |
+| 100T | 2 Quadrillion | 3.3PB | All bibles ever sold worldwide (6.6B). |
+| 250T | 5 Quadrillion | 8.3PB | A stack all the way to the Moon (16.6B). |
+| 500T | 10 Quadrillion | 16.6PB | 4 books about every living human (33.2B). |
+**Dataset sizes needed to align with Chinchilla data optimization for models[^5].**
+
 
 [^1]: 2020, OpenAI, Language Models are Few-Shot Learners
 [^2]: 2020, OpenAI, Scaling Laws for Neural Language Models
 [^3]: 2022, DeepMind, Training Compute-Optimal Large Language Models
 [^4]: 2022, DeepMind, PaLM: Scaling Language Modeling with Pathways
+[^5]: 2022, https://lifearchitect.ai/the-sky-is-bigger/
 

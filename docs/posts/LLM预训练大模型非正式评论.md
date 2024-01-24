@@ -1,6 +1,6 @@
 ---
 date: 2024-01-20
-title: LLM预训练
+title: LLM预训练大模型非正式评论
 tags:
   - LLM
   - Pretrain

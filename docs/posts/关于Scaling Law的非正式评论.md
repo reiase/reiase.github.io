@@ -3,6 +3,8 @@ date: 2024-01-21
 title: 关于Scaling Law的非正式评论
 categories:
   - LLM
+slug: review-scaling-law
+draft: true
 ---
 ## 大模型的良好泛化性
 

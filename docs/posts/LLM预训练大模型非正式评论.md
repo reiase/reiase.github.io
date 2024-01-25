@@ -6,6 +6,7 @@ tags:
   - Pretrain
 categories:
   - LLM
+slug: review-llm
 ---
 
 最近调研预训练大模型时，发现了颇有意思的一些内容，准备写一些关于预训练大模型的非正式评论：

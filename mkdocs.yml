@@ -42,8 +42,8 @@ theme:
         - navigation.sections
         - navigation.path
         - navigation.prune
-        - search.suggest
-        - search.highlight
+        # - search.suggest
+        # - search.highlight
         - toc.integrate
 
 nav:
@@ -104,6 +104,12 @@ plugins:
   - awesome-pages
   - blog:
         blog_dir: .
+        blog_toc: true
+        pagination: true
+        pagination_message: true
+        pagination_translation: 'posts in'
+        archive_toc: true
+        draft_if_future_date: true
   # - embed_file:
   #     callouts: true
   #     custom-attributes: 'assets/css/custom_attributes.css'
@@ -130,6 +136,9 @@ extra:
   analytics:
     provider: google
     property: G-LMDTYMWWTF
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/reiase
 extra_javascript:
   - javascripts/mathjax.js
   - https://polyfill.io/v3/polyfill.min.js?features=es6

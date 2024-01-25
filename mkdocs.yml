@@ -1,4 +1,4 @@
-site_name: "Overfiting"
+site_name: "Overfitting"
 site_description: "Reiase's Blog"
 site_url: https://reiase.github.io
 site_author: "reiase <reiase@gmail.com>"
@@ -9,8 +9,8 @@ theme:
     # favicon: assets/meta/favicons.png
     # custom_dir: overrides
     font:
-        text: Ubuntu
-        code: Ubuntu Mono
+        text: Source Han Sans SC
+        code: Roboto Mono
     language: zh
     palette:
 
@@ -32,18 +32,17 @@ theme:
         icon: material/toggle-switch
         name: Switch to light mode
     features:
-        - navigation.instant
-        - navigation.tracking
-        - navigation.indexes
-        - navigation.top
-        - navigation.tabs
-        - navigation.tabs.sticky
         - navigation.expand
-        - navigation.sections
+        - navigation.indexes
+        - navigation.instant
         - navigation.path
         - navigation.prune
-        # - search.suggest
-        # - search.highlight
+        - navigation.sections
+        - navigation.tabs
+        # - navigation.tabs.sticky
+        - navigation.top
+        - navigation.tracking
+        - toc.follow
         - toc.integrate
 
 nav:
@@ -52,7 +51,6 @@ nav:
   - 标签: tags.md
   - ...
 
-# Extensions
 markdown_extensions:
   - footnotes
   - nl2br
@@ -91,7 +89,6 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 plugins:
-  # - search
   - meta-descriptions
   - git-revision-date-localized:
       type: date
@@ -105,9 +102,6 @@ plugins:
   - blog:
         blog_dir: .
         blog_toc: true
-        pagination: true
-        pagination_message: true
-        pagination_translation: 'posts in'
         archive_toc: true
         draft_if_future_date: true
   # - embed_file:
@@ -133,6 +127,9 @@ plugins:
 #   - overrides/hooks/on_env.py
 #   - overrides/hooks/on_files.py
 extra:
+  status:
+    new: Recently added
+    deprecated: Deprecated
   analytics:
     provider: google
     property: G-LMDTYMWWTF

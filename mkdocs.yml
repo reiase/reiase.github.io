@@ -5,7 +5,7 @@ site_author: "reiase <reiase@gmail.com>"
 
 exclude_docs: |
   Excalidraw/
-  posts/imgs/
+  posts/imgs/*.md
 
 theme:
     name: 'material'

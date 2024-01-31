@@ -31,6 +31,10 @@ $$
 		\lambda \theta_{t-1} = - \gamma\frac{m_t / |m_t| }{\sqrt{v_t}/|m_t|+\epsilon/|m_t|} = - \gamma\frac{sign(m_t)}{1+\epsilon/|m_t|}
 $$
 $$
-	\theta_t = - \frac{gamma}{\lambda} \times \frac{sign(m_t)}{1+\epsilon/|m_t|}
+	\theta_t = - \frac{\gamma}{\lambda} \times \frac{sign(m_t)}{1+\epsilon/|m_t|}
+$$
+考虑到系统达到稳态时$m_t = g_t$，则：
+$$
+	\theta_t = - \frac{\gamma}{\lambda} \times \frac{sign(g_t)}{1+\epsilon/|g_t|} = - \frac{\gamma}{\lambda} \times \frac{sign(\nabla L(\theta_t))}{1+\epsilon /  |\nabla L(\theta_t)|} 
 $$
 上述公式为一个一阶微分方程，系统稳态对应该一阶微分方程的解。

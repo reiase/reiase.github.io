@@ -5,9 +5,14 @@ categories:
   - LLM
 slug: review-scaling-law
 ---
+
+大模型被广泛关注的起点是OpenAI发布ChatGPT，凭借优秀的对话能力与In-Context Learning的能力，吸引了整个AI圈的关注。
+LLM技术的发展主要得益于Scaling Law给出的一系列预测，这些预测主导了最近几年LLM模型在参数、数据和算力规模上快速增长。
+甚至有人提出了"Scale is All You Need!"。本文主要讨论LLM行为的可预测性，记录关于Scaling Law、Grokking和Double descent等empirical phenomenon的讨论。
+
 ## 大模型的良好泛化性
 
-大模型被广泛关注的起点是OpenAI发布ChatGPT，凭借优秀的对话能力与In-Context Learning的能力，吸引了整个AI圈的关注。In-Context Learning是指预测时在上下文中给出足够的背景知识和任务描述，然后直接预测[^1]，比如：
+OpenAI在GPT3论文中提出GPT-3等语言模型（language model）是few shot learner。这一概念出自In-Context Learning，具体是指在模型预测时通过上下文中给出足够的背景知识和任务描述，然后直接预测[^1]，比如：
 
 - Zero-shot（没有示例）：{==8+9=?==}
 - One-shot（一个示例）：5+5=10, {==8+9=?==}

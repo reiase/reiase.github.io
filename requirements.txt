@@ -15,3 +15,4 @@ pyvis==0.3.2
 cairosvg==2.7.1
 pillow==10.2.0
 mkdocs-glightbox==0.3.6
+markdown-exec @ git+https://github.com/reiase/markdown-exec.git

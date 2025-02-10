@@ -162,9 +162,7 @@ $$
 
 * **动作价值函数**$Q^\pi(s, a)$: 与状态价值函数类似，只是表示状态$s$下执行动作$a$后，能够得到的长期回报
 $$
-
     Q^\pi(s,a) = \mathbb{E} \left[ \sum_{t=0}^{\infty} \gamma^t r_t \mid s_0 = s, a_0=a \right]
-
 $$
 
 #### 2.2.3. 强化学习的挑战
@@ -186,9 +184,7 @@ $$
 而策略梯度方法是直接对策略进行求导的方法，首先需要将策略函数参数化:
 
 $$
-
     \pi(a|s) \rightarrow \pi_\theta(a|s) 
-
 $$
 
 此时可以将强化学习的目标函数写为
@@ -228,7 +224,7 @@ $$
 
 给出人类偏好反馈 $R(\tau)$即可直接使用PG方法训练LLM对齐人类偏好。但PG算法的梯度方差较大，稳定性欠佳。同时$R(\tau)$ 也难以直接定义、打分，因此PG方法并未实际应用于LLM对齐任务。
 
-### 3.2 策略梯度方法的改进--TRPO（Trust Regon Policy Optimization）
+### 3.2. 策略梯度方法的改进--TRPO（Trust Regon Policy Optimization）
 
 对于策略的更新，如何选择步长$\alpha$是一个非常关键的问题：
    - 过大的步长会导致策略剧烈变化，破坏已学到的好的行为
@@ -251,4 +247,83 @@ $$
 $$
 A_\pi(s,a) = Q_\pi(s,a) - V_\pi(s)
 $$
+
+这个函数表示策略$\pi$采取动作$a$时的奖励比平均奖励高多少。TRPO最终求解的问题就变成
+$$
+\max_{\theta} E[\frac{\pi_\theta(a|s)}{\pi_{\theta_{old}}(a|s)} A_\theta(s,a)] \\
+subject\ to \ E[D_{KL}(\pi_{\theta_{old}}(a|s) \pi_\theta(a|s))] \le \delta
+$$
+
+其中，$\frac{\pi_\theta(a|s)}{\pi_{\theta_{old}}(a|s)}$是重要性采样。
+
+### 3.3. 策略梯度方法的改进--PPO(Proximal Policy Optimization)
+
+近端优化（Proximal Optimization）是这样一种优化方法：通过引入一个近端约束项，让优化迭代过程中步长尽可能小，避免因权重剧烈变化而带来的训练不稳定。Proximal OPtimization在传统的凸优化领域有着广泛的应用。
+$$
+  \theta^* = \arg \max_\theta \left( 
+    f(\theta) + \lambda \|\theta - \theta_t\|_p
+  \right)
+$$
+其中$p \in \{1, 2\}$，常见使用$L_1$或者$L_2$作为约束项。
+
+PPO通过clip操作限制策略的更新幅度
+
+$$
+J_{PPO}(\theta) = \mathbb{E} \left[ 
+  \min(
+    \frac{\pi_\theta(a|s)}{\pi_{\theta_{old}}(a|s)}A(s,a),
+    clip(\frac{\pi_\theta(a|s)}{\pi_{\theta_{old}}(a|s)}, 1-\epsilon,1+\epsilon) A(s,a)
+    )
+\right]
+$$
+其中$clip()$函数会将$\frac{\pi_\theta(a|s)}{\pi_{\theta_{old}}(a|s)}$这个比值限制在$[1-\epsilon,1+\epsilon]$。
+
+TRPO算法在计算信赖域时需要计算Fisher信息矩阵，并使用共轭梯度方法来更新，计算量较大。而PPO仅需要对重要性采样进行截断，更加的高效和稳定。
+
+#### 优势函数的估计
+
+在进行优势函数（Advantage Function）估计的时候，通常有两种方法：蒙特卡扩估计与时间差分估计：
+
+1. 蒙特卡洛估计：通过完整回报近似$Q(s,a)$，需要完整的轨迹才能计算，一般用于离线数据
+
+$$
+A(s,a) = Q(s,a)-V(s) \approx \sum \gamma^tr_{t} - V(s)
+$$
+
+2. 时间差分估计：通过折扣未来奖励来近似$Q(s,a)$，可实时更新
+
+$$
+A(s,a) = Q(s,a) - V(s) \approx r_t+\gamma V(s_{t+1}) -V(s)
+$$
+
+蒙特卡洛估计可以给出无偏估计，但是优势函数的方差较大，而时间差分方差较小，但误差偏差较大。为了平衡两者PPO引入了GAE（Generalized Advantage Estimation）：
+
+$$
+A_t^{GAE(\gamma, \lambda)} = \sum_{l=0}^{T-t}(\gamma \lambda)^l\delta_t +l
+$$
+
+其中$\delta_t$是$t$时刻的TD残差
+
+$$
+\delta_t = r_{t+1} + \gamma V(s_{t+1}) - V(s_t)
+$$
+
+参数$\lambda$用来控制蒙特卡洛估计与时间差分估计之前的权衡：
+1. $\lambda$ 越大越趋向于未来奖励，更倾向于蒙特卡罗方法，提供高方差低偏差的估计；
+2. $\lambda$ 越小越趋向于即时奖励，更加倾向于时间差分方法，提供低方差但高偏差的估计；
+
+#### RLHF with PPO
+
+RLHF巧妙的在PPO框架下引入了人类反馈（Human Feedback），整个框架共涉及4个模型：
+
+- **Actor Model：** 演员模型，就是需要对齐的LLM模型，用于提供策略$\pi(a|s)$；
+- **Critic Model：** 评论家模型，用于估计总收益 $V_t$；
+- **Reward Model：** 奖励模型，用于估计计算即时收益 $R_t$；
+- **Reference Model：** 参考模型，用于提供训练阶段的约束，防止模型训歪（用于计算KL散度）；
+
+训练时，RM模型需要大力训练，而Actor Model与Critic Model则是在PPO的过程中一起训练。如果两者共享参数，但是使用不同的head，我们也称Actor Model为策略网络，Critic Model为值网络。
+
+RLHF的过程相当繁琐，并且训练过程也并不非常稳定，因此LLaMa系列模型在开始的时候仅使用了SFT，但是在LLaMa2时又重新引入了RL进行偏好对齐，提升用户体验。
+
+### 3.4. 策略梯度方法的改进--GRPO（Group Relative Policy Optimization）
 

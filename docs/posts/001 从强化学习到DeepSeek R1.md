@@ -100,16 +100,17 @@ $$
         $$a = \pi(s_i) = \arg\max_a Q(s, a)|_{s=s_i}$$
 
 	2. 执行action, 环境Environment给出下一个状态$s'与奖励$r$
+
         $$s',r = Environment(s, a)$$
 
 	3. 更新Q值，这里一般使用Bellman方程：
+
         $$Q(s,a)\leftarrow Q(s,a) + \alpha [r+\gamma \max_{a'}Q(s',a')-Q(s,a)]$$
 
     其中：
-		
 
     - $\alpha$ 为学习率，控制Q值表的更新幅度；
-    - $\gamma$ 为折扣引子，控制长期奖励与即时奖励的平衡；
+    - $\gamma$ 为折扣因子，控制长期奖励与即时奖励的平衡；
 
 Q-Learning本质上就是记住当前格子的奖励，同时不断根据未来价值重新评估当前格子的价值。最优情况下，总是选择未来价值最高的动作。在学习过程中，每个格子的Q值总是依赖于其他格子的Q值，格子之间相互依赖，非常容易导致Q值长期震荡无法收敛。此时需要对学习过程进行精细挑参才能保证学习过程的收敛性。这是强化学习的第二个问题。
 
@@ -224,7 +225,7 @@ $$
 
 给出人类偏好反馈 $R(\tau)$即可直接使用PG方法训练LLM对齐人类偏好。但PG算法的梯度方差较大，稳定性欠佳。同时$R(\tau)$ 也难以直接定义、打分，因此PG方法并未实际应用于LLM对齐任务。
 
-### 3.2. 策略梯度方法的改进--TRPO（Trust Regon Policy Optimization）
+### 3.2. 策略梯度方法的改进--TRPO（Trust Region Policy Optimization）
 
 对于策略的更新，如何选择步长$\alpha$是一个非常关键的问题：
    - 过大的步长会导致策略剧烈变化，破坏已学到的好的行为
@@ -321,9 +322,90 @@ RLHF巧妙的在PPO框架下引入了人类反馈（Human Feedback），整个�
 - **Reward Model：** 奖励模型，用于估计计算即时收益 $R_t$；
 - **Reference Model：** 参考模型，用于提供训练阶段的约束，防止模型训歪（用于计算KL散度）；
 
-训练时，RM模型需要大力训练，而Actor Model与Critic Model则是在PPO的过程中一起训练。如果两者共享参数，但是使用不同的head，我们也称Actor Model为策略网络，Critic Model为值网络。
+训练时，RM模型需要独立训练，而Actor Model与Critic Model则是在PPO的过程中一起训练。如果两者共享参数，但是使用不同的head，我们也称Actor Model为策略网络，Critic Model为值网络。
 
 RLHF的过程相当繁琐，并且训练过程也并不非常稳定，因此LLaMa系列模型在开始的时候仅使用了SFT，但是在LLaMa2时又重新引入了RL进行偏好对齐，提升用户体验。
 
 ### 3.4. 策略梯度方法的改进--GRPO（Group Relative Policy Optimization）
 
+PPO算法中的值函数只对最后一个token评估，复杂并且引入额外的不确定性。GRPO能够避免值函数估计，使得整个训练过程更加简单，具体来说：
+
+$$
+J_{GRPO}(\theta) = \frac{1}{G} \sum_{i=1}^G\frac{1}{|o_i|} \sum_{t=1}^{o_i} \{ 
+\min \left [ 
+\frac{\pi_\theta}{\pi_{\theta_{old}}} \hat{A}_{i,t} 
+clip\left( 
+  \frac{\pi_\theta}{\pi_{\theta_{old}}}, 
+  1-\epsilon, 
+  1+\epsilon \right) \hat{A}_{i,t}
+\right ]
+-\beta \mathbb{D}_{KL}[\pi_\theta \| \pi_{\theta_{old}}]
+\}
+$$
+
+对于每个问题$q$，生成$G$个回答$o_i, i\in[1..G]$，每个答案的长度为$|o_i|$。
+
+GRPO引入了一种全新的优势函数定义：
+
+$$
+\hat{A}_{i,t} = \frac{r_i - mean(r)}{std(r)}
+$$
+
+即第$i$个输出的奖励$r_i$，相对整个Group的优势，该式与Batch Normal极为类似。计算这个优势函数只需要计算每个输出的奖励即可，无需再估计值函数。
+
+## DeepSeek R1
+
+奖励是GRPO整个训练的信号来源，DeepSeek R1在训练中主要使用基于规则的奖励。一方面基于规则的奖励能够节约训练资源，另一方面也能避免Reward Hacking问题。
+
+!!! 什么是Reward Hacking
+    
+    Reward Hacking是指强化学习训练时，Agent通过不符合预期的方式，利用奖励函数的漏洞来最大化其奖励，从而破解训练过程。产生Reward Hacking的主要原因在于奖励函数本身不完美，特别是一些基于规则设计的复杂奖励函数，在不限定可行域的时候，经常会导致Agent尝试逃逸到非可行域，从而获得超额奖励。
+
+#### DeepSeek R1-Zero
+
+DeepSeek R1-Zero是纯粹基于强化学习训练的模型，主要采用了两种规则奖励：
+
+- Accuracy Rewards：主要同归规则，比如文本匹配和正则表达式来给出奖励，针对LeetCode甚至会使用compiler作为奖励反馈的来源；
+
+- Format Rewards：奖励模型将思考过程放入`<think>...</think>`标签中；
+
+在训练的过程中，使用了如下的模板：
+
+```
+A conversation between User and Assistant. The user asks a question, and the Assistant solves it.
+The assistant first thinks about the reasoning process in the mind and then provides the user
+with the answer. The reasoning process and answer are enclosed within <think> </think> and
+<answer> </answer> tags, respectively, i.e., <think> reasoning process here </think>
+<answer> answer here </answer>. User: prompt. Assistant:
+```
+
+在R1-Zero的训练过程中，可以看到模型在Reasoning Task上持续稳定则性能改善。并且观测到了Aha-Moment。
+
+!!! Aha Moment
+    Aha Moment是指某个人突然理解或者领悟某个概念、问题或者想法的瞬间，中文可以称作“顿悟”时刻，使得对某个问题的解决有一个飞跃。
+
+![alt text](imgs/aha_moment.png)
+
+虽然R1-Zero表现出了很轻的Reasoning能力，但其输出的可读性较差，并且会中英文。为了让模型的体现更好，又开发了R1，加入human-friendly的冷启动数据。
+
+#### DeepSeek R1
+
+##### Cold Start
+
+使用数千条长CoT数据对模型进行微调：
+  - 数据可读性：主要解决多语言混合问题与Markdown格式缺失问题；
+  - 潜力：基于人工先验设计数据；
+
+##### Reasoning RL
+
+使用RL提升模型的Reasoning能力，为了避免多语言混合，引入了惩罚项。
+
+##### 拒绝采样与SFT
+
+主要为了提升Reasoning以外的能力，比如写作和对话，通过SFT来实现。数据主要包含：
+- Reasoning数据：使用生成式Reward函数，将ground truth和模型输出同时输入给base模型进行判断；以此种方式收集60W训练数据；
+- Non-Reasong数据：使用prompt让模型为writing、QA等任务添加CoT，并收集20W输出作为训练数据；
+
+##### RL for all scenarios
+
+再次通过RL提升模型的helpness和harmlessness。

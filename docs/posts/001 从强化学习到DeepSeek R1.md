@@ -185,13 +185,13 @@ $$
 而策略梯度方法是直接对策略进行求导的方法，首先需要将策略函数参数化:
 
 $$
-    \pi(a|s) \rightarrow \pi_\theta(a|s) 
+  \pi(a|s) \rightarrow \pi_\theta(a|s) 
 $$
 
 此时可以将强化学习的目标函数写为
 
 $$
-J(\theta) = \mathbb{E}_{\tau \sim p_\theta(\tau)}\left[ R(\tau) \right]
+  J(\theta) = \mathbb{E}_{\tau \sim p_\theta(\tau)}\left[ R(\tau) \right]
 $$
 
 这里：
@@ -211,7 +211,7 @@ $$
 上式最后为minibatch上的梯度，对参数进行更新：
 
 $$
-\theta \leftarrow \theta + \alpha \nabla_\theta J(\theta) 
+  \theta \leftarrow \theta + \alpha \nabla_\theta J(\theta) 
 $$
 
 策略梯度方法对比值函数方法，具备如下特点：

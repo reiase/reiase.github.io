@@ -3,6 +3,7 @@ title: AdamW
 date: 2024-01-30
 tags:
   - Training
+slug: adamw
 ---
 
 LLM训练中通常使用AdamW优化器，配合grad clip参数1.0与weight decay参数0.1使用。AdamW优化器的伪代码入下图所示：

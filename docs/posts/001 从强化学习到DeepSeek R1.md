@@ -44,10 +44,14 @@ $$F(x) = y$$
 
 迷宫：(S: Start, E: End, W: Wall)
 
-| S1(S) | S2 | S3(W) |
-|-------|----|-------|
-| S4    | S5 | S6    |
-| S7(W) | S8 | S9(E) |
+```mermaid
+block-beta
+  columns 3
+  S1["S1(S)"] S2 S3["S3(W)"]
+  S4 S5 S6
+  S7["S7(W)"] S8 S9["S9(E)"]
+
+```
 
 这个迷宫就是一个Environment。我们放置一个机器人在开始处（Start），让机器人自动学习如何走迷宫的策略（Policy）。这个策略可以记成$\pi(s)\rightarrow a, s \in [1-9], a \in [上, 下, 左, 右]$。开始时机器人对于迷宫一无所知，所以$\pi(s)会随机输出一个方向$。
 
@@ -76,17 +80,24 @@ $$
 
 可以指挥Agent沿如下路径行进
 
-| S1(S)$\downarrow$ | S2              | S3(W) |
-|-------------------|-----------------|-------|
-| S4$\rightarrow$   | S5$\downarrow$  | S6    |
-| S7(W)             | S8$\rightarrow$ | S9(E) |
+```mermaid
+block-beta
+  columns 3
+  S1["S1(S)↓"] S2 S3["S3(W)"]
+  S4["S4→"] S5["S5↓"] S6
+  S7["S7(W)"] S8["S8→"] S9["S9(E)"]
+```
 
 但是我们很快发现Agent行进的路径并不唯一，比如以下路径也能让Agent走到终点
 
-| S1(S)$\rightarrow$ | S2   $\downarrow$ | S3(W) |
-|--------------------|-------------------|-------|
-| S4                 | S5$\downarrow$    | S6    |
-| S7(W)              | S8$\rightarrow$   | S9(E) |
+```mermaid
+block-beta
+  columns 3
+  S1["S1(S)→"] S2["S2↓"] S3["S3(W)"]
+  S4["S4"] S5["S5↓"] S6
+  S7["S7(W)"] S8["S8→"] S9["S9(E)"]
+
+```
 
 这是强化学习的第一个问题，**模型的解不唯一**。稍后我们讨论这种解不唯一带来的问题。
 
@@ -118,14 +129,18 @@ Q-Learning本质上就是记住当前格子的奖励，同时不断根据未来�
 
 如果单纯使用上述学习方法，很容易出现如下问题：
 
-| S1(S)$\rightarrow$ | S2   $\downarrow$ | S3(W) |
-|--------------------|-------------------|-------|
-| S4                 | S5$\uparrow$      | S6    |
-| S7(W)              | S8              | S9(E) |
+```mermaid
+block-beta
+  columns 3
+  S1["S1(S)→"] S2["S2↓"] S3["S3(W)"]
+  S4["S4"] S5["S5↑"] S6
+  S7["S7(W)"] S8["S8"] S9["S9(E)"]
+```
 
 即Agent在S2和S5之间反复震荡，无法真的走到终点S9。其原因在于Agent只能获取其历史路径上的Q值，缺乏对整个世界（Environment）的认知，无法发现S8和S6这种更加靠近终点的路径。我们称这种利用历史知识的过程为“利用”（exploitation）。
 
 除了“利用”以外，我们还需要让Agent有一定的“探索”（exploration）能力，保持对世界的好奇心。最常见的探索方法是使用$\epsilon-greedy$改造策略 $\phi$:
+
 $$
 \phi(s_i) = 
 \begin{cases} 
@@ -133,6 +148,7 @@ $$
 \text{random action} & \text{with probability } \epsilon 
 \end{cases}
 $$
+
 即以概率$1-\epsilon$选择最优动作，以概率 $\epsilon$ 选择随机动作。为了让Q-Learning更好的收敛，可以在训练过程中逐步降低探索概率$\epsilon$。
 
 #### 2.2.2. 强化学习的目标
@@ -146,22 +162,26 @@ $$J(\pi) = \mathbb{E}\left[ \sum_{t=0}^{\infty} \gamma^t R_t \mid \pi \right]$$
 * 策略空间过大：$\pi(a|s)$是一个概率分布，极大的增加了搜索难度；
 * 无梯度信息：不经过特殊设计，难以直接对策略求导；
 
-为了解决上述问题，引入了**值函数**来简化优化过程，值函数一般有两类：
+为了解决上述问题，引入了 **值函数** 来简化优化过程，值函数一般有两类：
 
 * **状态价值函数$V^\pi(s)$**: 表示从某个状态$s$开始，遵循策略$\pi$后，所能获得的长期回报
+
 $$
 V^\pi(s) = \mathbb{E} \left[ \sum_{t=0}^{\infty} \gamma^t r_t \mid s_0 = s \right]
 $$
+
 * $\gamma$为折扣因子，控制未来奖励的重要性；
 * $r_t$为时刻$t$的即时奖励；
 * $\mathbb{{E}}_\pi$表示对策略$\pi$的所有可能多做求期望。
 
 Bellman方程是上述值函数定义的递归形似，将上述定义拆解成了当前奖励和未来状态价值：
+
 $$
 V^\pi(s) = \sum_{a} \pi(a|s) [r(s, a)+\gamma V^\pi(s')]
 $$
 
 * **动作价值函数**$Q^\pi(s, a)$: 与状态价值函数类似，只是表示状态$s$下执行动作$a$后，能够得到的长期回报
+* 
 $$
     Q^\pi(s,a) = \mathbb{E} \left[ \sum_{t=0}^{\infty} \gamma^t r_t \mid s_0 = s, a_0=a \right]
 $$
@@ -182,13 +202,7 @@ $$
 2. 需要额外组合探索策略
 3. 随机探索对最坏情况缺乏控制；
 
-而策略梯度方法是直接对策略进行求导的方法，首先需要将策略函数参数化:
-
-$$
-  \pi(a|s) \rightarrow \pi_\theta(a|s) 
-$$
-
-此时可以将强化学习的目标函数写为
+而策略梯度方法是直接对策略进行求导的方法，首先需要将策略函数参数化$\pi(a|s) \rightarrow \pi_\theta(a|s)$，此时可以将强化学习的目标函数写为
 
 $$
   J(\theta) = \mathbb{E}_{\tau \sim p_\theta(\tau)}\left[ R(\tau) \right]
@@ -204,15 +218,13 @@ $$
 策略梯度可以根据策略梯度定理计算
 
 $$
-\nabla_\theta J(\theta) = \mathbb{E}_{\tau \sim p_\theta(\tau)}\left[\sum_{t=0}^{T} \nabla_\theta \log \pi_\theta(a_t|s_t)R(\tau)\right] \\
-= \frac{1}{m} \sum_{i=1}^{m} \sum_{t=0}^{T} \nabla_\theta \log \pi_\theta(a_t|s_t)R(\tau)
+\nabla_\theta J(\theta) = \mathbb{E}_{\tau \sim p_\theta(\tau)}\left[\sum_{t=0}^{T} \nabla_\theta \log \pi_\theta(a_t|s_t)R(\tau)\right]
 $$
 
-上式最后为minibatch上的梯度，对参数进行更新：
+其中，$\nabla_\theta \log \pi_\theta(a_t|s_t)$是策略的梯度，通过这个梯度可以更新策略在状态$s_t$下采用 $a_t$的概率。而$R(\tau)$表示策略带来的未来回报，回报越高动作被采纳的概率越高。估计未来回报是计算策略梯度最重要的步骤，常见实现有两种：
 
-$$
-  \theta \leftarrow \theta + \alpha \nabla_\theta J(\theta) 
-$$
+- 使用蒙特卡洛方法估计$Q_\pi(s,a)$，由于不需要使用模型，也称为无模型策略梯度算法；
+- 通过引入价值函数（$V_\pi$或者$Q_\pi$）来估计未来回报；
 
 策略梯度方法对比值函数方法，具备如下特点：
 
@@ -227,7 +239,20 @@ $$
 
 ### 3.2. 策略梯度方法的改进--TRPO（Trust Region Policy Optimization）
 
-对于策略的更新，如何选择步长$\alpha$是一个非常关键的问题：
+当把策略梯度方法应用于训练时，可以通过下式计算minibatch梯度：
+
+$$
+\nabla_\theta J(\theta)
+= \frac{1}{m} \sum_{i=1}^{m} \sum_{t=0}^{T} \nabla_\theta \log \pi_\theta(a_t|s_t)R(\tau)
+$$
+
+最大化累计奖励，需要使用梯度上升方法对参数进行更新：
+
+$$
+  \theta \leftarrow \theta + \alpha \nabla_\theta J(\theta) 
+$$
+
+策略更新如何选择步长$\alpha$是一个非常关键的问题：
    - 过大的步长会导致策略剧烈变化，破坏已学到的好的行为
    - 过小的步长会导致训练效率低下
 
@@ -241,7 +266,17 @@ $$
 
 固定步长方法是最为朴素的方法，但是步长会影响收敛性和稳定性，对实际问题搜索合理步长会比较麻烦；线性搜索会沿着梯度方向尝试多个步长，并选择最优步长，搜索开销较大，但效果最好；信赖域方法会根据梯度计算自适应信赖域，并保证在信赖域内更新。信赖域方法一方面能够保证每一步更新不会距离原策略太远，另一方面能够在梯度噪声过高时自动缩小信赖域，能够比较好的解决PG方法梯度噪声高问题。
 
-上边讨论的步长搜索算法都在某种程度上要求目标函数具备凸性，而强化学习的目标显然不是图函数。为了解决目标函数凸性的问题，TRPO又引入了Minorize-Maximization 思想：对于一个难以优化，难以求导的目标函数，可以选择一个替代函数来描述目标函数的下届，通过迭代最小化这个下届替代函数可以完成对原目标函数的优化。
+#### 优势函数
+
+上边讨论的步长搜索算法都在某种程度上要求目标函数具备凸性，而强化学习的目标显然不是凸函数。为了解决目标函数凸性的问题，TRPO又引入了 [Minorize-Maximization思想](/nodes/Minorize Maximization/) ：对于一个难以优化，难以求导的目标函数，可以选择一个替代函数来描述目标函数的上届，通过迭代最大化这个上届替代函数可以完成对原目标函数的优化。
+
+!!! note "什么是凸性"
+
+    **凸性** 是优化理论中最为重要的一个概念。若一个函数满足任意亮点$x_1$与$x_2$，满足：
+    $$
+    f(\lambda x_1 +(1-\lambda)x_2) \le \lambda f(x_1) + (1-\lambda)f(x_2)
+    $$
+    则函数具有凸性。具备凸性的函数局部最优等价于全局最优，因此基于凸性有一系列高效的优化算法。
 
 为了构造这个替代函数，我们引入一个优势函数的定义：
 
@@ -251,11 +286,13 @@ $$
 
 这个函数表示策略$\pi$采取动作$a$时的奖励比平均奖励高多少。TRPO最终求解的问题就变成
 $$
-\max_{\theta} E[\frac{\pi_\theta(a|s)}{\pi_{\theta_{old}}(a|s)} A_\theta(s,a)] \\
-subject\ to \ E[D_{KL}(\pi_{\theta_{old}}(a|s) \pi_\theta(a|s))] \le \delta
+\begin{aligned}
+\max_{\theta} & E[\frac{\pi_\theta(a|s)}{\pi_{\theta_{old}}(a|s)} A_\theta(s,a)] \\
+\textrm{s.t.} &　E[D_{KL}(\pi_{\theta_{old}}(a|s) \pi_\theta(a|s))] \le \delta
+\end{aligned}
 $$
 
-其中，$\frac{\pi_\theta(a|s)}{\pi_{\theta_{old}}(a|s)}$是重要性采样。
+其中，$\frac{\pi_\theta(a|s)}{\pi_{\theta_{old}}(a|s)}$是 [重要性采样](/nodes/Importance Sampling/) 。由于训练时只能使用旧策略产出的轨迹，我们需要通过重要性采样对目标函数中的期望进行修正，使其能够反映新策略的期望回报。
 
 ### 3.3. 策略梯度方法的改进--PPO(Proximal Policy Optimization)
 
@@ -357,7 +394,7 @@ $$
 
 奖励是GRPO整个训练的信号来源，DeepSeek R1在训练中主要使用基于规则的奖励。一方面基于规则的奖励能够节约训练资源，另一方面也能避免Reward Hacking问题。
 
-!!! 什么是Reward Hacking
+!!! note "什么是Reward Hacking"
     
     Reward Hacking是指强化学习训练时，Agent通过不符合预期的方式，利用奖励函数的漏洞来最大化其奖励，从而破解训练过程。产生Reward Hacking的主要原因在于奖励函数本身不完美，特别是一些基于规则设计的复杂奖励函数，在不限定可行域的时候，经常会导致Agent尝试逃逸到非可行域，从而获得超额奖励。
 
@@ -381,7 +418,7 @@ with the answer. The reasoning process and answer are enclosed within <think> </
 
 在R1-Zero的训练过程中，可以看到模型在Reasoning Task上持续稳定则性能改善。并且观测到了Aha-Moment。
 
-!!! Aha Moment
+!!! note "Aha Moment"
     Aha Moment是指某个人突然理解或者领悟某个概念、问题或者想法的瞬间，中文可以称作“顿悟”时刻，使得对某个问题的解决有一个飞跃。
 
 ![alt text](imgs/aha_moment.png)

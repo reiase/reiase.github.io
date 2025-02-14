@@ -2,70 +2,78 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://reiase.github.io/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
     </url>
     <url>
          <loc>https://reiase.github.io/tags/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
     </url>
     <url>
          <loc>https://reiase.github.io/nodes/AdamW/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
     </url>
     <url>
          <loc>https://reiase.github.io/nodes/Importance%20Sampling/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
     </url>
     <url>
          <loc>https://reiase.github.io/nodes/Minorize%20Maximization/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
     </url>
     <url>
          <loc>https://reiase.github.io/nodes/Random%20Round/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
     </url>
     <url>
          <loc>https://reiase.github.io/nodes/Scaling%20Law%20%E8%AE%A1%E7%AE%97%E5%99%A8/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
     </url>
     <url>
          <loc>https://reiase.github.io/nodes/kaplan%20vs%20chinchilla/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
     </url>
     <url>
          <loc>https://reiase.github.io/2025/02/09/rl_ds_r1/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
+    </url>
+    <url>
+         <loc>https://reiase.github.io/2025/02/12/fp8_training/</loc>
+         <lastmod>2025-02-14</lastmod>
     </url>
     <url>
          <loc>https://reiase.github.io/2024/01/20/review-llm/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
     </url>
     <url>
          <loc>https://reiase.github.io/2024/01/21/review-scaling-law/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
     </url>
     <url>
          <loc>https://reiase.github.io/2024/01/25/review-dist-train/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
     </url>
     <url>
          <loc>https://reiase.github.io/archive/2025/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
     </url>
     <url>
          <loc>https://reiase.github.io/archive/2024/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
     </url>
     <url>
          <loc>https://reiase.github.io/category/llm/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
     </url>
     <url>
          <loc>https://reiase.github.io/category/training/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
+    </url>
+    <url>
+         <loc>https://reiase.github.io/category/fp8/</loc>
+         <lastmod>2025-02-14</lastmod>
     </url>
     <url>
          <loc>https://reiase.github.io/category/rl/</loc>
-         <lastmod>2025-02-13</lastmod>
+         <lastmod>2025-02-14</lastmod>
     </url>
 </urlset>

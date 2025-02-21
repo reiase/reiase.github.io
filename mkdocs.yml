@@ -20,7 +20,7 @@ copyright: Copyright &copy; 2023 - 2025 Reiase
 theme:
   name: material
   language: zh
-  # custom_dir: material/overrides
+  custom_dir: overrides
   font:
       text: Source Han Sans SC
       code: Roboto Mono
@@ -56,7 +56,7 @@ theme:
     - navigation.footer
     - navigation.indexes
     - navigation.instant
-    # - navigation.instant.prefetch
+    - navigation.instant.prefetch
     # - navigation.instant.progress
     # - navigation.path
     - navigation.prune
@@ -112,7 +112,7 @@ extra:
       link: https://github.com/reiase
 extra_javascript:
   - javascripts/mathjax.js
-  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/mathjax/3.2.0/es5/tex-mml-chtml.js
 # Extensions
 markdown_extensions:
   - abbr

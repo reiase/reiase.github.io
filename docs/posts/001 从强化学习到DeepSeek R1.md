@@ -264,7 +264,7 @@ $$
 \theta \leftarrow \theta + \alpha \nabla_\theta J(\theta) 
 $$
 
-![alt text](imgs/line_search_trust_region.png)
+![alt text](imgs/rl/line_search_trust_region.png)
 
 固定步长方法是最为朴素的方法，但是步长会影响收敛性和稳定性，对实际问题搜索合理步长会比较麻烦；线性搜索会沿着梯度方向尝试多个步长，并选择最优步长，搜索开销较大，但效果最好；信赖域方法会根据梯度计算自适应信赖域，并保证在信赖域内更新。信赖域方法一方面能够保证每一步更新不会距离原策略太远，另一方面能够在梯度噪声过高时自动缩小信赖域，能够比较好的解决PG方法梯度噪声高问题。
 
@@ -423,7 +423,7 @@ with the answer. The reasoning process and answer are enclosed within <think> </
 !!! note "Aha Moment"
     Aha Moment是指某个人突然理解或者领悟某个概念、问题或者想法的瞬间，中文可以称作“顿悟”时刻，使得对某个问题的解决有一个飞跃。
 
-![alt text](imgs/aha_moment.png)
+![alt text](imgs/rl/aha_moment.png)
 
 虽然R1-Zero表现出了很轻的Reasoning能力，但其输出的可读性较差，并且会中英文。为了让模型的体现更好，又开发了R1，加入human-friendly的冷启动数据。
 

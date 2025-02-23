@@ -1,19 +1,15 @@
 # Project information
-site_name: "Overfitting"
+site_name: "Overfitting: From Algorithms to Silicon"
 site_url: https://reiase.github.io
 site_author: "reiase <reiase@gmail.com>"
 
 site_description: >-
-  Reiase's Blog: A technical blog focused on machine learning, deep learning, and artificial intelligence. 
-  Features in-depth discussions on optimization algorithms, sampling techniques, and neural network architectures.
+  Overfitting: Where we deliberately dive too deep into ML algorithms, 
+  mathematical principles and hardware implementations.
 
 exclude_docs: |
   Excalidraw/
   posts/imgs/*.md
-
-# Repository
-# repo_name: squidfunk/mkdocs-material
-# repo_url: https://github.com/squidfunk/mkdocs-material
 
 # Copyright
 copyright: Copyright &copy; 2023 - 2025 Reiase

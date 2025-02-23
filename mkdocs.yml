@@ -2,8 +2,10 @@
 site_name: "Overfitting"
 site_url: https://reiase.github.io
 site_author: "reiase <reiase@gmail.com>"
+
 site_description: >-
-  Reiase's Blog
+  Reiase's Blog: A technical blog focused on machine learning, deep learning, and artificial intelligence. 
+  Features in-depth discussions on optimization algorithms, sampling techniques, and neural network architectures.
 
 exclude_docs: |
   Excalidraw/

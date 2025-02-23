@@ -10,6 +10,9 @@ categories:
   - Training
   - RL
 slug: rl_ds_r1
+description: >-
+  深入分析强化学习在LLM训练中的应用，从Q-Learning到PPO再到GRPO的演进，揭示DeepSeek R1如何通过强化学习实现推理能力的提升。
+  探讨规则奖励、人类反馈和拒绝采样等关键技术在模型对齐中的作用。
 ---
 
 ## 1. 什么是强化学习(RL, Reinforcement Learning)

@@ -23,3 +23,6 @@ Training Dynamics是一个未被严格定义的词，泛指模型训练过程中
 ## 权重与梯度的Training Dynamics
 
 ![](./imgs/tdynamocs/weight_histograms_all_together_animation_mlp_h24h_800m.gif)
+
+[^llm_facts]: https://github.com/BerenMillidge/LM_facts_across_training
+[^facts_training]: [Basic facts about language models during training](https://www.alignmentforum.org/posts/2JJtxitp6nqu6ffak/basic-facts-about-language-models-during-training-1)

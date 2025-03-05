@@ -99,7 +99,9 @@ $$
 ### RMSNorm的动态性分析
 
 RMSNorm层是当前主流大模型所使用归一化层，相较传统的LayerNorm减少了对均值的计算，进而是的归一化层的计算更加高效。RMSNorm定义如下：
+
 $$\bar{x_i} = \frac{x_i}{RMS(x)}w_i, RMS(x) = \sqrt{\frac{1}{H}\sum_{i=0}^H x_i^2}$$
+
 在大模型中，RMSNorm先对每个token的表达进行归一化，再对每个channel进行缩放。
 
 ## 关键组件的动态性剖析
@@ -118,10 +120,13 @@ $$\bar{x_i} = \frac{x_i}{RMS(x)}w_i, RMS(x) = \sqrt{\frac{1}{H}\sum_{i=0}^H x_i^
     - 这种压缩作用大多数情况能成功，但部分layer只能提供很少的压缩比；
 
 ![alt text](imgs/tdynamics/image-4.png)
-![alt text](imgs/tdynamics/image.png)
-![alt text](imgs/tdynamics/image-1.png)
-![alt text](imgs/tdynamics/image-2.png)
-![alt text](imgs/tdynamics/image-3.png)
+
+??? Example "点击展开更多实验图"
+
+    ![alt text](imgs/tdynamics/image.png)
+    ![alt text](imgs/tdynamics/image-1.png)
+    ![alt text](imgs/tdynamics/image-2.png)
+    ![alt text](imgs/tdynamics/image-3.png)
 
 可以发现，不同的decoder layer的RMSNorm层的表现会存在差异，开始的decoder与结束的decoder中RMSNorm的数值压缩作用并不明显，但中间的decoder中RMSNorm提供了非常强的动态范围压缩能力。
 
@@ -146,15 +151,18 @@ $$
 ![alt text](imgs/tdynamics/mlp/image.png)
 ![alt text](imgs/tdynamics/mlp/image-1.png)
 ![alt text](imgs/tdynamics/mlp/image-2.png)
-![alt text](imgs/tdynamics/mlp/image-3.png)
-![alt text](imgs/tdynamics/mlp/image-4.png)
-![alt text](imgs/tdynamics/mlp/image-5.png)
-![alt text](imgs/tdynamics/mlp/image-6.png)
-![alt text](imgs/tdynamics/mlp/image-7.png)
-![alt text](imgs/tdynamics/mlp/image-8.png)
-![alt text](imgs/tdynamics/mlp/image-9.png)
-![alt text](imgs/tdynamics/mlp/image-10.png)
-![alt text](imgs/tdynamics/mlp/image-11.png)
+
+??? Example "点击展开更多实验图"
+
+    ![alt text](imgs/tdynamics/mlp/image-3.png)
+    ![alt text](imgs/tdynamics/mlp/image-4.png)
+    ![alt text](imgs/tdynamics/mlp/image-5.png)
+    ![alt text](imgs/tdynamics/mlp/image-6.png)
+    ![alt text](imgs/tdynamics/mlp/image-7.png)
+    ![alt text](imgs/tdynamics/mlp/image-8.png)
+    ![alt text](imgs/tdynamics/mlp/image-9.png)
+    ![alt text](imgs/tdynamics/mlp/image-10.png)
+    ![alt text](imgs/tdynamics/mlp/image-11.png)
 
 通过对多层FFN的可视化分析，我们总结出以下关键发现：
 
@@ -186,6 +194,28 @@ $$
 1. 异常值协同放大作用，当门控单元处于线性区时，$\text{Swish}(z) = z$，此时门控输出对up projection进行线性放大。当门控值与up projection都比较大时，会产生较大的异常值；
 2. 零值聚集效应，当门控单元处于饱和区时，$\text{Swish}(z) \rightarrow 0$，导致大量激活值被拉到零附近；
 
+
+## 精度的协同设计之道：From Dynamics to Silicon
+
+前文对LLM训练过程的数值特性进行了深入分析，我们主要讨论了Training Dynamics，并尝试从数学与动力学角度讨论Outlier的产生与抑制机制。Outlier是影响低精度训练与推理的最关键的因素：无法解决精度问题，再精妙的低精度设计，从芯片到算法，都全无意义。本节尝试讨论三个问题：何时可以使用低精度、如何高效使用低精度以及如何突破低精度的应用边界。
+
+根据前文分析，RMSNorm与FFN中的Down Projection会直接面临SwiGLU输出的高动态范围、高outlier激活值，因此有必要保留高精度计算。而FFN的Gate Projection与Up Projection所面临的动态范围相对可控，比较适合使用低精度进行计算。这两者可以使用前文所提到的FP8或者INT8矩阵乘法。为了进一步提高LLM训练推理的性能，可以考虑提高低精度运算所能覆盖的占比。
+
+针对已识别的异常值产生机制，我们可从算法层面实施以下优化：
+
+1. 增强型归一化层：改良RMSNorm，引入可学习的非线性压缩函数，提高对outlier的压缩比，可考虑形如$f(x) = \text{sign}(x) \cdot \min(|x|, \alpha)$的截断函数
+2. SwiGLU门控机制优化：引入饱和区域来约束门控值的上限，如将Swish修改为$\text{Swish}_{\text{bounded}}(x) = x \cdot \sigma(x) \cdot \min(1, \beta/|x|)$，有效抑制极端异常值的产生
+3. 尺度一致性调整：对激活值进行尺度变换（如开方操作$\text{sign}(x)|x|^{0.5}$），使门控向量与特征向量的量纲更加匹配，避免乘法运算导致的范围爆炸
+
+硬件设计可充分利用我们发现的数值特性，实现更高效的计算：
+
+1. 稀疏计算加速：利用SwiGLU的零值聚集效应，当Gate Projection输出为负值较大时，Gating值趋近零，可动态跳过相应的Up Projection计算；
+2. 层内动态精度：针对高动态范围的层，设计可动态切换精度的计算单元，例如激活高于某些值使用BF16计算，否则使用INT8计算；而高精度计算单元可以像Intel的AVX-512单元那样让多个计算核心共享；
+3. 异常值专用通道：为检测到的异常值建立专用的高精度计算路径，同时主计算路径保持低精度高效运算，通过稀疏矩阵格式存储异常值位置信息；
+
+这种硬件与算法的协同设计能够在保持FP32/BF16级别计算精度的同时，获得接近INT8理论峰值的计算性能提升。
+
+在这个DeepSeek大放异彩的今天，必须摒弃传统分层优化的孤立视角，建立从算法到芯片的端到端联合设计与优化，才能符合时代的发展。从算法到硬件的端到端精度协同优化不再是可选项，而是必然选择。通过深入理解LLM的数值特性，我们能够设计出更加高效、精确且可扩展的计算硬件。
 
 
 [^llm_facts]: https://github.com/BerenMillidge/LM_facts_across_training

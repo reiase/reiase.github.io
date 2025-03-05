@@ -12,7 +12,7 @@ categories:
 slug: training_dynamics
 draft: false
 description: >-
-  从Training Dynamics到Outlier
+  探索大语言模型训练过程中的数值动态特性：从权重矩阵到激活值，深入分析Transformer架构中RMSNorm与FFN层如何影响异常值(outlier)产生与传播。本文揭示SwiGLU中数值极化现象的数学机理，为低精度训练与量化优化提供理论基础。
 ---
 
 Training Dynamics是一个未被严格定义的词，泛指模型训练过程中观测到的各种现象、变化和行为规律。我们可以从loss、泛化loss、梯度大小以及等等表现来观察模型内部的演变机制，并总结出类似涌现现象（Emergency）、Scaling Law、Double Decent和Gradient Pathologies等现象。

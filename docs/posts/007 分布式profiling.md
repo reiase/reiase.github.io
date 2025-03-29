@@ -10,7 +10,6 @@ categories:
   - LLM
   - Training
 slug: dist_probe_1
-draft: true
 description: >-
   探索Probing分布式探针系统如何解决千卡规模LLM训练中的性能瓶颈与故障问题。这个轻量级工具通过动态注入实现无侵入监控，支持CUDA/GPU性能分析、分布式调试、内存优化和通信分析，无需修改代码或重启应用。本文详细介绍其设计原理、SQL查询接口和在PyTorch训练环境中的应用，帮助工程师有效应对大规模分布式训练的挑战。
 ---

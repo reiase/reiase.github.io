@@ -10,7 +10,6 @@ categories:
   - LLM
   - Training
 slug: dist_probe_3
-draft: true
 description: >-
     本文深入探讨千卡规模LLM分布式训练中的性能分析挑战与创新解决方案。分析传统Timeline方法的局限性，介绍基于统计思想的新型性能分析范式，详解Probing如何通过分布式采样与SQL查询技术实现大规模训练系统的性能瓶颈定位。文章涵盖慢节点识别、负载均衡优化、通信瓶颈分析等实用技术，为AI工程师提供可靠的大模型训练性能优化指南。
 ---

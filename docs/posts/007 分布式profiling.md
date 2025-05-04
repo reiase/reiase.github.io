@@ -1,5 +1,5 @@
 ---
-title: Probing分布式探针系统的原型探索（一）：背景与设计理念
+title: Probing分布式探针开发随笔（一）：背景与设计理念
 date: 2025-03-26
 tags:
   - LLM

@@ -1,5 +1,5 @@
 ---
-title: Probing分布式探针系统的原型探索（二）：探针机制
+title: Probing分布式探针开发随笔（二）：探针机制
 date: 2025-03-28
 tags:
   - LLM

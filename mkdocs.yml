@@ -53,14 +53,14 @@ theme:
     - navigation.expand
     - navigation.footer
     - navigation.indexes
-    # - navigation.instant
-    # - navigation.instant.prefetch
-    # - navigation.instant.progress
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
     # - navigation.path
     - navigation.prune
     - navigation.sections
     - navigation.tabs
-    # - navigation.tabs.sticky
+    - navigation.tabs.sticky
     - navigation.top
     - navigation.tracking
     - search.highlight
@@ -75,6 +75,8 @@ theme:
 # Plugins
 plugins:
   - awesome-pages
+  - mermaid2:
+      version: 11.12.0
   - blog:
       blog_dir: .
       blog_toc: true
@@ -108,9 +110,11 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/reiase
+extra_css:
+  - extra.css
+
 extra_javascript:
-  - javascripts/mathjax.js
-  - https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/mathjax/3.2.0/es5/tex-mml-chtml.js
+  - https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js
 # Extensions
 markdown_extensions:
   - abbr

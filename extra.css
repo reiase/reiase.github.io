@@ -1,0 +1,350 @@
+/* ==========================================================================
+ * MkDocs Material – 中文技术博客排版增强
+ * --------------------------------------------------------------------------
+ *  1. Theme tokens & 字体设置
+ *  2. 基础排版
+ *  3. 标题体系与自动编号
+ *  4. 列表样式
+ *  5. 行内文本（链接与强调）
+ *  6. 代码与预格式内容
+ *  7. 引用
+ *  8. 表格
+ *  9. 媒体资源
+ * 10. 导航与目录
+ * 11. 提示与警告框
+ * 12. 主题配色适配
+ * ==========================================================================
+ */
+
+/* 1. Theme tokens & 字体设置 ------------------------------------------------ */
+:root {
+  --md-text-font: -apple-system, BlinkMacSystemFont,
+                  "Segoe UI", "PingFang SC", "Hiragino Sans GB",
+                  "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial,
+                  sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --md-code-font: "SFMono-Regular", "Consolas",
+                  "Liberation Mono", "Menlo", "Courier New",
+                  "Monaco", monospace;
+  --blog-inline-code-bg: var(--md-code-bg-color);
+  --blog-inline-code-fg: var(--md-accent-fg-color);
+  --blog-strong-color: var(--md-primary-fg-color);
+  --blog-blockquote-border: var(--md-accent-fg-color);
+  --blog-blockquote-bg: rgba(0, 0, 0, 0.02);
+  --blog-blockquote-fg: var(--md-default-fg-color--light);
+}
+
+/* 2. 基础排版 -------------------------------------------------------------- */
+.md-typeset {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  font-family: var(--md-text-font);
+  counter-reset: h1;
+}
+
+.md-typeset p {
+  text-align: justify;
+  text-justify: inter-ideograph;
+  margin: 1.2em 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.md-typeset hr {
+  height: 1px;
+  background-color: #eaecef;
+  border: 0;
+  margin: 2em 0;
+}
+
+/* 3. 标题体系与自动编号 ---------------------------------------------------- */
+.md-typeset h1 {
+  font-weight: 700;
+  color: var(--md-default-fg-color--dark);
+  margin: 1.5em 0 0.8em;
+  padding-bottom: 0.3em;
+  border-bottom: 2.25px solid #eaecef;
+  line-height: 1.25;
+  counter-reset: h2;
+}
+
+.md-typeset h2 {
+  font-weight: 600;
+  margin: 1.8em 0 0.8em;
+  padding-bottom: 0.2em;
+  border-bottom: 2.25px solid #eaecef;
+  line-height: 1.25;
+  counter-reset: h3;
+}
+
+.md-typeset h3 {
+  font-weight: 600;
+  margin: 1.5em 0 0.5em;
+  border-bottom: 1px solid #eaecef;
+  line-height: 1.25;
+  counter-reset: h4;
+}
+
+.md-typeset h4 {
+  font-weight: 600;
+  margin: 1.3em 0 0.5em;
+  line-height: 1.25;
+}
+
+.md-typeset h5,
+.md-typeset h6 {
+  font-weight: 600;
+  margin: 1.2em 0 0.5em;
+  line-height: 1.25;
+}
+
+.md-typeset h1::before {
+  counter-increment: h1;
+  /* content: counter(h1) ". "; */
+  font-weight: 700;
+  margin-right: 0.5em;
+}
+
+.md-typeset h2::before {
+  counter-increment: h2;
+  content: counter(h2) ". ";
+  font-weight: 600;
+  margin-right: 0.5em;
+}
+
+.md-typeset h3::before {
+  counter-increment: h3;
+  content: counter(h2) "." counter(h3) ". ";
+  font-weight: 600;
+  margin-right: 0.5em;
+}
+
+article.md-post h2::before {
+  counter-increment: h2;
+  font-weight: 600;
+  margin-right: 0.5em;
+}
+
+article.md-post h3::before {
+  counter-increment: h3;
+  content: counter(h3) ". ";
+  font-weight: 600;
+  margin-right: 0.5em;
+}
+
+article.md-post h4::before {
+  counter-increment: h4;
+  content: counter(h3) ". " counter(h4) ". ";
+  font-weight: 600;
+  margin-right: 0.5em;
+}
+
+/* 4. 列表样式 --------------------------------------------------------------- */
+.md-typeset ul,
+.md-typeset ol {
+  margin: 0.5em 0;
+  padding-left: .25em;
+}
+
+.md-typeset ul li,
+.md-typeset ol li {
+  margin: 0.5em 0;
+  line-height: 1.2;
+}
+
+.md-typeset ul ul,
+.md-typeset ol ul,
+.md-typeset ul ol,
+.md-typeset ol ol {
+  margin: 0.5em 0;
+}
+
+/* 5. 行内文本（链接与强调） ------------------------------------------------ */
+.md-typeset a {
+  color: var(--md-primary-fg-color);
+  text-decoration: none;
+  border-bottom: 1px dotted transparent;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.md-typeset a:hover {
+  color: var(--md-accent-fg-color);
+  border-bottom-color: var(--md-primary-fg-color);
+}
+
+.md-typeset a:focus {
+  outline: 2px solid var(--md-primary-fg-color);
+  outline-offset: 2px;
+}
+
+.md-typeset strong {
+  color: var(--blog-strong-color);
+  font-weight: 600;
+}
+
+.md-typeset em {
+  color: rgba(0, 0, 0, 0.8);
+  font-style: italic;
+}
+
+/* 6. 代码与预格式内容 ------------------------------------------------------ */
+.md-typeset code {
+  font-family: var(--md-code-font);
+  background-color: var(--blog-inline-code-bg);
+  color: var(--blog-inline-code-fg);
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  word-break: break-word;
+}
+
+.md-typeset pre {
+  font-family: var(--md-code-font);
+  line-height: 1.5;
+  border-radius: 6px;
+  margin: 1.5em 0;
+  padding: 1.2em;
+  background: var(--md-code-bg-color);
+  border: none;
+  overflow: auto;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  color: var(--md-code-fg-color);
+}
+
+.md-typeset pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  word-break: normal;
+  overflow-wrap: normal;
+  white-space: pre;
+}
+
+/* 7. 引用 ----------------------------------------------------------------- */
+.md-typeset blockquote {
+  padding: 0.8em 1.2em;
+  margin: 1.5em 0;
+  border-left: 3px solid var(--blog-blockquote-border);
+  background-color: var(--blog-blockquote-bg);
+  border-radius: 0 4px 4px 0;
+  color: var(--blog-blockquote-fg);
+}
+
+.md-typeset blockquote p {
+  margin: 0.5em 0;
+}
+
+.md-typeset blockquote p:first-child {
+  margin-top: 0;
+}
+
+.md-typeset blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* 8. 表格 ----------------------------------------------------------------- */
+/* 方案：使用包裹层 + table 自身宽度自适应 + 居中 */
+.md-typeset .table-wrapper,
+.md-typeset div:has(> table:not([class])) {
+  /* 自动匹配直接子元素为无 class 表格的容器（需支持 :has） */
+  overflow-x: auto;
+  display: flex;
+  -webkit-overflow-scrolling: touch;
+}
+
+.md-typeset table:not([class]) {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+  border-collapse: collapse;
+  display: block; /* 恢复表格本义，利于可访问性 */
+  width: auto;    /* 根据内容决定宽度 */
+  max-width: 100%;
+  margin: 1.5em auto; /* 居中 */
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--md-primary-fg-color);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.75em 1em;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.md-typeset table:not([class]) td {
+  padding: 0.75em 1em;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.md-typeset table:not([class]) tr:nth-child(2n) {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* 9. 媒体资源 -------------------------------------------------------------- */
+.md-typeset img {
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  margin: 1.5em auto;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.md-typeset p > img:only-child {
+  display: block;
+  margin: 1.5em auto;
+}
+
+.md-typeset .mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 1.5em auto;
+  overflow-x: auto; /* 超出时可横向滚动而不压缩比例 */
+  padding: 0.5em 0; /* 与上下内容保持间距 */
+}
+
+.md-typeset .mermaid svg {
+  display: block;  /* 去除 baseline 空隙 */
+  margin: 0 auto;  /* 次级保障水平居中 */
+  max-width: 100%; /* 窄屏自适应 */
+  height: auto;    /* 保持纵横比 */
+}
+
+/* 10. 导航与目录 ----------------------------------------------------------- */
+.md-nav {
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.md-nav__title {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.md-nav__link {
+  transition: color 0.2s ease;
+}
+
+/* 11. 提示与警告框 -------------------------------------------------------- */
+.md-typeset .admonition {
+  border-radius: 6px;
+  border-left-width: 4px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  margin: 1.5em 0;
+}
+
+.md-typeset .admonition-title {
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* 12. 主题配色适配 -------------------------------------------------------- */
+html[data-md-color-scheme="slate"] {
+  --blog-inline-code-bg: rgba(255, 255, 255, 0.08);
+  --blog-inline-code-fg: var(--md-code-fg-color);
+  --blog-strong-color: var(--md-accent-fg-color);
+  --blog-blockquote-border: var(--md-primary-fg-color);
+  --blog-blockquote-bg: rgba(255, 255, 255, 0.04);
+  --blog-blockquote-fg: var(--md-default-fg-color);
+}

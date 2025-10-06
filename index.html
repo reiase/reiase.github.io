@@ -43,7 +43,7 @@
 </div>
 <div data-md-component="announce">
 </div>
-<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<header class="md-header" data-md-component="header">
 <nav aria-label="页眉" class="md-header__inner md-grid">
 <a aria-label="Overfitting: From Algorithms to Silicon" class="md-header__button md-logo" data-md-component="logo" href="." title="Overfitting: From Algorithms to Silicon">
 <svg viewbox="0 0 89 89" xmlns="http://www.w3.org/2000/svg">
@@ -118,6 +118,8 @@
 </div>
 </div>
 </nav>
+</header>
+<div class="md-container" data-md-component="container">
 <nav aria-label="标签" class="md-tabs" data-md-component="tabs">
 <div class="md-grid">
 <ul class="md-tabs__list">
@@ -157,14 +159,12 @@
 </ul>
 </div>
 </nav>
-</header>
-<div class="md-container" data-md-component="container">
 <main class="md-main" data-md-component="main">
 <div class="md-main__inner md-grid">
 <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
-<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
 <label class="md-nav__title" for="__drawer">
 <a aria-label="Overfitting: From Algorithms to Silicon" class="md-nav__button md-logo" data-md-component="logo" href="." title="Overfitting: From Algorithms to Silicon">
 <svg viewbox="0 0 89 89" xmlns="http://www.w3.org/2000/svg">
@@ -197,7 +197,7 @@
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_2" type="checkbox"/>
+<input class="md-nav__toggle md-toggle" id="__nav_1_2" type="checkbox"/>
 <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="">
 <span class="md-ellipsis">
     归档
@@ -231,7 +231,7 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_1_3" type="checkbox"/>
+<input class="md-nav__toggle md-toggle" id="__nav_1_3" type="checkbox"/>
 <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
 <span class="md-ellipsis">
     分类
@@ -315,13 +315,154 @@
   </span>
 </a>
 </li>
-<li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-<a class="md-nav__link" href="nodes/AdamW/">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
 <span class="md-ellipsis">
     代码片段
     
   </span>
 <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            代码片段
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="nodes/AdamW/">
+<span class="md-ellipsis">
+    AdamW
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="nodes/Importance%20Sampling/">
+<span class="md-ellipsis">
+    Importance Sampling
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="nodes/Minorize%20Maximization/">
+<span class="md-ellipsis">
+    Minorize-Maximization
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="nodes/Random%20Round/">
+<span class="md-ellipsis">
+    Random Round
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="nodes/Scaling%20Law%20%E8%AE%A1%E7%AE%97%E5%99%A8/">
+<span class="md-ellipsis">
+    Scaling Law 计算器
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="nodes/kaplan%20vs%20chinchilla/">
+<span class="md-ellipsis">
+    Kaplan Scaling Law vs Chinchilla Optimal
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nvidia">
+<span class="md-ellipsis">
+      深度解析NVIDIA的超节点架构演进
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#probingprofiling">
+<span class="md-ellipsis">
+      Probing分布式探针开发随笔（三）：分布式训练的Profiling
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#probing">
+<span class="md-ellipsis">
+      Probing分布式探针开发随笔（二）：探针机制
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#probing">
+<span class="md-ellipsis">
+      Probing分布式探针开发随笔（一）：背景与设计理念
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#training-dynamicsoutlierllm">
+<span class="md-ellipsis">
+      从Training Dynamics到Outlier——LLM模型训练过程中的数值特性分析
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#int8">
+<span class="md-ellipsis">
+      INT8也能训练
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deepseek-v3fp8">
+<span class="md-ellipsis">
+      从DeepSeek V3看FP8训练的挑战
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deepseek-r1">
+<span class="md-ellipsis">
+      从强化学习到DeepSeek R1
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_1">
+<span class="md-ellipsis">
+      关于分布式模型并行的分正式评论
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scaling-law">
+<span class="md-ellipsis">
+      关于Scaling Law的非正式评论
+    </span>
 </a>
 </li>
 </ul>
@@ -486,675 +627,11 @@
 <li><strong>Scale-Up域</strong>：互联规模和带宽同步翻倍。</li>
 <li><strong>内存系统</strong>：HBM带宽翻倍，容量提升3倍。</li>
 </ul>
-<p>从Blackwell架构开始，<strong>先进封装</strong> 成为其算力增长的又一关键。通过NV-HBI（NVIDIA High-Bandwidth Interface）技术<sup id="fnref:nvhbi"><a class="footnote-ref" href="2025/10/01/superpod-ai-architecture/#fn:nvhbi">4</a></sup>，NVIDIA将两颗GPU裸片（Die）高速互联，提供高达10 TB/s的双向带宽，使它们在逻辑上可作为单一、统一的GPU工作。这标志着NVIDIA的增长引擎已从单纯提升单点指标（如芯片算力或互联速率），全面转向以系统为单位的整体工程优化，从而确保稳定且可预测的性能飞跃。</p>
-<table>
-<thead>
-<tr>
-<th>系列</th>
-<th>Volta</th>
-<th>Ampere</th>
-<th>Hopper</th>
-<th>Blackwell</th>
-<th>Rubin</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>SKU</td>
-<td>V100</td>
-<td>A100(HGX)</td>
-<td>GH200(CPU+GPU)</td>
-<td>GB200(CPU+2GPU)</td>
-<td>?VR200(CPU+2GPU)</td>
-</tr>
-<tr>
-<td>单卡算力（FP16）</td>
-<td>0.125 PFLOPS</td>
-<td>0.312 PFLOPS</td>
-<td>0.9 PFLOPS</td>
-<td>2.25 PFLOPS x 2</td>
-<td></td>
-</tr>
-<tr>
-<td>系统规模</td>
-<td>8</td>
-<td>16(OEM提供)<sup id="fnref:hgx_a100"><a class="footnote-ref" href="2025/10/01/superpod-ai-architecture/#fn:hgx_a100">10</a></sup></td>
-<td>32</td>
-<td>72</td>
-<td></td>
-</tr>
-<tr>
-<td>系统总算力</td>
-<td>1 PFLOPS</td>
-<td>5 PFLOPS</td>
-<td>32 PFLOPS</td>
-<td>180 PFLOPS</td>
-<td></td>
-</tr>
-<tr>
-<td>系统HBM总容量</td>
-<td>8 x 32GB = 0.256 TB</td>
-<td>16 x 80GB = 1.28 TB</td>
-<td>32 x 144GB = 4.6 TB|</td>
-<td>36 x 384GB = 13.8 TB</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>上述代际指标体现的是“系统级（按FP16口径）”的复合放大轨迹。结合黄氏定理（Huang’s Law）所给出的十年≈1000倍增长拆解：低精度数值格式≈16×、Tensor Core与矩阵引擎≈12×、制程与微架构≈2.5×<sup id="fnref2:huangs_law"><a class="footnote-ref" href="2025/10/01/superpod-ai-architecture/#fn:huangs_law">3</a></sup>，可以得出一个结论：<strong>单纯依赖芯片工艺或单点架构优化已无法支撑指数级提升，必须依靠多维协同的系统工程</strong>。</p>
-<p>超节点正是这一“系统化方法”的工程化载体：以FP16系统算力观测，每两年约≈6×，十年区间潜在≈7000×；若叠加Blackwell世代引入的FP6/FP4等更低精度执行路径，其有效可用算力（在可接受精度与稀疏/混合精度策略前提下）还可能进一步放大到“&gt;10000×”数量级（例如：FP4 聚合算力 720 PetaFLOPS（NVL72）至 5760 PetaFLOPS（GB200 SuperPod）相较 Hopper FP8 64 PetaFLOPS 的 11–90× 跨代放大）。注：这里不同“倍数”来源于不同统计口径（纯FP16 vs. 引入低精度/稀疏优化后的可达理论峰值）。<strong>对于任何希望在超节点方向与NVIDIA竞争的厂商而言，系统性协同是必须的战略</strong> 。</p>
-<p>因此，超节点已不仅是硬件形态命名，而是一个将“互联-存储-算力-编程模型”联动优化的系统工程范式。竞争策略若缺失系统性视角，极易在实际大模型训练/推理场景中遭遇利用率折损与规模效率崖降。下文将分别从硬件基石与软件生态两个层面继续拆解其内在结构。</p>
-<h3 id="_3"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#_3">超节点硬件系统</a></h3>
-<p>如前文所述，超节点通过系统级创新来支撑算力曲线的持续指数级增长。之所以要突破传统的”Scale-Out”扩展AI集群的范式，主要原因在于：</p>
-<ul>
-<li><strong>通信瓶颈</strong>：PCIe与以太网的带宽增长难以匹配NVLink每两年带宽翻倍的快速增长。以H100为例，NVLink 4.0提供900GB/s的GPU间带宽，而PCIe 5.0 x16仅128GB/s，相差7倍。随着模型规模增长，这种差距会成为整个AI算力集群的核心瓶颈。</li>
-<li><strong>内存墙问题</strong>：单节点GPU的显存容量有限，单纯HBM的迭代节奏难以满足大模型因模型规模和序列长度而快速增长的显存需求。GPT-4级别的模型需要数TB的显存，远超单节点8卡GPU的容量。</li>
-<li><strong>扩展效率递减</strong>：在Scale-Out域，算力利用率随节点规模的增长而衰减。</li>
-</ul>
-<p>超节点通过”Scale-Up”架构创新地解决了这些问题：在机柜级别构建高速无损互联域，将数十甚至数百个GPU通过NVLink/NVSwitch直接互联，形成一个逻辑上的”超级GPU”。这种架构转变不仅是技术参数的升级，更是AI基础设施设计理念的根本性变革。为了系统性地理解超节点硬件架构，我们需要从多芯片系统的互联层次出发，分析从微观到宏观的技术栈如何协同工作，最终支撑起大规模AI训练的需求。下图展示了从处理单元到集群的完整硬件构建蓝图，其中超节点最大的创新在于引入了”SuperPod”这一新层级，彻底改变了传统AI集群的互联拓扑。</p>
-<div style="display:flex;gap:1rem;flex-wrap:wrap;">
-<div style="flex:1;min-width:200px;">
-<pre class="mermaid"><code>block-beta
-    columns 4
-    PE0["PE"] space:2 PE1["PE"]
-    space:4
-    Die0["Die"] space:2 Die1["Die"]
-    space:4
-    Chip0["Chip"] space:2 Chip1["Chip"]
-    space:4
-    Node0["Node"] space:2 Node1["Node"]
-    space:4
-    Cluster0["Cluster"] space:2 Cluster1["Cluster"]
-
-    PE0&lt;-- "NOC" --&gt;PE1
-    Die0&lt;-- "D2D" --&gt;Die1
-    Chip0&lt;-- "C2C" --&gt;Chip1
-    Node0&lt;-- "RDMA" --&gt;Node1
-    Cluster0&lt;-- "DCN" --&gt;Cluster1
-
-    PE0-- "NOC" --&gt;Die0
-    PE1-- "NOC" --&gt;Die1
-    Die0-- "Chiplet" --&gt;Chip0
-    Die1-- "Chiplet" --&gt;Chip1
-    Chip0-- "PCIE" --&gt;Node0
-    Chip1-- "PCIE" --&gt;Node1
-    Node0-- "RDMA" --&gt;Cluster0
-    Node1-- "RDMA" --&gt;Cluster1</code></pre>
-<center>
-  常规AI算力集群
-  </center>
-</div>
-<div style="flex:1;min-width:200px;">
-<pre class="mermaid"><code>block-beta
-    columns 4
-    PE0["PE"] space:2 PE1["PE"]
-    space:4
-    Die0["Die"] space:2 Die1["Die"]
-    space:4
-    Chip0["Chip"] space:2 Chip1["Chip"]
-    space:4
-    Node0["Node"] space:2 Node1["Node"]
-    space:4
-    Pod0["SuperPod"] space:2 Pod1["SuperPod"]
-    space:4
-    Cluster0["Cluster"] space:2 Cluster1["Cluster"]
-
-    PE0&lt;-- "NOC" --&gt;PE1
-    Die0&lt;-- "D2D" --&gt;Die1
-    Chip0&lt;-- "C2C" --&gt;Chip1
-    Node0&lt;-- "C2C" --&gt;Node1
-    Pod0&lt;-- "RDMA" --&gt;Pod1
-    Cluster0&lt;-- "DCN" --&gt;Cluster1
-
-    PE0-- "NOC" --&gt;Die0
-    PE1-- "NOC" --&gt;Die1
-    Die0-- "Chiplet" --&gt;Chip0
-    Die1-- "Chiplet" --&gt;Chip1
-    Chip0-- "PCIE" --&gt;Node0
-    Chip1-- "PCIE" --&gt;Node1
-    Node0-- "C2C" --&gt;Pod0
-    Node1-- "C2C" --&gt;Pod1
-    Pod0-- "RDMA" --&gt;Cluster0
-    Pod1-- "RDMA" --&gt;Cluster1</code></pre>
-<center>
-  超节点AI算力集群
-  </center>
-</div>
-</div>
-<p>现代AI超算系统的硬件架构遵循自底向上的层次化设计原则，每一层都通过特定的互联技术将计算单元组织成更大规模的计算资源。这种层次化设计不仅体现了硬件工程的物理约束，也反映了系统架构师从微观到宏观的资源组织思维：</p>
-<ol>
-<li><strong>层级1 - 芯粒内部 (Die)</strong>: 系统的最基本计算单元是 <strong>处理单元 (PE)</strong> ，例如GPU中的流式多处理器(SM)。在单个硅片(<strong>Die</strong>)上，众多的PE通过 <strong>片上网络 (NoC)</strong> 高效互联。</li>
-<li><strong>层级2 - 芯片 (Chip)</strong>: 借助先进封装技术(Chiplet)，多个独立的 <strong>芯粒 (Die)</strong> 被封装在一起，构成一个完整的 <strong>芯片 (Chip)</strong> 。它们之间通过高速的 <strong>Die-to-Die (D2D)</strong> 接口（如NV-HBI, UCIe）通信，使其在逻辑上表现得像一个单片大芯片。</li>
-<li><strong>层级3 - 节点 (Node)</strong>: 一个服务器 <strong>节点 (Node)</strong> 通常包含多个 <strong>芯片 (Chip)</strong>（如多块GPU）和CPU。节点内的GPU之间通过 <strong>芯片间互联 (C2C)</strong> 技术（如NVLink + NVSwitch）构建高速通信域，而GPU与CPU之间则主要通过 <strong>PCIe总线</strong> 连接。</li>
-<li><strong>层级4 - 集群 (Cluster)</strong>: 多个 <strong>节点 (Node)</strong> 组合成一个 <strong>集群 (Cluster)</strong>。节点之间的通信（Scale-Out）依赖于 <strong>数据中心网络</strong> ，通常使用基于 <strong>RDMA</strong> 的InfiniBand或RoCE高速网络。</li>
-</ol>
-<h4 id="_4"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#_4">硬件互联技术</a></h4>
-<p>超节点的核心特征在于通过高速无损互联技术构建大规模计算域。其互联体系遵循从微观到宏观的层次化结构，从芯片内部的片上网络到集群级的数据中心网络，形成了完整的互联技术栈。典型的多芯片计算系统互联结构如下图所示：</p>
-<p><img alt="芯片互联.drawio.svg" src="imgs/superpod/%E8%8A%AF%E7%89%87%E4%BA%92%E8%81%94.drawio.svg" title="芯片互联.drawio.svg"/></p>
-<p>芯片（Chip）通常由不同的芯粒（Die）组成，比如CCD（Core Complex Die）和IOD（I/O Die）。其中前者通常包含CPU或GPU的主要计算单元，而后者则负责PCIe、内存控制器等I/O相关功能。通过CCD与IOD不同数量与规格的组合，可以制造出不同规格的芯片产品。在每个Die内部，通常使用片上网络（Network-on-Chip, NOC）来将处理单元（Processing Element, PE）组织起来，形成GPU上的计算单元，比如流式多处理器（Streaming Multiprocessor, SM）。而Die之间通过Die-to-Die（D2D）互联进行通信。芯片之间则通过Chip-to-Chip（C2C）互联进行通信。<br/>
-不论是片上的NOC通信，还是D2D、C2C通信，都可以在逻辑上分为三层抽象：</p>
-<ul>
-<li><strong>物理层</strong>：负责定义互联的物理形态、连接拓扑与信号的电气特性（频率、电压等）。</li>
-<li><strong>链路层</strong>：负责定义数据如何进行高效可靠的传递，不负责理解数据的内容。</li>
-<li><strong>事务层</strong>：负责定义事务处理逻辑，比如读写请求、内存一致性等。</li>
-</ul>
-<p>为了方便理解，我们通过一张表格描绘当前NOC、D2D和C2C三层通信在物理、链路和事务三层之上有哪些选择：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>物理层</th>
-<th>链路层</th>
-<th>事务层</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Die内通信</td>
-<td>自定义的金属走线<br/>使用数字信号</td>
-<td>NoC网络<br/>包含路由算法的定义<br/>流控机制和数据包定义</td>
-<td>片上总线协议，比如<br/>AMBA AXI和AMBA CHI</td>
-</tr>
-<tr>
-<td>Die间通信</td>
-<td>- <strong>BoW (Bunch of Wires)</strong>：OCP定义的简化的die-to-die互连物理层协议<br/>- <strong>UCIe PHY</strong>：UCIE的物理层规范<br/>- 私有规范，比如AMD Infinity Fabric PHY, Intel AIB/Foveros PHY</td>
-<td><strong>UCIe D2D Adapter</strong>: 负责链路训练、管理、CRC校验、重传机制<br/><strong>私有实现</strong>: AMD/Intel的私有链路管理逻辑</td>
-<td><strong>私有实现</strong>: AMD Infinity Fabric Protocol (支持一致性)<br/><strong>UCIe Protocol Layer</strong>: 承载 <strong>PCIe</strong>, <strong>CXL</strong>, 和其他原生流协议(Streaming)</td>
-</tr>
-<tr>
-<td>片间通信</td>
-<td>- <strong>CEI</strong>: OIF制定的高速电气I/O规范，包含25.6G/56G/112G等多种规范<br/>- <strong>PCIe PHY</strong>: 遵循或参考CEI<br/>- <strong>NVLink PHY</strong>: NVIDIA私有SerDes实现<br/>- <strong>以太网PHY</strong>: 如以太网光/电模块</td>
-<td><strong>PCIe Link Layer</strong>: 流量控制、ACK/NAK、数据包排序<br/><strong>CXL.io Link Layer</strong>: 复用PCIe的链路层<br/><strong>NVLink Link Layer</strong>: NVIDIA私有链路管理和流控<br/><strong>Ethernet MAC Layer / RoCE</strong></td>
-<td><strong>PCIe Transaction Layer</strong>: 内存读写(RW)、配置、消息<br/><strong>CXL (.cache &amp; .mem)</strong>: 实现缓存一致性、内存扩展<br/><strong>NVLink Protocol</strong>: GPU间P2P内存访问、原子操作<br/><strong>TCP/IP, RoCEv2</strong>: 基于以太网的应用层协议</td>
-</tr>
-</tbody>
-</table>
-<h4 id="_5"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#_5">电互联关键技术基础</a></h4>
-<h5 id="laneserdes"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#laneserdes">基础物理单元：Lane与SerDes</a></h5>
-<p>当前高速数字信号通信普遍采用串行通信技术。其基础物理单元是 <strong>Lane</strong>，一个 Lane 通常由两对差分信号线组成：一对用于发送（Tx），一对用于接收（Rx），从而实现全双工通信。无论是 PCIe、NVLink 还是高速以太网，都是通过将多个 Lane 聚合（bonding）来获得更高总带宽。</p>
-<p>芯片内部的数据通常是并行的（如 64 位或 128 位），为了在 Lane 上进行高速串行传输，需要一种专门的电路负责并行数据与串行信号之间的转换。这种电路被称为 <strong>SerDes</strong> (Serializer/Deserializer，串行器/解串器)。SerDes 将芯片内部的并行数据转换为高速串行信号发送出去，并在接收端将串行信号转换回并行数据。因此，单条 Lane 的传输速率直接受 SerDes 的能力和传输介质（线缆、PCB走线）的物理特性限制。</p>
-<h5 id="oif-cei"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#oif-cei">标准化接口：OIF-CEI规范</a></h5>
-<p>为了确保不同厂商设备间的互联互通，光互联论坛（OIF）制定了通用电气接口（CEI）规范，对电气接口的物理形态、电压、频率以及信号调制方式等进行了标准化。例如，CEI-56G/112G/224G 等规范定义了单通道（per-lane）在 56Gbps、112Gbps、224Gbps 速率下的接口标准，其中广泛使用了 PAM4（4-Level Pulse Amplitude Modulation）等高级调制技术来提升数据速率。这些规范被 PCIe、CXL、NVLink 和以太网等主流互联协议广泛采纳或参考，作为其物理层设计的基础。</p>
-<h5 id="cei"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#cei">主流协议的CEI实现</a></h5>
-<p>PCIe 和 NVLink 作为两种主流的片间互联协议，其核心创新在于链路层与事务层，而在物理层则高度依赖成熟的电气标准。它们的物理层设计与 CEI 规范密切相关，通常会选择某个版本的 CEI 规范作为其 SerDes 设计的电气基础，从而在确保信号可靠性的前提下，专注于上层协议的优化。例如：</p>
-<ul>
-<li><strong>PCIe</strong>: PCIe 5.0 的 32 GT/s 速率在电气特性上参考了 OIF CEI-28G 标准。而到了 PCIe 6.0，其 64 GT/s 的速率采用了 PAM4 调制技术，其电气特性与 OIF CEI-56G 系列标准的设计原则更为接近。</li>
-<li><strong>NVLink</strong>: NVIDIA H100 GPU 使用的第四代 NVLink，其单 Lane 单向速率为 100 Gbps（采用PAM4调制，波特率为50Gbaud），这与 OIF CEI-56G-PAM4 标准的电气特性一致。未来的 NVLink 版本预计将继续跟进更高速率的 CEI-112G/224G 标准。</li>
-</ul>
-<p>通过这种方式，PCIe 和 NVLink 等协议可以复用业界成熟的电气标准，专注于其上层协议的创新。因此，OIF-CEI 规范的演进路线图，也成为了预判整个互联技术发展的关键风向标。目前CEI规范的主要节点如下：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">规范系列</th>
-<th style="text-align: left;">发布年份 (约)</th>
-<th style="text-align: left;">单通道速率 (Gbps)</th>
-<th style="text-align: left;">调制方式</th>
-<th style="text-align: left;">典型应用/参考协议</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>CEI-28G</strong></td>
-<td style="text-align: left;">~2011</td>
-<td style="text-align: left;">28</td>
-<td style="text-align: left;">NRZ</td>
-<td style="text-align: left;">100G 以太网 (4x25G), PCIe 4.0/5.0, InfiniBand EDR</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>CEI-56G</strong></td>
-<td style="text-align: left;">~2017</td>
-<td style="text-align: left;">56</td>
-<td style="text-align: left;">PAM4</td>
-<td style="text-align: left;">200G/400G 以太网, PCIe 6.0, NVLink 4.0 (H100)</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>CEI-112G</strong></td>
-<td style="text-align: left;">~2022</td>
-<td style="text-align: left;">112</td>
-<td style="text-align: left;">PAM4</td>
-<td style="text-align: left;">800G 以太网, CXL 3.0, 下一代 NVLink</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>CEI-224G</strong></td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">224</td>
-<td style="text-align: left;">PAM4</td>
-<td style="text-align: left;">1.6T/3.2T 以太网, 未来高速互联</td>
-</tr>
-</tbody>
-</table>
-<p><small><br>
-<em>注：NRZ (Non-Return-to-Zero) 每符号传输 1 bit 数据，PAM4 (Pulse Amplitude Modulation 4-level) 每符号传输 2 bit 数据，在相同波特率下可实现双倍数据速率。</em><br>
-</br></br></small></p>
-<p>OIF-CEI规范通常5-6年更新一代，每次发布新版本时速率翻倍。但上文提到的时间为定稿时间，在定稿前行业内就会有较多的讨论和实现，因此不能完全以规范的时间来推测相关产品的面世时间。</p>
-<h4 id="_6"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#_6">电互联交换芯片的演进</a></h4>
-<p>交换芯片(Switch ASIC)是构建互联网络的核心，其交换容量和SerDes速率直接决定网络总带宽和端口密度。根据应用场景不同，主要分为数据中心网络交换芯片和GPU专用交换芯片两类。</p>
-<h5 id="_7"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#_7">数据中心网络交换芯片</a></h5>
-<p>以Broadcom Tomahawk系列为代表的数据中心交换芯片，其演进与OIF-CEI规范紧密相关：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">交换容量 (Tbps)</th>
-<th style="text-align: left;">SerDes 速率 (每Lane)</th>
-<th style="text-align: left;">CEI 代际对应</th>
-<th style="text-align: left;">代表芯片 (发布年)</th>
-<th style="text-align: left;">可支持的典型 4-Lane 端口 (示例)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">3.2T</td>
-<td style="text-align: left;">25G NRZ</td>
-<td style="text-align: left;">CEI-28G</td>
-<td style="text-align: left;">Tomahawk (2014)</td>
-<td style="text-align: left;">32 x 100G (4x25G)</td>
-</tr>
-<tr>
-<td style="text-align: left;">6.4T</td>
-<td style="text-align: left;">25G NRZ</td>
-<td style="text-align: left;">CEI-28G</td>
-<td style="text-align: left;">Tomahawk 2 (2016)</td>
-<td style="text-align: left;">64 x 100G (4x25G)</td>
-</tr>
-<tr>
-<td style="text-align: left;">12.8T</td>
-<td style="text-align: left;">50G PAM4</td>
-<td style="text-align: left;">CEI-56G</td>
-<td style="text-align: left;">Tomahawk 3 (2018)</td>
-<td style="text-align: left;">64 x 200G (4x50G)</td>
-</tr>
-<tr>
-<td style="text-align: left;">25.6T</td>
-<td style="text-align: left;">100G PAM4</td>
-<td style="text-align: left;">CEI-112G</td>
-<td style="text-align: left;">Tomahawk 4 (2020)</td>
-<td style="text-align: left;">64 x 400G (4x100G)</td>
-</tr>
-<tr>
-<td style="text-align: left;">51.2T</td>
-<td style="text-align: left;">100G PAM4</td>
-<td style="text-align: left;">CEI-112G</td>
-<td style="text-align: left;">Tomahawk 5 (2022)</td>
-<td style="text-align: left;">128 x 400G (4x100G)</td>
-</tr>
-<tr>
-<td style="text-align: left;">102.4T (预测)</td>
-<td style="text-align: left;">200G PAM4</td>
-<td style="text-align: left;">CEI-224G</td>
-<td style="text-align: left;">下一代 (≈2025+)</td>
-<td style="text-align: left;">128 x 800G (4x200G) 或 64 x 1.6T (8x200G, 非 4-Lane)</td>
-</tr>
-</tbody>
-</table>
-<p><small><br>
-<em>注：上表中的“4-Lane 端口”指由 4 个 SerDes 通道组成的逻辑端口，在常见的国产GPU厂商中比较常见此种配置。例如，一个 100G 端口由 4x25G 组成，一个 400G 端口可由 4x100G 组成。随着 SerDes 速率翻倍，单芯片的总交换容量和端口速率也随之翻倍，这是网络技术演进的核心驱动力。</em><br>
-</br></br></small></p>
-<p>Broadcom的高端交换芯片通常两年一代，交换容量翻倍。而从芯片产品面世到广泛被交换机使用，大约也需要1-2年时间。此外，从Broadcom芯片规格的发展也能看出，行业领先厂商对CEI标准的实现和落地通常会先于规范的正式定稿。</p>
-<h5 id="gpunvswitch"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#gpunvswitch">GPU专用交换芯片：NVSwitch</a></h5>
-<p>NVSwitch 负责在单机或机柜域内构建 GPU 全互连（all-to-all / non-blocking）通信结构，其能力随 NVLink 代际一起提升。提升路径主要有两种：增加每 GPU 可用的 NVLink 数量（link fan-out）与提高单条 NVLink 的速率。下表采用 “GB/s (双向)” 口径（NVIDIA 官方常用聚合带宽，等于 2 × 单方向带宽；1 GB/s ≈ 8 Gb/s）。本表中：† 表示来自官方白皮书 / 数据手册 / Keynote；* 表示根据公开演讲、产品图片、拓扑描述或带宽反推的推测/半推测值；未标记默认为公开资料已多点交叉验证。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">代际</th>
-<th style="text-align: left;">GPU 架构</th>
-<th style="text-align: left;">发布（约）</th>
-<th style="text-align: left;">NVLink 版本</th>
-<th style="text-align: left;">每 Link Lane 数</th>
-<th style="text-align: left;">每 Lane 速率 (Gbps)</th>
-<th style="text-align: left;">每 Link 双向带宽 (GB/s)</th>
-<th style="text-align: left;">每 GPU Link 数</th>
-<th style="text-align: left;">每 GPU 聚合双向带宽 (GB/s)</th>
-<th style="text-align: left;">典型单机/底板 GPU 数</th>
-<th style="text-align: left;">可扩展最大 NVLink 域（官方宣称）</th>
-<th style="text-align: left;">备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">第1代</td>
-<td style="text-align: left;">Volta</td>
-<td style="text-align: left;">2018</td>
-<td style="text-align: left;">2.0</td>
-<td style="text-align: left;">8*</td>
-<td style="text-align: left;">25†</td>
-<td style="text-align: left;">50†</td>
-<td style="text-align: left;">6†</td>
-<td style="text-align: left;">300†</td>
-<td style="text-align: left;">16†</td>
-<td style="text-align: left;">16†</td>
-<td style="text-align: left;">16‑GPU DGX‑2 NVSwitch 拓扑；Lane 数依据公开拆解/布线推测 [^nvswitch_volta]</td>
-</tr>
-<tr>
-<td style="text-align: left;">第2代</td>
-<td style="text-align: left;">Ampere</td>
-<td style="text-align: left;">2020</td>
-<td style="text-align: left;">3.0</td>
-<td style="text-align: left;">4*</td>
-<td style="text-align: left;">50†</td>
-<td style="text-align: left;">50†</td>
-<td style="text-align: left;">12†</td>
-<td style="text-align: left;">600†</td>
-<td style="text-align: left;">8†</td>
-<td style="text-align: left;">16†</td>
-<td style="text-align: left;">HGX A100（8-GPU板）官方聚合 600GB/s；Lane 数由 Link 速率与功耗折中推测 [^nvlink3]</td>
-</tr>
-<tr>
-<td style="text-align: left;">第3代</td>
-<td style="text-align: left;">Hopper</td>
-<td style="text-align: left;">2022</td>
-<td style="text-align: left;">4.0</td>
-<td style="text-align: left;">4*</td>
-<td style="text-align: left;">100†</td>
-<td style="text-align: left;">100†</td>
-<td style="text-align: left;">18†</td>
-<td style="text-align: left;">1800†</td>
-<td style="text-align: left;">8†</td>
-<td style="text-align: left;">256†</td>
-<td style="text-align: left;">NVLink 4.0 单 GPU 900GB/s(单向450)→双向1800；最大 NVL256 由官方架构介绍 [^nvlink4] <sup id="fnref:nvl32"><a class="footnote-ref" href="2025/10/01/superpod-ai-architecture/#fn:nvl32">11</a></sup></td>
-</tr>
-<tr>
-<td style="text-align: left;">第4代</td>
-<td style="text-align: left;">Blackwell</td>
-<td style="text-align: left;">2025</td>
-<td style="text-align: left;">5.0</td>
-<td style="text-align: left;">4*</td>
-<td style="text-align: left;">200†</td>
-<td style="text-align: left;">200†</td>
-<td style="text-align: left;">18†</td>
-<td style="text-align: left;">3600†</td>
-<td style="text-align: left;">72†</td>
-<td style="text-align: left;">576*</td>
-<td style="text-align: left;">NVLink 5.0 进 Keynote 公布速率；NVL72 / 576 为 GTC 公布 + 对 NVLink Fabric 分层规模推测 [^nvlink5] <sup id="fnref2:gb200"><a class="footnote-ref" href="2025/10/01/superpod-ai-architecture/#fn:gb200">2</a></sup></td>
-</tr>
-</tbody>
-</table>
-<p><small><br>
-说明：</br></small></p>
-<ol>
-<li>“每 Link 双向带宽”遵循 NVIDIA 常用口径（聚合双向）。</li>
-<li>Lane 数由于官方文档通常未直接公布，表中以 * 标示；其值通过已知总带宽、单 Lane 速率与历代封装约束反向推断。如未来出现官方差异数据，应以官方为准。</li>
-<li>“最大 NVLink 域”指官方在对应代际提及的（或 Keynote 展示的）最大可支持互联规模；Blackwell 576 带 * 为推测（推断自 72×GB200 NVL72 单元 × 互联分层聚合）。</li>
-<li>Volta 时代 NVLink 2.0 在 NVSwitch 中实现的 Fan-out、Lane 数量公开资料缺少直接原始表格，使用多来源拆解/演讲交叉验证。<br>
-</br></li>
-</ol>
-<h4 id="_8"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#_8">互联拓扑</a></h4>
-<p>互联拓扑定义了计算节点（或GPU）间的物理连接方式与逻辑结构，它直接决定了整个系统的通信性能，包括带宽、延迟、扩展性和成本。在超节点架构中，选择合适的拓扑是构建高效、无阻塞通信域的基石。当前主流技术路径为电子分组交换（Electronic Packet Switching，EPS），而光学电路交换（Optical Circuit Switching，OCS）作为前沿方向也备受关注。我们首先以最为常见的 <strong>Full Mesh拓扑</strong> 为例来分析GPU的互联拓扑，以及互联拓扑有哪些关键性质。</p>
-<p><strong>Full Mesh（全互联）</strong> ，或称全连接（All-to-All），是理论上最理想的通信拓扑结构。网络中的每一个节点都与其他所有节点建立直接的点对点连接。</p>
-<pre class="mermaid"><code>block-beta
-    columns 7
-    space:2 N0 space N1 space:2
-    space:7
-    N7 space:5 N2
-    space:7
-    N6 space:5 N3
-    space:7
-    space:2 N5 space N4
-
-    N0 --- N1
-    N0 --- N2
-    N0 --- N3
-    N0 --- N4
-    N0 --- N5
-    N0 --- N6
-    N0 --- N7
-    N1 --- N2
-    N1 --- N3
-    N1 --- N4
-    N1 --- N5
-    N1 --- N6
-    N1 --- N7
-    N2 --- N3
-    N2 --- N4
-    N2 --- N5
-    N2 --- N6
-    N2 --- N7
-    N3 --- N4
-    N3 --- N5
-    N3 --- N6
-    N3 --- N7
-    N4 --- N5
-    N4 --- N6
-    N4 --- N7
-    N5 --- N6
-    N5 --- N7
-    N6 --- N7</code></pre>
-<p>为了能够定量比较不同的互联拓扑，需要引入一些关键指标：</p>
-<ul>
-<li><strong>网络直径（Network Diameter）</strong>：指网络中任意两个节点间的最短路径长度，刻画了最坏情况下的通信延迟。Full Mesh拓扑中任意两个节点直接连接，因此 <strong>网络直径为1</strong> 。在Fat-Tree拓扑中，任意两个节点间的通信最多只需经过“上行-下行”三跳（Leaf-Spine-Leaf），因此 <strong>网络直径为3</strong> 。</li>
-<li><strong>二分带宽（Bisection Bandwidth）</strong>：指当网络被切成两半时，连接这两半部分的总通信能力。它反映了网络在最坏通信场景下的最大数据传输能力。在Full Mesh拓扑中，一半网络有 <span class="arithmatex">\(N/2\)</span> 个节点，每个节点有 <span class="arithmatex">\(N/2\)</span> 条链路连接到另一半网络，因此Full Mesh拓扑的二分带宽为 <span class="arithmatex">\(\dfrac{N}{2} \times \dfrac{N}{2} \times B = \dfrac{N^2}{4} B\)</span> 。在Fat-Tree拓扑下，一半网络有 <span class="arithmatex">\(N/2\)</span> 个节点，每个节点都能与另一半网络全速率通信，因此Fat-Tree拓扑的二分带宽为 <span class="arithmatex">\(\dfrac{N}{2} B\)</span>。</li>
-<li><strong>径向扩展度（Radix Scalability）</strong>：指在给定交换芯片 radix 条件下的最大无阻塞集群规模 <span class="arithmatex">\(N_{max}\)</span> 。它衡量了在给定交换芯片端口数（R_switch）和终端设备接口数（R_dev）的条件下，一个拓扑理论上能构建的最大无阻塞集群规模。Full Mesh拓扑下，互联规模 <span class="arithmatex">\(N_{max} = R_{dev} + 1\)</span> ，Fat-Tree拓扑下 <span class="arithmatex">\(N_{max} = R_{switch}^2 / 2 / R_{dev}\)</span> 。</li>
-</ul>
-<p>接下来介绍构建Scale-Up域用的拓扑结构。</p>
-<p><strong>Fat-Tree（胖树）</strong> 拓扑是当前构建大规模、高性能计算和AI集群最主流的架构。它是一种分层的网络结构，其核心设计思想是：从网络边缘（终端节点）向核心（根方向）上行时，链路带宽逐级增加，确保任意两个节点间的通信都拥有充足的带宽资源，从而实现或逼近“无阻塞”通信。典型的胖树网络由“叶交换机”（Leaf Switches）和“脊交换机”（Spine Switches）组成。计算节点直接连接到叶交换机，每个叶交换机又与所有脊交换机相连。这种结构保证了任意两个不同叶交换机下的节点通信最多只需经过“上行-下行”三跳（Leaf-Spine-Leaf）。Fat-Tree拓扑具备如下特点：</p>
-<ul>
-<li><strong>高带宽与无阻塞</strong>：通过精心设计上行与下行链路的带宽比例（收敛比），胖树网络可以为All-to-All等复杂通信模式提供接近线速的聚合带宽。</li>
-<li><strong>良好的扩展性</strong>：可以通过增加Spine交换机或增加网络层级来平滑地扩展集群规模。</li>
-<li><strong>高容错性</strong>：任意一条链路或交换机故障，流量可以被重新路由到其他路径，不会导致单点失效。</li>
-</ul>
-<p>NVIDIA的DGX SuperPOD架构本质上就是一个精心设计的两级Fat-Tree网络。</p>
-<ul>
-<li><strong>第一级</strong>：在单个节点内部，多颗NVSwitch芯片构建了一个单级的、逻辑上完全无阻塞的全互联网络（Full Mesh），将域内所有GPU全互联起来。</li>
-<li><strong>第二级</strong>： 第一级的NVSwitch再通过第二级的NVSwitch进行互联，形成一个32卡的Scale-Up通信域。</li>
-</ul>
-<p><img alt="alt text" src="imgs/superpod/NVL32.png" width="68%"/></p>
-<p><strong>Dragonfly拓扑</strong><sup id="fnref:dragonfly"><a class="footnote-ref" href="2025/10/01/superpod-ai-architecture/#fn:dragonfly">5</a></sup> 是一种为超大规模计算设计的、旨在降低网络直径和成本的拓扑结构。它将路由器（交换机）和与之相连的计算节点组织成“组”（Group）。组内，路由器之间实现全互联（All-to-All）。组间，通过长距离的“全局链路”进行稀疏连接。Dragonfly拓扑具备如下特点：</p>
-<ul>
-<li><strong>低网络直径</strong>：任意两个节点间的通信路径非常短，通常最多只需一跳组内路由和一跳全局路由。</li>
-<li><strong>成本效益</strong>：相比于同等规模的全连接胖树，Dragonfly所需的全局链路和交换机端口更少，成本更低。</li>
-</ul>
-<p><img alt="alt text" src="imgs/superpod/dragonfly.png" width="68%"/></p>
-<p>Dragonfly的挑战在于，全局链路相对稀疏，就像一个城市的主干道有限。如果路由策略不佳，所有流量都涌向少数几条主干道，就会造成严重的拥堵。因此，它必须依赖智能的、能感知全局负载的路由算法，动态地为数据包规划‘行车路线’，才能发挥其低延迟和成本优势。</p>
-<p><strong>Torus拓扑</strong><sup id="fnref:torus"><a class="footnote-ref" href="2025/10/01/superpod-ai-architecture/#fn:torus">6</a></sup> 是一种规则的格状拓扑，在多维（如2D、3D、6D）网格的每个维度上都带有“环绕式”连接。每个节点都与其在各个维度上的“邻居”直接相连。Torus拓扑具备如下特点：</p>
-<ul>
-<li><strong>优异的局部性</strong>：非常适合具有邻近通信模式的科学计算应用（如气象模拟、流体力学），因为相邻节点间通信延迟极低。</li>
-<li><strong>二分带宽较低</strong>：将其切成两半时，横跨切面的链路数量相对较少，这意味着其全局All-to-All通信性能不如胖树。</li>
-<li><strong>扩展性受限</strong>：高维Torus布线复杂，扩展成本高。</li>
-</ul>
-<p><strong>SlimFly拓扑</strong> <sup id="fnref:slimfly"><a class="footnote-ref" href="2025/10/01/superpod-ai-architecture/#fn:slimfly">7</a></sup>：作为Dragonfly的演进，SlimFly是一种在给定交换机端口数下，能够以更少的网络直径和接近最优的二分带宽连接更多节点的拓扑结构。它在理论上被证明是构建超大规模网络最高效的拓扑之一，但其不规则的连接方式对物理布线和路由算法设计提出了极高挑战，目前更多处于学术研究和前沿探索阶段。</p>
-<p>对于以All-to-All和All-Reduce为主导通信模式的AI大模型训练而言，胖树拓扑因其优越的全局带宽特性与确定的网络直径而成为事实上的标准选择。但另一方面，Fat-Tree所能达到的互联规模也受限于交换机容量。在超节点继续演进的过程中，对互联拓扑的探索也尤为重要：</p>
-<table>
-<thead>
-<tr>
-<th>拓扑</th>
-<th>径向扩展度</th>
-<th>网络直径</th>
-<th>二分带宽</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Full Mesh</td>
-<td><span class="arithmatex">\(R_{dev} + 1\)</span></td>
-<td>1</td>
-<td><span class="arithmatex">\(\dfrac{N^2}{4} B\)</span></td>
-</tr>
-<tr>
-<td>Fat-Tree</td>
-<td><span class="arithmatex">\(\dfrac{R_{switch}^2}{2 R_{dev}}\)</span></td>
-<td>3</td>
-<td><span class="arithmatex">\(\dfrac{N}{2} B\)</span></td>
-</tr>
-<tr>
-<td>Dragonfly</td>
-<td><span class="arithmatex">\(\dfrac{R_{switch}^4}{81 R_{dev}}\)</span></td>
-<td><span class="arithmatex">\(\le 3\)</span></td>
-<td><span class="arithmatex">\(\approx \dfrac{N}{2}B\)</span></td>
-</tr>
-<tr>
-<td>Torus</td>
-<td>无上界</td>
-<td><span class="arithmatex">\(D \cdot \dfrac{k}{2}\)</span></td>
-<td></td>
-</tr>
-<tr>
-<td>Slim Fly</td>
-<td><span class="arithmatex">\(\dfrac{32}{243} \times \dfrac{R_{switch}^3}{R_{dev}}\)</span></td>
-<td>2–3</td>
-<td>设计为接近满二分带宽</td>
-</tr>
-</tbody>
-</table>
-<h3 id="_9"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#_9">软件系统</a></h3>
-<p>软件系统架构的根本决定因素是内存模型。传统操作系统内核围绕CPU访存权限进行设计，通过虚拟内存管理、页表机制和TLB等组件构建了现代计算的基础。同样，PCIe引入的MMIO（Memory Mapped I/O）机制决定了内核驱动的编程范式，设备寄存器被映射到统一的地址空间，通过内存访问指令进行控制。</p>
-<p>超节点的出现从根本上改变了这一范式。通过NVLink/NVSwitch等高速互联技术构建的HBD（High Bandwidth Domain）通信域，使得远程GPU显存能够以接近本地访问的性能被直接访问。为了实现高效通信，HBD域上正在构建一个能 <strong>绕过（Bypass）CPU和操作系统内核</strong> 的、由GPU主导的通信架构。在这个新架构下，访存的控制权发生了转移：</p>
-<ol>
-<li><strong>从CPU中心到GPU中心</strong>：跨GPU的内存访问不再需要CPU作为中介，而是由GPU的MMU（内存管理单元）直接发起，由硬件（如NVSwitch）进行路由。</li>
-<li><strong>从内核态仲裁到用户态直通</strong>：上层应用（如CUDA Kernel）通过统一虚拟地址（UVA）操作远程数据，其地址翻译和路由完全在硬件层面透明完成，内核仅在初始设置和资源管理时介入。</li>
-</ol>
-<p>为了更好地理解超节点带来的这一变革，接下来从GPU访存体系入手来分析软件系统的演进路径。</p>
-<h4 id="gpu"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#gpu">现代GPU访存体系</a></h4>
-<p>NVIDIA超节点在软件系统架构上与其 <strong>单个节点内部</strong> 的GPU访存体系一脉相承，均围绕 <strong>UVA（Unified Virtual Addressing）</strong> 技术构建。与传统CPU类似，现代GPU也配备了完整的内存管理单元（MMU），负责虚拟地址到物理地址的转换。UVA技术的引入，将GPU显存、CPU内存等不同物理内存统一映射到单一的虚拟地址空间中。上一章我们讨论了NVLink和NVSwitch等物理互联技术，它们构建了数据传输的高速公路。软件层面利用这条高速公路的核心便是统一虚拟寻址（UVA）与对等内存访问（Peer Memory Access）：</p>
-<ol>
-<li><strong>发现与连接建立</strong>：系统中的GPU通过物理总线（如NVLink或PCIe）互相发现，建立对等连接并分配唯一的Peer ID。</li>
-</ol>
-<pre class="mermaid"><code>graph LR
-    A[GPU-A] ---|NVLINK/PCIe| B[GPU-B]
-    A --&gt; C[发现 Peer GPU]
-    B --&gt; D[建立 Peer 连接]
-    C --&gt; E[分配 Peer ID]
-    D --&gt; E</code></pre>
-<ol start="2">
-<li><strong>Aperture选择与地址映射</strong> ：驱动程序分配UVA地址，并根据连接类型选择不同的Aperture通道：<br>
-   - <strong>本地显存 (VID Memory)</strong> ：同一GPU内的内存访问<br>
-   - <strong>对等内存 (Peer Memory)</strong> ：通过NVLink直接访问远程GPU显存<br>
-   - <strong>系统内存 (SYS Memory)</strong> ：通过PCIe访问CPU主存<br>
-   - <strong>Fabric内存</strong> ：在NVSwitch环境下的专用地址空间</br></br></br></br></li>
-<li><strong>硬件透明的远程访存</strong> ：当CUDA Kernel访问虚拟地址时，GPU MMU自动完成地址翻译和路由。硬件MMU通常提供4-5级页表，支持4K-128K页大小。考虑到MMU页表中的地址可能并非全部是内存地址，也包含部分IO地址。因此GPU MMU的表项也会标识是否支持缓存一致性。</li>
-</ol>
-<p>以下是GPU上访问UVA地址的流程：</p>
-<p><pre class="mermaid"><code>sequenceDiagram
-    participant App as 应用程序&lt;br&gt;(CUDA Kernel)
-    participant LocalMMU as 本地GPU MMU
-    participant Interconnect as NVLink/NVSwitch
-    participant RemoteGPU as 远程GPU
-
-    App-&gt;&gt;LocalMMU: 1. 访问虚拟地址 0x1000
-    activate LocalMMU
-    LocalMMU--&gt;&gt;LocalMMU: 2. 查页表, 发现PTE指向Peer
-    LocalMMU-&gt;&gt;Interconnect: 3. 发起硬件路由请求
-    deactivate LocalMMU
-
-    activate Interconnect
-    Interconnect-&gt;&gt;RemoteGPU: 4. 转发内存访问请求
-    deactivate Interconnect
-
-    activate RemoteGPU
-    RemoteGPU--&gt;&gt;RemoteGPU: 5. 访问本地物理显存
-    Note right of RemoteGPU: 数据被读取/写入
-    RemoteGPU--&gt;&gt;App: 6. (经由硬件)返回结果
-    deactivate RemoteGPU</code></pre><br>
-UVA在节点内实现的编程透明性与硬件高效性，为构建更大规模、跨节点的统一地址空间奠定了范式基础。随着硬件演进，软件侧的地址模型与编程范式也在逐步向CPU成熟的体系靠拢。总体趋势是：CPU与OS内核正从“关键数据路径”中解放出来，转而扮演“控制平面”的角色，通过配置虚拟地址与MMU来管理访存与通信，而非直接参与每一次操作。</br></p>
-<h4 id="_10"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#_10">超节点访存体系</a></h4>
-<p>传统的UVA和PCIe P2P机制的边界仅限于单个PCIe根联合体（Root Complex），无法原生支持跨物理服务器节点的直接访存。以下是PCIe总线上节点内部的访存体系：</p>
-<p><img alt="mmio" src="imgs/superpod/MMIO.drawio.svg"/></p>
-<ol>
-<li>主存、设备的控制寄存器和设备内置存储（比如显存）都会通过PCIE RC映射到一个统一的MMIO地址空间（Memory Mapped I/O）；</li>
-<li>在内核态，设备驱动通过MMIO地址操作设备寄存器，从而实现对设备的初始化、控制与中断处理；</li>
-<li>在用户态，可以直接将设备的存储映射到用户态地址空间，从而实现用户态对设备的直接读写，让数据路径by pass内核。GPU Direct RDMA技术即将部分显存映射到用户态，再交给RDMA网卡去访问。RDMA网卡的doorbell寄存器（用于通知网卡有工作需要处理）也可以通过这种映射交给GPU去访问，从而实现IBGDA（GPU异步RDMA数据发送）；</li>
-</ol>
-<p>在传统的基于PC的AI算力服务器上，上述软件技术架构已成为事实标准。然而，在超节点中，上述访存体系面临本质缺陷：PCIe通信域无法纳管其他节点的设备，因此也无法提供跨节点的统一访存地址空间。</p>
-<p>超节点通过NVSwitch Fabric等技术，将“节点内”的P2P模型扩展至整个机柜乃至多个机柜。其关键在于引入了一个由 <strong>Fabric Manager</strong> 管理的<sup id="fnref:fabricmanager"><a class="footnote-ref" href="2025/10/01/superpod-ai-architecture/#fn:fabricmanager">8</a></sup> <strong>47-bit的 全局物理地址空间</strong> ：</p>
-<ol>
-<li><strong>全局地址分配</strong>：Fabric Manager为HBD域内的每个GPU分配一个唯一的、在全局范围内无冲突的物理地址（PA）范围。</li>
-<li><strong>VA到全局PA的映射</strong>：当一个GPU需要访问远程GPU时，其驱动程序不再映射到对端的PCIe BAR地址，而是将用户态的虚拟地址（VA）通过页表（PTE）映射到这个全局物理地址（PA）。</li>
-<li><strong>硬件路由</strong>：当GPU的MMU翻译VA并得到这个全局PA时，它会生成一个带有目标GPU ID的硬件请求。该请求被发送到NVSwitch网络，由交换芯片根据地址和ID，像路由器转发IP包一样，精准地将读写操作路由到目标GPU的物理显存上。</li>
-</ol>
-<h4 id="_11"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#_11">软件编程模型</a></h4>
-<p>超节点的硬件发展催生了软件编程模型的演进。当前主流的SPMD范式正面临挑战，而以PGAS为代表的新范式则为解决这些挑战提供了清晰的路径。</p>
-<h5 id="spmd-bsp"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#spmd-bsp">主流范式及其瓶颈：SPMD 与 BSP</a></h5>
-<p>当前几乎所有大规模AI训练都构建于 <strong>SPMD (Single Program, Multiple Data)</strong> 模型之上。所有GPU运行相同程序，处理不同数据分片，并通过<code>NCCL</code>等库进行高效的集合通信。</p>
-<p>其成功源于其遵循了 <strong>BSP (Bulk Synchronous Parallel, 块同步并行)</strong> 的计算范式。BSP将并行计算清晰地分为三个阶段：1) 本地计算，2) 全局通信，3) <strong>同步屏障 (Barrier)</strong>。所有GPU必须在屏障处等待，直到最慢的那个GPU完成后，才能一起进入下一阶段。</p>
-<p><img alt="alt text" src="imgs/superpod/bsp.png"/></p>
-<p>这种严格的同步正是其最大的弱点。在大规模集群中，“慢节点” (Straggler) 问题几乎无法避免，而BSP模型会放大其负面影响。一个节点的延迟会拖慢整个集群。慢节点产生的原因多种多样：</p>
-<ul>
-<li><strong>硬件层面</strong>：微小的时钟频率差异、功耗墙限制、网络瞬时拥塞。</li>
-<li><strong>软件层面</strong>：操作系统后台进程的干扰 (Jitter)。</li>
-<li><strong>数据层面</strong>：这在现代AI负载中愈发关键。例如，在 <strong>MoE模型</strong> 中，不同的数据（Token）会被路由到不同的专家，导致专家负载不均；在 <strong>强化学习</strong> 或 <strong>长序列推理</strong> 中，输出序列长度不定，导致各GPU计算时间不同。</li>
-</ul>
-<p>在这些场景下，BSP的同步屏障会导致大量GPU处于空闲等待状态，极大地降低了计算效率。正是为了解决这一根本性矛盾，业界开始转向更为灵活的编程模型。</p>
-<h5 id="pgas"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#pgas">PGAS 与混合编程</a></h5>
-<p><strong>PGAS (Partitioned Global Address Space)</strong> 是解决上述瓶颈的未来方向之一。它通过 <strong>单边通信 (One-Sided Communication)</strong> ，从根本上改变了数据交换的模式。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">特性</th>
-<th style="text-align: left;">SPMD + 集合通信 (NCCL)</th>
-<th style="text-align: left;">PGAS + 单边通信 (NVSHMEM)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"><strong>通信模型</strong></td>
-<td style="text-align: left;"><strong>双边 (Two-Sided)</strong>：<code>Send</code>与<code>Recv</code>需配对，依赖集体同步。</td>
-<td style="text-align: left;"><strong>单边 (One-Sided)</strong>：<code>Put</code>/<code>Get</code>无需对方协同，可异步执行。</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>编程抽象</strong></td>
-<td style="text-align: left;"><strong>通信是集体操作</strong>：<code>AllReduce(data)</code></td>
-<td style="text-align: left;"><strong>通信如内存访问</strong>：<code>put(&amp;dest, &amp;src, size)</code></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>适用负载</strong></td>
-<td style="text-align: left;"><strong>静态、均匀</strong> (如稠密模型训练)</td>
-<td style="text-align: left;"><strong>动态、非均匀</strong> (如MoE, 推理)</td>
-</tr>
-</tbody>
-</table>
-<p>在PGAS模型中，整个分布式系统由众多PE（Processing Elements）组成。为了实现SHMEM语义，对每个PE的地址空间进行如下划分<sup id="fnref:openshmem"><a class="footnote-ref" href="2025/10/01/superpod-ai-architecture/#fn:openshmem">9</a></sup>：</p>
-<p><img alt="alt text" src="imgs/superpod/pgas.png" width="68%"/></p>
-<ol>
-<li>每个PE都有自己独立的地址空间，这能够映射到不同节点的不同进程中去；</li>
-<li>进程的内存地址空间分为两部分：</li>
-<li>Private地址空间，这部分为进程私有，可以被进程随意使用；</li>
-<li>Symmetric地址空间，这部分为远程可访问的地址空间，所有进程保持一致；</li>
-</ol>
-<p>进程可以通过PE的rank与Symmetric Address来读写其他PE的内存，从而实现单边通信。这种单边通信能较好解决“慢节点”问题：它将 <strong>同步的“通信握手”</strong> 变成了 <strong>异步的“内存操作”</strong> 。在双边通信中，一个“快节点”的<code>Send</code>操作必须等待“慢节点”准备好<code>Recv</code>，从而被强制阻塞。而在单边通信中，“快节点”只需知道目标地址，就可以通过<code>Put</code>操作直接将数据写入“慢节点”的内存，然后立即返回执行后续任务。数据写入后，“慢节点”何时去处理它，并不会反过来阻塞“快节点”的进度。这种异步、解耦的机制打破了BSP模型的全局同步枷锁，从而极大地提升了系统在非均匀负载下的计算效率。</p>
-<h3 id="_12"><a class="toclink" href="2025/10/01/superpod-ai-architecture/#_12">参考文献</a></h3>
-<div class="footnote">
-<hr/>
-<ol>
-<li id="fn:gh200">
-<p><a href="https://resources.nvidia.com/en-us-data-center-overview-mc/en-us-data-center-overview/grace-hopper-superchip-datasheet-partner">NVIDIA GH200 Grace Hopper<br>
-Superchip</br></a> <a class="footnote-backref" href="2025/10/01/superpod-ai-architecture/#fnref:gh200" title="Jump back to footnote 1 in the text">↩</a></p>
-</li>
-<li id="fn:gb200">
-<p><a href="https://resources.nvidia.com/en-us-dgx-systems/dgx-superpod-gb200-datasheet">NVIDIA DGX GB200</a> <a class="footnote-backref" href="2025/10/01/superpod-ai-architecture/#fnref:gb200" title="Jump back to footnote 2 in the text">↩</a><a class="footnote-backref" href="2025/10/01/superpod-ai-architecture/#fnref2:gb200" title="Jump back to footnote 2 in the text">↩</a></p>
-</li>
-<li id="fn:huangs_law">
-<p><a href="https://spectrum.ieee.org/nvidia-gpu">Huang’s Law</a> <a class="footnote-backref" href="2025/10/01/superpod-ai-architecture/#fnref:huangs_law" title="Jump back to footnote 3 in the text">↩</a><a class="footnote-backref" href="2025/10/01/superpod-ai-architecture/#fnref2:huangs_law" title="Jump back to footnote 3 in the text">↩</a></p>
-</li>
-<li id="fn:nvhbi">
-<p><a href="https://developer.nvidia.com/blog/inside-nvidia-blackwell-ultra-the-chip-powering-the-ai-factory-era/">Inside NVIDIA Blackwell Ultra: The Chip Powering the AI Factory Era</a> <a class="footnote-backref" href="2025/10/01/superpod-ai-architecture/#fnref:nvhbi" title="Jump back to footnote 4 in the text">↩</a></p>
-</li>
-<li id="fn:dragonfly">
-<p><a href="https://ieeexplore.ieee.org/abstract/document/4556717">Technology-Driven, Highly-Scalable Dragonfly Topology</a> <a class="footnote-backref" href="2025/10/01/superpod-ai-architecture/#fnref:dragonfly" title="Jump back to footnote 5 in the text">↩</a></p>
-</li>
-<li id="fn:torus">
-<p><a href="http://datasys.cs.iit.edu/reports/2014_GCASR14_paper-torus.pdf">Understanding Torus Network Performance through Simulations</a> <a class="footnote-backref" href="2025/10/01/superpod-ai-architecture/#fnref:torus" title="Jump back to footnote 6 in the text">↩</a></p>
-</li>
-<li id="fn:slimfly">
-<p><a href="https://arxiv.org/pdf/1912.08968">Slim Fly: A Cost Effective Low-Diameter Network Topology</a> <a class="footnote-backref" href="2025/10/01/superpod-ai-architecture/#fnref:slimfly" title="Jump back to footnote 7 in the text">↩</a></p>
-</li>
-<li id="fn:fabricmanager">
-<p><a href="https://github.com/NVIDIA/open-gpu-kernel-modules/blob/2b436058a616676ec888ef3814d1db6b2220f2eb/kernel-open/nvidia-uvm/uvm_gpu.h#L1292">Nvidia Fabric Manager</a> <a class="footnote-backref" href="2025/10/01/superpod-ai-architecture/#fnref:fabricmanager" title="Jump back to footnote 8 in the text">↩</a></p>
-</li>
-<li id="fn:openshmem">
-<p><a href="http://openshmem.org/site/sites/default/site_files/OpenSHMEM-1.5.pdf">OpenSHMEM</a> <a class="footnote-backref" href="2025/10/01/superpod-ai-architecture/#fnref:openshmem" title="Jump back to footnote 9 in the text">↩</a></p>
-</li>
-<li id="fn:hgx_a100">
-<p><a href="https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/HGX/a100-80gb-hgx-a100-datasheet-us-nvidia-1485640-r6-web.pdf">NVIDIA HGX A100</a> <a class="footnote-backref" href="2025/10/01/superpod-ai-architecture/#fnref:hgx_a100" title="Jump back to footnote 10 in the text">↩</a></p>
-</li>
-<li id="fn:nvl32">
-<p><a href="https://resources.nvidia.com/en-us-grace-cpu/nvidia-grace-hopper?ncid=no-ncid">NVIDIA GH200 Grace Hopper Superchip Architecture</a> <a class="footnote-backref" href="2025/10/01/superpod-ai-architecture/#fnref:nvl32" title="Jump back to footnote 11 in the text">↩</a></p>
-</li>
-<li id="fn:nvshmem">
-<p><a href="https://static.rainfocus.com/nvidia/gtcs24/sess/1693876934119001DqDe/FinalPresPDF/S61368_1710778532525001A5Z4.pdf">Magnum IO GPUDirect, NCCL, NVSHMEM, and GDA-KI on Grace Hopper and Hopper systems</a> <a class="footnote-backref" href="2025/10/01/superpod-ai-architecture/#fnref:nvshmem" title="Jump back to footnote 12 in the text">↩</a></p>
-</li>
-<li id="fn:pathways">
-<p><a href="https://arxiv.org/abs/2203.12533">Pathways: Asynchronous Distributed Dataflow for ML</a> <a class="footnote-backref" href="2025/10/01/superpod-ai-architecture/#fnref:pathways" title="Jump back to footnote 13 in the text">↩</a></p>
-</li>
-</ol>
-</div>
+<nav class="md-post__action">
+<a href="2025/10/01/superpod-ai-architecture/">
+          继续阅读
+        </a>
+</nav>
 </div>
 </article>
 <article class="md-post md-post--excerpt">
@@ -1227,9 +704,9 @@ Superchip</br></a> <a class="footnote-backref" href="2025/10/01/superpod-ai-arc
 <p><strong>借鉴Span概念</strong>：将训练过程分解自顶向下的、嵌套的span。前向传播、反向传播作为顶级Span，每个layer的计算作为子Span。这种层次化的视图只需要明确层次关系，而无须精确的时间戳对齐。</p>
 </li>
 <li>
-<p><strong>优化采样策略</strong>：不同于timeline的全量采样，分布式profiling可以通过设计采样策略来控制开销：<br>
-   - 结构化采样：根据模型结构进行采样而非完全随机采样；<br>
-   - 分布式采样：将采样操作分布到不同的节点，降低每个节点的采样量；</br></br></p>
+<p><strong>优化采样策略</strong>：不同于timeline的全量采样，分布式profiling可以通过设计采样策略来控制开销：<br/>
+   - 结构化采样：根据模型结构进行采样而非完全随机采样；<br/>
+   - 分布式采样：将采样操作分布到不同的节点，降低每个节点的采样量；</p>
 </li>
 <li>
 <p><strong>分析效率</strong>：模型训练中每个span内的计算量与通信量可以精确计算，结合span计时即可分析每一段时间的硬件利用率与瓶颈，而无须像timeline那样精需要精准的时间信息。</p>
@@ -1786,14 +1263,14 @@ graph TD
 <p>特别地，权重矩阵与激活值的动态演变(Dynamics)会直接影响数值表达范围，进而决定硬件计算精度选择与量化误差控制策略。本文聚焦Transformer架构中关键组件的数值动态特性，重点分析其对低精度训练与推理的工程影响。</p>
 <h3 id="_1"><a class="toclink" href="2025/02/20/training_dynamics/#_1">权重与激活的数值演变特征</a></h3>
 <p>这里先给出权重与梯度的直观数值变化，帮助直观理解训练过程。下图取自某开源仓库<sup id="fnref:llm_facts"><a class="footnote-ref" href="2025/02/20/training_dynamics/#fn:llm_facts">1</a></sup>，展示了权重数值的直方分布随训练进行的变化情况：</p>
-<figure><br>
-<img alt="" src="imgs/tdynamics/weight_histograms_all_together_animation_mlp_h24h_800m.gif" width="500"/><br>
-</br></br></figure>
+<figure><br/>
+<img alt="" src="imgs/tdynamics/weight_histograms_all_together_animation_mlp_h24h_800m.gif" width="500"/><br/>
+</figure>
 <p>可以发现，各个block的FFN部分权重从随机初始化的高斯分布，开始时较为稳定；在2000 step左右开始剧烈变化；随后整体分布再次稳定下来。权重整体保留了高斯分布，但是存在一些不是非常大的outlier。</p>
 <p>接下来再看一下激活值的分布变化，在训练开始后，残差激活值迅速从高斯分布转变为逻辑分布（Logistic Distribution），并且出现较大的outlier：</p>
-<figure><br>
+<figure><br/>
 <img alt="" src="imgs/tdynamics/acc.gif" width="500"/><br/>
-</br></figure>
+</figure>
 <p>这种激活上的outlier会对模型量化过程产生极大的影响，因此诸如AWQ等量化方法会重点关注激活中的outlier情况，以保证模型推理时的精度。</p>
 <p>梯度分布的变化趋势与权重类似，训练过程也未出现较大的outlier，说明梯度本身也具备较好的稳定性，存在低精度计算和存储的可能性。</p>
 <figure><br/>
@@ -2281,8 +1758,7 @@ LLM技术的发展主要得益于Scaling Law给出的一系列预测，这些预
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<div class="md-progress" data-md-component="progress" role="progressbar"></div>
-<script id="__config" type="application/json">{"base": ".", "features": ["announce.dismiss", "content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.expand", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.prune", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow", "toc.integrate"], "search": "assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script id="__config" type="application/json">{"base": ".", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.tabs", "navigation.sections", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
 <script src="assets/javascripts/bundle.f55a23d4.min.js"></script>
 <script src="assets/_markdown_exec_pyodide.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>

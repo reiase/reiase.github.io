@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1040 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lance file internal layout and S3 range read">
+  <style>
+    .title{font:700 20px sans-serif;fill:#172033}.label{font:700 14px sans-serif;fill:#172033}.small{font:12px sans-serif;fill:#334155}.tiny{font:11px sans-serif;fill:#475569}.mono{font:11px monospace;fill:#334155}
+    .file{fill:#f8fafc;stroke:#64748b;stroke-width:1.6}.pages{fill:#e0f2fe;stroke:#0284c7;stroke-width:1.5}.desc{fill:#fce7f3;stroke:#db2777;stroke-width:1.5}.offset{fill:#fef3c7;stroke:#d97706;stroke-width:1.5}.footer{fill:#dcfce7;stroke:#16a34a;stroke-width:1.5}.s3{fill:#eef2ff;stroke:#6366f1;stroke-width:1.5}
+    .colA{fill:#dbeafe;stroke:#2563eb;stroke-width:1}.colB{fill:#dcfce7;stroke:#16a34a;stroke-width:1}.colC{fill:#fee2e2;stroke:#dc2626;stroke-width:1}.buf{fill:#fff;stroke:#64748b;stroke-width:1}.hot{fill:#fecaca;stroke:#dc2626;stroke-width:1.4}
+    .arrow{stroke:#475569;stroke-width:1.5;fill:none;marker-end:url(#arrow)}.dash{stroke:#64748b;stroke-width:1.3;fill:none;stroke-dasharray:5 5;marker-end:url(#arrow)}
+  </style>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#475569"/></marker></defs>
+  <rect width="1040" height="620" fill="#fff"/>
+  <text x="30" y="38" class="title">Lance file layout: footer-first metadata enables targeted S3 range reads</text>
+
+  <rect x="36" y="72" width="960" height="132" rx="14" class="file"/>
+  <text x="58" y="102" class="label">One Lance data file / fragment</text>
+  <rect x="72" y="124" width="500" height="52" rx="10" class="pages"/>
+  <text x="280" y="155" class="label">Data pages</text>
+  <text x="252" y="190" class="tiny">column buffers / payload bytes</text>
+  <rect x="588" y="124" width="160" height="52" rx="10" class="desc"/>
+  <text x="608" y="147" class="label">Column descriptors</text>
+  <text x="626" y="166" class="tiny">encoding + page stats</text>
+  <rect x="764" y="124" width="112" height="52" rx="10" class="offset"/>
+  <text x="784" y="147" class="label">Offsets</text>
+  <text x="786" y="166" class="tiny">locations</text>
+  <rect x="892" y="124" width="72" height="52" rx="10" class="footer"/>
+  <text x="910" y="154" class="label">Footer</text>
+
+  <path d="M928 124 C928 88,820 88,820 124" class="arrow"/>
+  <path d="M820 124 C820 88,668 88,668 124" class="arrow"/>
+  <path d="M668 124 C668 88,322 88,322 124" class="arrow"/>
+  <text x="630" y="80" class="small">points to</text>
+  <text x="782" y="80" class="small">points to</text>
+  <text x="900" y="80" class="small">fixed-size</text>
+
+  <rect x="52" y="252" width="600" height="190" rx="14" class="file"/>
+  <text x="72" y="282" class="label">Data pages are column-local buffers, not row groups</text>
+  <rect x="82" y="312" width="96" height="74" rx="10" class="buf"/><rect x="96" y="324" width="18" height="50" rx="4" class="colA"/><rect x="122" y="324" width="18" height="50" rx="4" class="colA"/><text x="88" y="406" class="tiny">embedding</text>
+  <rect x="206" y="312" width="96" height="74" rx="10" class="buf"/><rect x="220" y="324" width="18" height="50" rx="4" class="colB"/><rect x="246" y="324" width="18" height="50" rx="4" class="colB"/><text x="220" y="406" class="tiny">metadata</text>
+  <rect x="330" y="312" width="96" height="74" rx="10" class="buf"/><rect x="350" y="324" width="44" height="50" rx="4" class="colC"/><text x="348" y="406" class="tiny">payload</text>
+  <rect x="454" y="312" width="96" height="74" rx="10" class="buf"/><rect x="468" y="324" width="18" height="50" rx="4" class="colA"/><rect x="494" y="324" width="18" height="50" rx="4" class="colA"/><text x="468" y="406" class="tiny">embedding</text>
+  <line x1="582" y1="300" x2="582" y2="416" stroke="#64748b" stroke-width="1.2" stroke-dasharray="5 5"/>
+  <text x="74" y="430" class="small">Different columns can have different page counts, encodings, and external buffers.</text>
+
+  <rect x="708" y="252" width="270" height="190" rx="14" class="desc"/>
+  <text x="730" y="282" class="label">Column metadata</text>
+  <text x="730" y="310" class="small">page offsets</text>
+  <text x="730" y="332" class="small">encoding descriptors</text>
+  <text x="730" y="354" class="small">statistics / nullability</text>
+  <text x="730" y="376" class="small">external buffer refs</text>
+  <text x="730" y="410" class="tiny">Readers fetch metadata first, then issue precise reads.</text>
+  <path d="M708 330 C640 320,612 312,550 342" class="dash"/>
+  <path d="M708 352 C620 352,528 352,394 350" class="dash"/>
+
+  <rect x="88" y="500" width="858" height="74" rx="14" class="s3"/>
+  <text x="112" y="530" class="label">S3/object-store access pattern</text>
+  <text x="112" y="554" class="small">1. read small footer tail  ->  2. read offset arrays / column descriptors  ->  3. issue targeted range reads for needed pages</text>
+  <path d="M928 176 C928 242,874 252,836 252" class="arrow"/>
+  <path d="M844 442 C820 488,760 500,700 514" class="arrow"/>
+  <path d="M360 442 C410 486,470 500,520 514" class="arrow"/>
+
+  <rect x="586" y="518" width="40" height="26" rx="5" class="hot"/><rect x="632" y="518" width="40" height="26" rx="5" class="hot"/><rect x="678" y="518" width="40" height="26" rx="5" class="hot"/>
+  <text x="590" y="590" class="small">Reorder helps when hit row ids map to nearby payload pages, reducing scattered range reads.</text>
+</svg>

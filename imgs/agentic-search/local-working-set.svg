@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1120 660" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Traditional search index service versus agentic search S3 and per-agent working sets">
+  <style>
+    .title{font:700 20px sans-serif;fill:#172033}.label{font:700 14px sans-serif;fill:#172033}.small{font:12px sans-serif;fill:#334155}.tiny{font:11px sans-serif;fill:#475569}
+    .panel{fill:#f8fafc;stroke:#64748b;stroke-width:1.5}.svc{fill:#e0f2fe;stroke:#0284c7;stroke-width:1.5}.machine{fill:#fff;stroke:#0284c7;stroke-width:1.4}.bucket{fill:#fef3c7;stroke:#d97706;stroke-width:1.7}.agent{fill:#eef2ff;stroke:#6366f1;stroke-width:1.5}.work{fill:#ecfdf5;stroke:#16a34a;stroke-width:1.5}.cache{fill:#fff7ed;stroke:#f97316;stroke-width:1.3}.doc{fill:#fff;stroke:#94a3b8;stroke-width:1}.hot1{fill:#bfdbfe;stroke:#2563eb;stroke-width:1.1}.hot2{fill:#bbf7d0;stroke:#16a34a;stroke-width:1.1}.hot3{fill:#fecaca;stroke:#dc2626;stroke-width:1.1}
+    .arrow{stroke:#475569;stroke-width:1.6;fill:none;marker-end:url(#arrow)}.soft{stroke:#94a3b8;stroke-width:1.2;fill:none;stroke-dasharray:5 5;marker-end:url(#arrow)}.dash1{stroke:#2563eb;stroke-width:1.5;fill:none;stroke-dasharray:5 5;marker-end:url(#arrow)}.dash2{stroke:#16a34a;stroke-width:1.5;fill:none;stroke-dasharray:5 5;marker-end:url(#arrow)}.dash3{stroke:#dc2626;stroke-width:1.5;fill:none;stroke-dasharray:5 5;marker-end:url(#arrow)}
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#475569"/></marker>
+  </defs>
+  <rect width="1120" height="660" fill="#fff"/>
+  <text x="30" y="38" class="title">Architecture shift: from a global index service to S3 data plus per-agent working sets</text>
+
+  <rect x="32" y="70" width="500" height="540" rx="16" class="panel"/>
+  <text x="58" y="104" class="label">Traditional search architecture</text>
+  <text x="58" y="130" class="small">The index is served by a machine cluster</text>
+
+  <rect x="70" y="168" width="118" height="54" rx="10" class="doc"/>
+  <text x="94" y="200" class="small">query traffic</text>
+  <path d="M188 195 C222 195,228 195,258 195" class="arrow"/>
+
+  <rect x="258" y="150" width="220" height="74" rx="14" class="svc"/>
+  <text x="302" y="181" class="label">Search service</text>
+  <text x="304" y="205" class="small">routing, fanout, merge</text>
+
+  <rect x="86" y="282" width="390" height="178" rx="16" class="svc"/>
+  <text x="116" y="314" class="label">Global index serving cluster</text>
+  <text x="116" y="338" class="small">many machines keep shards hot and online</text>
+  <rect x="120" y="370" width="76" height="48" rx="8" class="machine"/><text x="139" y="398" class="tiny">shard 1</text>
+  <rect x="214" y="370" width="76" height="48" rx="8" class="machine"/><text x="233" y="398" class="tiny">shard 2</text>
+  <rect x="308" y="370" width="76" height="48" rx="8" class="machine"/><text x="327" y="398" class="tiny">shard 3</text>
+  <rect x="402" y="370" width="42" height="48" rx="8" class="machine"/><text x="413" y="398" class="tiny">...</text>
+  <path d="M368 224 C368 252,320 258,284 282" class="arrow"/>
+
+  <rect x="92" y="498" width="360" height="54" rx="12" class="doc"/>
+  <text x="120" y="521" class="small">Scaling means more replicas, shards, memory,</text>
+  <text x="120" y="541" class="small">coordination and serving capacity.</text>
+
+  <rect x="580" y="70" width="508" height="540" rx="16" class="panel"/>
+  <text x="606" y="104" class="label">Agentic Search architecture</text>
+  <text x="606" y="130" class="small">One shared object-store dataset, many lightweight per-agent working sets</text>
+
+  <rect x="722" y="158" width="228" height="98" rx="18" class="bucket"/>
+  <text x="770" y="190" class="label">S3 / object storage</text>
+  <text x="756" y="214" class="small">global index + payload data</text>
+  <text x="770" y="236" class="tiny">range reads, immutable files, cheap scale</text>
+
+  <rect x="620" y="314" width="130" height="86" rx="12" class="agent"/>
+  <text x="648" y="344" class="label">Agent P1</text>
+  <text x="646" y="368" class="tiny">task process</text>
+  <rect x="802" y="304" width="218" height="104" rx="14" class="work"/>
+  <text x="826" y="334" class="label">P1 working set</text>
+  <rect x="830" y="358" width="32" height="22" rx="5" class="hot1"/><rect x="870" y="358" width="32" height="22" rx="5" class="hot1"/><rect x="910" y="358" width="32" height="22" rx="5" class="hot1"/>
+  <rect x="830" y="386" width="154" height="16" rx="5" class="cache"/>
+
+  <rect x="620" y="430" width="130" height="86" rx="12" class="agent"/>
+  <text x="648" y="460" class="label">Agent P2</text>
+  <text x="646" y="484" class="tiny">task process</text>
+  <rect x="802" y="420" width="218" height="104" rx="14" class="work"/>
+  <text x="826" y="450" class="label">P2 working set</text>
+  <rect x="830" y="474" width="32" height="22" rx="5" class="hot2"/><rect x="870" y="474" width="32" height="22" rx="5" class="hot2"/><rect x="910" y="474" width="32" height="22" rx="5" class="hot2"/>
+  <rect x="830" y="502" width="154" height="16" rx="5" class="cache"/>
+
+  <rect x="620" y="546" width="130" height="54" rx="12" class="agent"/>
+  <text x="648" y="578" class="label">Agent P3</text>
+  <rect x="802" y="540" width="218" height="60" rx="14" class="work"/>
+  <text x="826" y="574" class="label">P3 working set</text>
+  <rect x="946" y="556" width="32" height="22" rx="5" class="hot3"/>
+
+  <path d="M685 314 C702 286,746 260,798 256" class="dash1"/>
+  <path d="M685 430 C694 346,748 270,804 256" class="dash2"/>
+  <path d="M685 546 C700 428,770 300,830 256" class="dash3"/>
+  <path d="M750 356 C776 356,780 356,802 356" class="dash1"/>
+  <path d="M750 472 C776 472,780 472,802 472" class="dash2"/>
+  <path d="M750 574 C776 574,780 574,802 574" class="dash3"/>
+
+  <text x="648" y="280" class="small">No always-on global index fleet is required for every task.</text>
+  <text x="648" y="296" class="tiny">Agents pull just the hot partitions, pages and evidence they need.</text>
+
+  <text x="262" y="636" class="small">The same data can move from machine-heavy index serving to flexible object storage: each agent carries only a small task-local working set.</text>
+</svg>

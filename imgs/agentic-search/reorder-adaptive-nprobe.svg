@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1120 660" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reorder and adaptive nprobe optimize different parts of Agentic Search">
+  <style>
+    .title{font:700 20px sans-serif;fill:#172033}.label{font:700 14px sans-serif;fill:#172033}.small{font:12px sans-serif;fill:#334155}.tiny{font:11px sans-serif;fill:#475569}
+    .panel{fill:#f8fafc;stroke:#64748b;stroke-width:1.5}.query{fill:#eef2ff;stroke:#6366f1;stroke-width:1.5}.online{fill:#ecfeff;stroke:#0891b2;stroke-width:1.6}.offline{fill:#f0fdf4;stroke:#16a34a;stroke-width:1.6}.payload{fill:#fff7ed;stroke:#ea580c;stroke-width:1.5}.decision{fill:#fff;stroke:#64748b;stroke-width:1.4}.stop{fill:#dcfce7;stroke:#16a34a;stroke-width:1.4}.expand{fill:#fee2e2;stroke:#dc2626;stroke-width:1.4}
+    .p1{fill:#bfdbfe;stroke:#2563eb;stroke-width:1.1}.p2{fill:#bbf7d0;stroke:#16a34a;stroke-width:1.1}.p3{fill:#fecaca;stroke:#dc2626;stroke-width:1.1}.cold{fill:#fff;stroke:#94a3b8;stroke-width:1}.range{fill:#fed7aa;stroke:#ea580c;stroke-width:1.1}
+    .arrow{stroke:#475569;stroke-width:1.6;fill:none;marker-end:url(#arrow)}.dash{stroke:#64748b;stroke-width:1.4;fill:none;stroke-dasharray:5 5;marker-end:url(#arrow)}.good{stroke:#16a34a;stroke-width:3;fill:none;stroke-linecap:round}.bad{stroke:#ea580c;stroke-width:2;fill:none}
+  </style>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#475569"/></marker></defs>
+  <rect width="1120" height="660" fill="#fff"/>
+  <text x="30" y="38" class="title">Two orthogonal controls: adaptive nprobe decides how far to search; reorder decides how candidates are fetched</text>
+
+  <rect x="44" y="86" width="230" height="130" rx="16" class="query"/>
+  <text x="74" y="122" class="label">Agent query</text>
+  <text x="74" y="148" class="small">task-local intent</text>
+  <text x="74" y="170" class="small">quality / latency budget</text>
+  <text x="74" y="194" class="tiny">The agent does not always need the same search radius.</text>
+
+  <rect x="342" y="74" width="344" height="360" rx="16" class="online"/>
+  <text x="370" y="108" class="label">Online query policy: adaptive nprobe</text>
+  <text x="370" y="132" class="small">Start narrow, expand only when evidence is weak</text>
+
+  <rect x="386" y="166" width="112" height="48" rx="10" class="p1"/><text x="416" y="195" class="tiny">nprobe=4</text>
+  <rect x="532" y="166" width="112" height="48" rx="10" class="p2"/><text x="558" y="195" class="tiny">candidates</text>
+  <path d="M498 190 C510 190,518 190,532 190" class="arrow"/>
+
+  <rect x="430" y="254" width="170" height="70" rx="12" class="decision"/>
+  <text x="464" y="284" class="label">confidence ok?</text>
+  <text x="462" y="306" class="tiny">score margin / recall signal</text>
+  <path d="M562 214 C562 232,540 238,520 254" class="arrow"/>
+
+  <rect x="382" y="360" width="104" height="46" rx="10" class="stop"/>
+  <text x="414" y="388" class="tiny">stop</text>
+  <rect x="540" y="360" width="104" height="46" rx="10" class="expand"/>
+  <text x="564" y="388" class="tiny">expand</text>
+  <path d="M482 324 C460 338,448 348,436 360" class="arrow"/>
+  <path d="M550 324 C572 338,586 348,594 360" class="arrow"/>
+  <path d="M594 360 C640 306,654 238,620 214" class="dash"/>
+  <text x="610" y="302" class="tiny">nprobe=8,16...</text>
+
+  <rect x="754" y="74" width="322" height="360" rx="16" class="offline"/>
+  <text x="784" y="108" class="label">Offline data layout: reorder</text>
+  <text x="784" y="132" class="small">Project IVF partition locality into base payload layout</text>
+  <text x="784" y="162" class="tiny">Before: candidates are index-local but physically scattered</text>
+  <rect x="790" y="184" width="32" height="30" rx="5" class="p1"/><rect x="834" y="184" width="32" height="30" rx="5" class="cold"/><rect x="878" y="184" width="32" height="30" rx="5" class="p2"/><rect x="922" y="184" width="32" height="30" rx="5" class="cold"/><rect x="966" y="184" width="32" height="30" rx="5" class="p1"/><rect x="1010" y="184" width="32" height="30" rx="5" class="p3"/>
+  <path d="M790 174 L822 174 M790 170 L790 178 M822 170 L822 178" class="bad"/>
+  <path d="M878 174 L910 174 M878 170 L878 178 M910 170 L910 178" class="bad"/>
+  <path d="M966 174 L1042 174 M966 170 L966 178 M1042 170 L1042 178" class="bad"/>
+
+  <text x="784" y="260" class="tiny">After: partition-primary layout makes payload reads contiguous</text>
+  <rect x="790" y="282" width="32" height="30" rx="5" class="p1"/><rect x="826" y="282" width="32" height="30" rx="5" class="p1"/><rect x="862" y="282" width="32" height="30" rx="5" class="p2"/><rect x="898" y="282" width="32" height="30" rx="5" class="p2"/><rect x="934" y="282" width="32" height="30" rx="5" class="p3"/><rect x="970" y="282" width="32" height="30" rx="5" class="p3"/>
+  <path d="M790 272 L1002 272" class="good"/>
+  <path d="M790 274 L1002 274 M790 268 L790 278 M1002 268 L1002 278" stroke="#16a34a" stroke-width="2" fill="none"/>
+
+  <rect x="804" y="352" width="230" height="46" rx="10" class="decision"/>
+  <text x="828" y="380" class="small">same candidates, cheaper payload fetch</text>
+
+  <path d="M274 150 C310 150,318 166,342 188" class="arrow"/>
+  <path d="M686 386 C720 386,728 386,754 386" class="arrow"/>
+
+  <rect x="84" y="488" width="952" height="94" rx="16" class="panel"/>
+  <text x="116" y="522" class="label">How they compose</text>
+  <text x="116" y="548" class="small">Adaptive nprobe controls search budget: simple queries stop early; ambiguous queries probe more IVF partitions.</text>
+  <text x="116" y="570" class="small">Reorder controls IO shape after candidates are known: nearby partition hits become fewer, larger, more mergeable payload range reads.</text>
+  <text x="116" y="610" class="tiny">Do not mix attribution: one changes how much to search; the other changes how expensive it is to read back evidence.</text>
+</svg>

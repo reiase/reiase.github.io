@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1120 660" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Heterogeneous locality between IVF index and base payload layout">
+  <style>
+    .title{font:700 20px sans-serif;fill:#172033}.label{font:700 14px sans-serif;fill:#172033}.small{font:12px sans-serif;fill:#334155}.tiny{font:11px sans-serif;fill:#475569}
+    .panel{fill:#f8fafc;stroke:#64748b;stroke-width:1.5}.agent{fill:#eef2ff;stroke:#6366f1;stroke-width:1.5}.index{fill:#ecfeff;stroke:#0891b2;stroke-width:1.6}.base{fill:#fff7ed;stroke:#ea580c;stroke-width:1.6}.compact{fill:#f0fdf4;stroke:#16a34a;stroke-width:1.6}.note{fill:#fff;stroke:#94a3b8;stroke-width:1.1}
+    .p42{fill:#bfdbfe;stroke:#2563eb;stroke-width:1.2}.p43{fill:#bbf7d0;stroke:#16a34a;stroke-width:1.2}.p44{fill:#fecaca;stroke:#dc2626;stroke-width:1.2}.cold{fill:#fff;stroke:#94a3b8;stroke-width:1}.miss{fill:#fed7aa;stroke:#ea580c;stroke-width:1.2}
+    .arrow{stroke:#475569;stroke-width:1.6;fill:none;marker-end:url(#arrow)}.dash{stroke:#64748b;stroke-width:1.4;fill:none;stroke-dasharray:5 5;marker-end:url(#arrow)}.bad{stroke:#ea580c;stroke-width:2;fill:none}.good{stroke:#16a34a;stroke-width:2;fill:none}
+  </style>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#475569"/></marker></defs>
+  <rect width="1120" height="660" fill="#fff"/>
+  <text x="30" y="38" class="title">Locality mismatch: IVF index is local, but base payload layout may still be scattered</text>
+
+  <rect x="36" y="78" width="220" height="180" rx="14" class="agent"/>
+  <text x="62" y="110" class="label">Agent session</text>
+  <text x="62" y="136" class="small">same task / domain</text>
+  <text x="62" y="158" class="small">follow-up queries</text>
+  <text x="62" y="180" class="small">reused evidence</text>
+  <circle cx="176" cy="122" r="7" fill="#6366f1"/><circle cx="200" cy="150" r="7" fill="#6366f1"/><circle cx="172" cy="178" r="7" fill="#6366f1"/><circle cx="210" cy="200" r="7" fill="#6366f1"/>
+  <text x="62" y="232" class="tiny">Queries are local in semantic space.</text>
+
+  <rect x="330" y="78" width="468" height="180" rx="14" class="index"/>
+  <text x="358" y="110" class="label">IVF / PQ index locality</text>
+  <text x="358" y="136" class="small">The index already groups candidates by semantic partitions</text>
+  <rect x="378" y="166" width="90" height="48" rx="10" class="p42"/><text x="407" y="195" class="tiny">P42</text>
+  <rect x="482" y="166" width="90" height="48" rx="10" class="p43"/><text x="511" y="195" class="tiny">P43</text>
+  <rect x="586" y="166" width="90" height="48" rx="10" class="p44"/><text x="615" y="195" class="tiny">P44</text>
+  <rect x="690" y="166" width="70" height="48" rx="10" class="cold"/><text x="710" y="195" class="tiny">cold</text>
+  <path d="M390 226 L660 226" stroke="#0891b2" stroke-width="4" stroke-linecap="round"/>
+  <text x="418" y="246" class="tiny">candidate neighborhood is compact in the index</text>
+  <path d="M256 168 C288 168,300 168,330 168" class="arrow"/>
+
+  <rect x="860" y="78" width="220" height="180" rx="14" class="panel"/>
+  <text x="888" y="110" class="label">Candidate row ids</text>
+  <text x="888" y="136" class="small">semantic neighbors</text>
+  <rect x="894" y="164" width="58" height="30" rx="6" class="p42"/><text x="906" y="184" class="tiny">P42:r8</text>
+  <rect x="960" y="164" width="58" height="30" rx="6" class="p42"/><text x="971" y="184" class="tiny">P42:r9</text>
+  <rect x="894" y="204" width="58" height="30" rx="6" class="p43"/><text x="904" y="224" class="tiny">P43:r2</text>
+  <rect x="960" y="204" width="58" height="30" rx="6" class="p44"/><text x="970" y="224" class="tiny">P44:r6</text>
+  <path d="M798 168 C828 168,836 178,860 178" class="arrow"/>
+
+  <rect x="56" y="326" width="486" height="230" rx="16" class="base"/>
+  <text x="84" y="358" class="label">Before reorder: base payload layout is heterogeneous</text>
+  <text x="84" y="382" class="small">Rows are still arranged by ingest / document / fragment order, not by IVF partition</text>
+  <g>
+    <rect x="88" y="424" width="38" height="34" rx="5" class="p42"/><text x="99" y="445" class="tiny">42</text>
+    <rect x="136" y="424" width="38" height="34" rx="5" class="cold"/><text x="148" y="445" class="tiny">x</text>
+    <rect x="184" y="424" width="38" height="34" rx="5" class="p44"/><text x="195" y="445" class="tiny">44</text>
+    <rect x="232" y="424" width="38" height="34" rx="5" class="cold"/><text x="244" y="445" class="tiny">x</text>
+    <rect x="280" y="424" width="38" height="34" rx="5" class="p43"/><text x="291" y="445" class="tiny">43</text>
+    <rect x="328" y="424" width="38" height="34" rx="5" class="cold"/><text x="340" y="445" class="tiny">x</text>
+    <rect x="376" y="424" width="38" height="34" rx="5" class="p42"/><text x="387" y="445" class="tiny">42</text>
+    <rect x="424" y="424" width="38" height="34" rx="5" class="p44"/><text x="435" y="445" class="tiny">44</text>
+  </g>
+  <path d="M88 414 L126 414 M88 410 L88 418 M126 410 L126 418" class="bad"/>
+  <path d="M184 414 L222 414 M184 410 L184 418 M222 410 L222 418" class="bad"/>
+  <path d="M280 414 L318 414 M280 410 L280 418 M318 410 L318 418" class="bad"/>
+  <path d="M376 414 L462 414 M376 410 L376 418 M462 410 L462 418" class="bad"/>
+  <text x="88" y="494" class="tiny">Index-local candidates become separated payload range reads.</text>
+  <rect x="88" y="512" width="368" height="28" rx="8" class="note"/>
+  <text x="110" y="531" class="tiny">Mismatch: index partition locality != base physical locality</text>
+
+  <rect x="588" y="326" width="486" height="230" rx="16" class="compact"/>
+  <text x="616" y="358" class="label">After reorder: enhance alignment between index and base data</text>
+  <text x="616" y="382" class="small">Payload rows are laid out with IVF partition as a primary physical dimension</text>
+  <g>
+    <rect x="620" y="424" width="38" height="34" rx="5" class="p42"/><text x="631" y="445" class="tiny">42</text>
+    <rect x="668" y="424" width="38" height="34" rx="5" class="p42"/><text x="679" y="445" class="tiny">42</text>
+    <rect x="716" y="424" width="38" height="34" rx="5" class="p43"/><text x="727" y="445" class="tiny">43</text>
+    <rect x="764" y="424" width="38" height="34" rx="5" class="p43"/><text x="775" y="445" class="tiny">43</text>
+    <rect x="812" y="424" width="38" height="34" rx="5" class="p44"/><text x="823" y="445" class="tiny">44</text>
+    <rect x="860" y="424" width="38" height="34" rx="5" class="p44"/><text x="871" y="445" class="tiny">44</text>
+    <rect x="908" y="424" width="38" height="34" rx="5" class="cold"/><text x="920" y="445" class="tiny">x</text>
+    <rect x="956" y="424" width="38" height="34" rx="5" class="cold"/><text x="968" y="445" class="tiny">x</text>
+  </g>
+  <path d="M620 414 L898 414" stroke="#16a34a" stroke-width="4" stroke-linecap="round"/>
+  <path d="M620 416 L898 416 M620 410 L620 420 M898 410 L898 420" class="good"/>
+  <text x="620" y="494" class="tiny">The same candidate neighborhood can be fetched as fewer merged range reads.</text>
+  <rect x="620" y="512" width="370" height="28" rx="8" class="note"/>
+  <text x="642" y="531" class="tiny">Alignment: index partition locality becomes payload physical locality</text>
+
+  <path d="M924 258 C796 292,540 296,300 326" class="dash"/>
+  <path d="M924 258 C870 292,790 304,800 326" class="dash"/>
+  <text x="258" y="612" class="small">The optimization strengthens the missing alignment: IVF/PQ already creates semantic locality, but reorder projects that locality into the base payload layout.</text>
+</svg>

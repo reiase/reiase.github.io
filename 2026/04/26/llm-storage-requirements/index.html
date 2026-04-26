@@ -1,0 +1,1964 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="本文从 Agentic Search 出发，自顶向下分析大模型时代的存储优化：Memory、Agent Harness、数据格式与工程封装共同服务于一条核心引用路径，让信息在合适时刻以合适形态、以可控成本被再次使用。">
+      
+      
+        <meta name="author" content="reiase <reiase@gmail.com>">
+      
+      
+        <link rel="canonical" href="https://reiase.github.io/2026/04/26/llm-storage-requirements/">
+      
+      
+        <link rel="prev" href="../../../../2025/10/01/superpod-ai-architecture/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>从 Agentic Search 看大模型时代的存储优化 - Overfitting: From Algorithms to Silicon</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Han+Sans+SC:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Source Han Sans SC";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/_markdown_exec_pyodide.css">
+    
+      <link rel="stylesheet" href="../../../../extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-LMDTYMWWTF"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-LMDTYMWWTF",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-LMDTYMWWTF",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-agentic-search" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../.." title="Overfitting: From Algorithms to Silicon" class="md-header__button md-logo" aria-label="Overfitting: From Algorithms to Silicon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89">
+  <path d="M3.136,17.387l0,42.932l42.932,21.467l-42.932,-64.399Z" />
+  <path d="M21.91,8l42.933,64.398l-18.775,9.388l-42.932,-64.399l18.774,-9.387Z" style="fill-opacity: 0.5" />
+  <path d="M67.535,17.387l-27.262,18.156l21.878,32.818l5.384,2.691l0,-53.665Z" />
+  <path d="M67.535,17.387l0,53.666l18.774,-9.388l0,-53.665l-18.774,9.387Z" style="fill-opacity: 0.25" />
+</svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Overfitting: From Algorithms to Silicon
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              从 Agentic Search 看大模型时代的存储优化
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="分享" aria-label="分享" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  博客
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  标签
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../nodes/AdamW/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  代码片段
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Overfitting: From Algorithms to Silicon" class="md-nav__button md-logo" aria-label="Overfitting: From Algorithms to Silicon" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89">
+  <path d="M3.136,17.387l0,42.932l42.932,21.467l-42.932,-64.399Z" />
+  <path d="M21.91,8l42.933,64.398l-18.775,9.388l-42.932,-64.399l18.774,-9.387Z" style="fill-opacity: 0.5" />
+  <path d="M67.535,17.387l-27.262,18.156l21.878,32.818l5.384,2.691l0,-53.665Z" />
+  <path d="M67.535,17.387l0,53.666l18.774,-9.388l0,-53.665l-18.774,9.387Z" style="fill-opacity: 0.25" />
+</svg>
+
+    </a>
+    Overfitting: From Algorithms to Silicon
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    博客
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    博客
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    归档
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    归档
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2025/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2024
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    分类
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    分类
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/ai%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI基础设施
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/fp8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FP8
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/llm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/rl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/training-dynamics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training Dynamics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    分布式训练
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标签
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    代码片段
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    代码片段
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../nodes/AdamW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AdamW
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../nodes/Importance%20Sampling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Importance Sampling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../nodes/Minorize%20Maximization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minorize-Maximization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../nodes/Random%20Round/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Random Round
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../nodes/Scaling%20Law%20%E8%AE%A1%E7%AE%97%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scaling Law 计算器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../nodes/kaplan%20vs%20chinchilla/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kaplan Scaling Law vs Chinchilla Optimal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-agentic-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 从生成到引用：Agentic Search 的存储问题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 从生成到引用：Agentic Search 的存储问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-next-token-prediction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 推理不只是 next-token prediction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-agentic-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Agentic Search 的引用路径
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 存储优化的目标：让引用进入可控成本曲线
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-memoryharness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 引用什么：Memory、Harness 与数据格式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 引用什么：Memory、Harness 与数据格式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Memory：历史、偏好与任务状态
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-harness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Harness：标准、证据与可执行环境
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-ai-native-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 数据格式：从结构化工件到 AI-native dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-lance-agent-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 如何读出：Lance 存储结构与 Agent Search 局部性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 如何读出：Lance 存储结构与 Agent Search 局部性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-lance-embeddingmetadata-payload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Lance 如何组织 embedding、metadata 与 payload
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 存储格式不只是 schema，也是访问布局
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-ivf_pq-payload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 IVF_PQ 查询中的候选召回与 payload 回查
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-agent-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Agent Search 的局部性：领域、会话、租户与候选集
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-range-readiops-bridge-bytes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 对象存储路径上的 range read、IOPS 与 bridge bytes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-reorderadaptive-nprobe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 如何优化：Reorder、Adaptive nprobe 与策略封装
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 如何优化：Reorder、Adaptive nprobe 与策略封装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-reorder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Reorder：把语义局部性转成物理局部性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-adaptive-nprobe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Adaptive nprobe：动态控制检索预算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 实验室验证：收益来自重引用路径，而不是所有查询
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-policy-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Policy 封装：让不同 query 进入不同成本曲线
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 未来工作：渐进式索引与按需精度
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 总结：存储优化就是引用路径优化
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        参考
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../.." class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    回到主页
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    元数据
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2026-04-26 00:00:00+00:00" class="md-ellipsis">2026年4月26日</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            分类于
+                            
+                              <a href="../../../../category/llm/">LLM</a>, 
+                              <a href="../../../../category/ai%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/">AI基础设施</a>, 
+                              <a href="../../../../category/agent/">Agent</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              需要 8 分钟阅读时间
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../../../tags/#tag:ai基础设施" class="md-tag">AI基础设施</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../../tags/#tag:agent" class="md-tag">Agent</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../../tags/#tag:llm" class="md-tag">LLM</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../../tags/#tag:memory" class="md-tag">Memory</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../../tags/#tag:rag" class="md-tag">RAG</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../../tags/#tag:storage" class="md-tag">Storage</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../../../tags/#tag:数据工程" class="md-tag">数据工程</a>
+      
+    
+  </nav>
+
+
+
+  <h1>从 Agentic Search 看大模型时代的存储优化</h1>
+
+<p><em>本文为原创文章，版权归作者所有。未经许可，禁止转载。</em></p>
+<div class="admonition note">
+<p class="admonition-title">审阅草稿</p>
+<p>这篇文章目前是供合作者审阅的 draft 版本，结构、图示和技术表述仍可能继续调整。</p>
+</div>
+<p>大模型推理看起来是 next-token prediction：模型根据已有上下文预测下一个 token，再不断重复这个过程。但在真实系统里，推理很少只是“生成”。尤其在 Agentic Search 场景中，提示模板、会话历史、长期记忆、检索结果、工具返回、缓存产物与数据库记录，都会以不同形态进入推理链路。模型并不是在真空中猜下一个词，而是在“继续生成”和“引用既有信息”之间不断做选择。</p>
+<p>因此，大模型时代的存储不再只是“把东西放起来”。更准确地说，存储是一套围绕**可引用性**建立的机制：让信息在合适的时刻、以合适的形态、用可控的成本被再次使用，从而改变推理的自由度与不确定性。</p>
+<!-- more -->
+
+<p>问题也随之从“数据放在哪里”变成了“引用路径如何被组织”。一条信息要先被判断为值得引用，再被建模成可调用的形态，随后被检索、回查、压缩并注入上下文。越往下走，抽象的“知识”越会变成具体的 IO、延迟和成本。</p>
+<p>沿着这条引用路径继续往下看，传统搜索里的许多默认假设会慢慢松动。过去我们习惯把索引想象成一个在线服务：query 来了，系统在全局索引上找最近邻，再把结果返回。这个模型默认每次查询相对独立，也默认索引需要被一组常驻机器持续服务。</p>
+<p>Agentic Search 的形态不太一样。一个 Agent 在执行任务时，很少只问一次；它会沿着同一个目标反复追问、调用工具、验证证据、修正计划。于是，真正反复被触碰的不是整个知识库，而是围绕当前任务形成的一小片局部工作集。全量数据仍然可以很大，甚至更适合沉在对象存储里；靠近 Agent 的，则是少量语义相关的 partition、payload page、工具结果和验证证据。到这一步，索引也不再只是一个固定精度、固定服务形态的结构：IVF 负责把语义邻域收束成少量行，OPQ/PQ 可以把精度和成本拆成可渐进读取的列，Policy 再决定这次引用要展开到哪里。</p>
+<h2 id="1-agentic-search">1. 从生成到引用：Agentic Search 的存储问题<a class="headerlink" href="#1-agentic-search" title="Permanent link">&para;</a></h2>
+<h3 id="11-next-token-prediction">1.1 推理不只是 next-token prediction<a class="headerlink" href="#11-next-token-prediction" title="Permanent link">&para;</a></h3>
+<p>传统语言模型的基本动作是预测。但工程系统的基本动作往往是选择：这个事实要不要查数据库？这段背景要不要走检索？这次工具结果要不要缓存？上一次会话的结论是否仍然可信？用户偏好应该直接注入，还是按需召回？</p>
+<p>一旦把推理抽象成“生成 / 引用”的序列决策，许多看似分散的模块就会落到同一张图上：上下文工程、长期记忆、RAG、搜索、工具调用、缓存、日志回放，都是外部可引用数据源；压缩、重排、裁剪、权限、TTL、命中率、延迟与 token 成本，都是围绕引用路径展开的系统优化。</p>
+<p>这也是为什么存储会在大模型系统中重新变得重要。不是因为模型突然需要更多磁盘，而是因为系统越来越依赖“把不确定生成替换成可验证引用”。</p>
+<h3 id="12-agentic-search">1.2 Agentic Search 的引用路径<a class="headerlink" href="#12-agentic-search" title="Permanent link">&para;</a></h3>
+<p>Agentic Search 可以理解为 Agent 在执行任务时主动寻找、筛选、回查、压缩并注入外部信息的过程。它不是传统搜索框里的单次查询，而是一条贯穿任务执行的引用链路：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Memory / Harness / Domain Data
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  -&gt; Retrieval Intent
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  -&gt; Embedding + Metadata Filter
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  -&gt; ANN Candidate
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  -&gt; Payload Fetch
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  -&gt; Rerank / Compress / Inject
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  -&gt; Model Generate
+</span></code></pre></div>
+<p>这条链路里的每一步都对应一种存储问题。Memory 和 Harness 决定“什么值得被引用”；数据格式决定“引用对象能否被稳定建模和调用”；检索系统决定“如何找到候选”；物理布局决定“候选 payload 如何被低成本读出”；Policy 则决定“什么时候引用、引用多少、用哪条路径”。落到运行时，它经常会变成一个朴素的选择：这一步是继续生成，还是引用已有数据；如果引用，要引用到多深、多少、以什么成本引用。</p>
+<p>更重要的是，Agentic Search 会系统性改变搜索的访问分布，也改变搜索系统的部署形态。传统搜索更像一组彼此独立的 query，不断打到同一个全局索引；为了服务这份索引，系统往往需要一组常驻机器来承载 shard、replica、内存缓存和在线 fanout。而 Agent 在真实任务中会连续追问、调用工具、验证证据、修正计划，这些动作通常围绕同一个任务、租户、领域或会话上下文展开。于是，全局知识库没有变小，但每个正在运行的 Agent 进程都会形成自己的局部工作集：少量热 partition、热文档、热 payload page、近期工具结果和验证证据会被反复访问。</p>
+<p><a class="glightbox" href="../../../../imgs/agentic-search/local-working-set.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Agentic Search 将全局知识库压缩成局部工作集" src="../../../../imgs/agentic-search/local-working-set.svg" width="100%" /></a></p>
+<p>这也是为什么缓存、预取、局部索引和物理布局会变得重要。系统仍然需要拥有全量知识，但全量数据和索引可以更自然地放在 S3 这类对象存储上，由 Agent 进程按任务拉取自己需要的一小片热数据。不过，对象存储只是事实底座，不是模型友好的引用接口；缺少封装时，LIST、元数据读取、长 payload 和分页碎片都会转化为更多工具调用与上下文成本。访问不再只是“所有请求共享一个大缓存”的问题，而是每个 Agent 进程都可以把自己的任务上下文沉淀成一个很小、可复用、可淘汰的 working set。存储优化的目标，就是让这些小工作集更容易被再次访问。</p>
+<h3 id="13">1.3 存储优化的目标：让引用进入可控成本曲线<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<p>所以，Agentic Search 的存储优化目标不应该写成“检索越快越好”，而应该写成：<strong>让不同查询形态进入不同成本曲线</strong>。</p>
+<p>简单问题、低 payload、小 top-k 查询，重点可能是少做事、少 refine、少引入额外状态；复杂问题、大候选集、重 payload、需要 rerank 或证据拼接的查询，才值得付出更多检索和回查成本。存储系统要做的不是给所有 query 一套默认配置，而是让 Agent 能在运行时选择合适的引用路径。</p>
+<h2 id="2-memoryharness">2. 引用什么：Memory、Harness 与数据格式<a class="headerlink" href="#2-memoryharness" title="Permanent link">&para;</a></h2>
+<h3 id="21-memory">2.1 Memory：历史、偏好与任务状态<a class="headerlink" href="#21-memory" title="Permanent link">&para;</a></h3>
+<p>模型侧的存储，不等同于把聊天记录永久保存下来。它的目标是把历史交互、环境反馈、外部知识与中间结论组织成当前步骤可有效消费的状态，让模型更少“猜”、更多“引用”。</p>
+<p>在 Agent 场景中，记忆通常可以分成三类：</p>
+<ul>
+<li><strong>事实记忆</strong>：用户偏好、环境状态、明确事实与长期稳定约束，回答“智能体知道什么”。</li>
+<li><strong>经验记忆</strong>：过去行动中的成功、失败与策略总结，回答“智能体如何改进自身”。</li>
+<li><strong>工作记忆</strong>：当前任务或会话中的临时状态、目标、计划与中间结论，回答“智能体现在正在处理什么”。</li>
+</ul>
+<p>这里真正困难的不是“记住更多”，而是“在有限窗口和推理预算里放什么最值”。记忆系统需要在成本、质量与稳定性之间做权衡：压缩和摘要能提高信息密度，但可能丢失关键细节；长期记忆能提升连续性，但错误、过期或互相矛盾的信息会污染推理；外部状态能降低遗忘风险，但写入、晋升、去重与冲突消解本身又会引入新的不确定性。</p>
+<h3 id="22-harness">2.2 Harness：标准、证据与可执行环境<a class="headerlink" href="#22-harness" title="Permanent link">&para;</a></h3>
+<p>如果把视角从单次模型调用切到 Agent，存储问题会进一步扩展。Agent 需要引用的不只是知识库中的事实，还包括任务的当前状态、完成定义、工具使用方式、验证证据、历史决策与人类反馈。也就是说，Agent 的长期能力很大一部分来自 harness，而不只来自模型参数。</p>
+<p>长程 Agent 的典型失败模式并不神秘：上下文窗口填满后开始失去连贯性；跨 session 后不知道上一轮做到了哪里；做了一半就提前宣布完成；或者在自评时过于宽松，忽略真实用户路径里的问题。Anthropic 的 long-running agent harness 和 OpenAI 的 Codex harness engineering 都指向同一个结论：要让 Agent 稳定工作，必须把执行环境本身设计成模型可读、可执行、可验证的外部状态系统。</p>
+<p>这个外部状态系统通常由几类工件组成：</p>
+<ul>
+<li><strong>任务状态</strong>：progress log、execution plan、git history、已完成/未完成列表，让新 session 能快速接班。</li>
+<li><strong>完成标准</strong>：feature list、acceptance criteria、sprint contract、评测 rubric，防止 Agent 做太多、做太少或自行修改验收口径。</li>
+<li><strong>可执行入口</strong>：init script、开发环境脚本、工具说明、MCP/SDK 接口，让 Agent 不必每次重新猜测如何启动、查询和验证系统。</li>
+<li><strong>验证证据</strong>：测试结果、浏览器自动化截图、日志、trace、metrics、CI 状态，把“看起来完成了”转化成可回放证据。</li>
+<li><strong>治理与约束</strong>：lint、结构测试、权限、hooks、架构规则和文档 freshness 检查，把人类偏好与系统不变量沉淀为机械约束。</li>
+</ul>
+<p>Multi-agent system 也可以放在这个框架下理解。它的价值不是简单“多几个模型一起干活”，而是把不同类型的引用和判断拆开。Planner 把模糊意图扩展成可执行规格；Generator 按规格产生变更；Evaluator 用测试、浏览器、日志或 rubric 去验证结果。职责隔离的关键收益在于：生成者不再负责给自己打分，评价者可以被调成更怀疑、更具体、更贴近验收标准。</p>
+<p>但 harness 复杂度不能无条件增加。每一个 planner、evaluator、context reset、subagent 或 review loop，都是在假设“当前模型单独做不好某件事”。当模型能力变化、任务类型变化、工具接口变化时，这些组件是否仍然必要，都需要重新验证。好的 harness 不是越复杂越好，而是把模型当前不稳定的能力外置为可引用、可检查、可替换的系统能力。</p>
+<h3 id="23-ai-native-dataset">2.3 数据格式：从结构化工件到 AI-native dataset<a class="headerlink" href="#23-ai-native-dataset" title="Permanent link">&para;</a></h3>
+<p>数据侧的存储关注的是：信息以什么形态存在，才真正能被模型和系统调用。原始内容本身通常不够。大模型场景中的一条数据，除了 text、image、audio、tool trace 等内容，还需要明确的类型与维度，例如任务类型、语言、领域、难度、时间、来源、权限、置信度、输出格式约束、上下文依赖等。这些维度决定了数据能否被路由、过滤、对齐、评测和追溯。</p>
+<p>在轻量级和快速迭代阶段，Markdown、YAML、JSON 与 Jinja 往往承担这种建模功能。Markdown 适合承载规则、语境、边界、流程与说明，例如 <code>AGENTS.md</code>、<code>SKILL.md</code>、Dataset Card；YAML 适合表达配置、split、子集入口和模板元数据；JSON 适合承载可严格解析的样本结构、评测协议、通过标准与工具调用记录；Jinja 则把 prompt 建模成“样本到输入/输出”的映射函数。</p>
+<p>当数据规模和扫描需求上来后，Parquet 这类列式格式会成为更自然的底座。LLM 数据工作负载经常需要对海量样本反复做过滤、分桶、采样、统计、质量分层、去重与归因，这些操作天然依赖列投影和条件过滤。Parquet 的优势不是“更像 AI 格式”，而是把 schema、列式压缩、嵌套结构和高吞吐扫描固化为默认能力。</p>
+<p>但 Parquet 也有边界。Agentic Search 不只是扫描结构化表，而是要在 embedding、metadata、长文本 payload、工具轨迹和多模态 blob 之间做随机访问、过滤和回查。Lance 这类面向 AI 工作负载的格式，正是在这个方向上把“检索、随机访问、多模态存储”下沉为底座能力。</p>
+<p>换句话说，格式的演进方向并不是从“文件”走向“更复杂的文件”，而是从“数据被保存”走向“数据可被调用”。</p>
+<h2 id="3-lance-agent-search">3. 如何读出：Lance 存储结构与 Agent Search 局部性<a class="headerlink" href="#3-lance-agent-search" title="Permanent link">&para;</a></h2>
+<h3 id="31-lance-embeddingmetadata-payload">3.1 Lance 如何组织 embedding、metadata 与 payload<a class="headerlink" href="#31-lance-embeddingmetadata-payload" title="Permanent link">&para;</a></h3>
+<p>在 Agentic Search 里，一条样本通常不是单纯的文本。它至少包含三类信息：用于语义召回的 embedding，用于过滤、权限和路由的 metadata，以及最终要交给 reranker 或模型阅读的 payload。一个面向 AI workload 的存储格式，需要让这三类信息在同一数据资产中协同工作。</p>
+<p>可以把 Lance 粗略理解为一个面向随机访问和向量工作负载优化的列式数据集。它通过 manifest 记录数据集版本和 fragment 组成；每个 fragment 内部按列组织数据，列数据再被拆成适合读取和跳过的物理单元。这样做的好处是：metadata filter 可以只读相关列，embedding 可以参与向量索引，payload 又可以在候选确定后被按 row id 回查。</p>
+<p>这和传统“对象存储放原文、数据库放路径、向量库放 embedding”的三套系统相比，有一个重要区别：embedding、metadata 与 payload 不再只是松散拼接，而是能在同一个数据集抽象下被索引、过滤、回查和版本化。对于 Agent Search 来说，这意味着“找到候选”和“读回证据”可以被放到一条更统一的引用路径里优化。</p>
+<p><a class="glightbox" href="../../../../imgs/agentic-search/lance-layout-clean.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Lance 数据集布局示意" src="../../../../imgs/agentic-search/lance-layout-clean.svg" width="100%" /></a></p>
+<h3 id="32-schema">3.2 存储格式不只是 schema，也是访问布局<a class="headerlink" href="#32-schema" title="Permanent link">&para;</a></h3>
+<p>讨论存储格式时，很容易只看到逻辑层：有哪些列、字段类型是什么、metadata 如何表达、embedding 维度是多少。但对 Agentic Search 来说，格式还包含另一层同样重要的东西：<strong>访问布局</strong>。也就是说，当一批候选 row id 被召回之后，它们在物理文件中的相对位置如何，payload 是否能被连续读出，metadata filter 是否能跳过无关区域，向量列和文本列是否能按不同访问模式分别优化。</p>
+<p>可以把 Lance 在这里承担的角色拆成两层：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>逻辑层：embedding / metadata / payload 共同描述一条可引用样本
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>物理层：fragment / column / page / row id 决定这条样本如何被读出
+</span></code></pre></div>
+<p>逻辑层解决“这是什么数据、能不能被检索、能不能被过滤、能不能被模型引用”；物理层解决“这批数据被引用时，要发起多少次读取、读多少无关字节、能不能把相邻读取合并”。前者决定可调用性，后者决定调用成本。</p>
+<p>这也是布局设计的意义。传统列式格式通常围绕分析型扫描优化：尽量只读相关列，利用压缩和统计信息减少全表扫描成本。Agentic Search 的访问模式则更接近“先用向量索引找到一批 row id，再按 row id 回查 payload”。如果这些 row id 在物理上高度离散，系统就会面对大量小 range read；如果它们在语义上相近、物理上也相近，reader 就更容易把多次回查合并。</p>
+<p>因此，本次优化的着力点不是改变“这条数据长什么样”，而是改变“相似数据在物理上是否挨在一起”。<code>reorder</code> 的价值正是在这里：它试图把索引层已经存在的语义分区，投影到存储层的物理布局上，让 Agent Search 的局部性不只停留在向量空间里，也能体现在 IO 路径上。</p>
+<h3 id="33-ivf_pq-payload">3.3 IVF_PQ 查询中的候选召回与 payload 回查<a class="headerlink" href="#33-ivf_pq-payload" title="Permanent link">&para;</a></h3>
+<p>以 IVF_PQ 为例，查询并不是直接把所有向量扫一遍。系统会先根据 query embedding 找到若干 IVF partition，再在这些 partition 内用 PQ 近似距离得到候选；如果需要更高质量的结果，还会进一步 refine，读取原始向量或 payload 做重排、裁剪和注入。</p>
+<p>这里有一个经常被忽略的事实：向量索引只解决了“候选在哪里”，但 Agent 真正需要引用的是候选背后的文本、工具结果、日志片段或文档上下文。也就是说，ANN candidate 之后还有一次 payload fetch。对于少量候选查询，这个回查成本可能不显眼；但当系统需要读回较大候选集做 rerank、聚合或证据拼接时，payload fetch 就会成为引用路径里的主要成本之一。</p>
+<p>候选 row id 如果在物理上高度离散，就会产生大量随机读；如果它们在文件里相邻，reader 就有机会把多个小读合并成更少的连续 range read。到这里，语义检索问题已经变成了存储布局问题。</p>
+<p><a class="glightbox" href="../../../../imgs/agentic-search/ivf-pq-layout-clean.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="IVF+PQ 索引与 payload 回查示意" src="../../../../imgs/agentic-search/ivf-pq-layout-clean.svg" width="100%" /></a></p>
+<h3 id="34-agent-search">3.4 Agent Search 的局部性：领域、会话、租户与候选集<a class="headerlink" href="#34-agent-search" title="Permanent link">&para;</a></h3>
+<p>通用 ANN benchmark 往往假设 query 分布近似均匀，但 Agentic Search 的真实 workload 通常不是这样。一个法律、科研或企业知识库 Agent 的用户 query，会围绕少量语义区域反复访问相邻证据；同一个会话里的连续问题，往往指向同一批文档、概念、任务状态和工具结果；企业知识库还天然存在租户、权限、项目和团队边界。</p>
+<p>这种局部性至少体现在几个层面：</p>
+<ul>
+<li><strong>领域局部性</strong>：垂直领域 query 会围绕少量主题区域反复访问。</li>
+<li><strong>会话局部性</strong>：同一任务中的连续检索常常命中相近文档和证据。</li>
+<li><strong>租户局部性</strong>：企业数据按团队、权限和项目天然分区。</li>
+<li><strong>候选局部性</strong>：rerank、evaluator、multi-agent review 往往需要读回一批相关候选，而不是只取一个点。</li>
+<li><strong>时间局部性</strong>：最近引用过的 trace、feature spec、工具结果和历史决策容易再次被引用。</li>
+</ul>
+<p>如果 ANN partition 与 payload 的物理布局能对齐这种局部性，系统就有机会把语义上的相近访问转化为存储层的顺序访问。</p>
+<p><a class="glightbox" href="../../../../imgs/agentic-search/locality-impact.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Agentic Search 局部性对 IVF+PQ 与物理布局的影响" src="../../../../imgs/agentic-search/locality-impact.svg" width="100%" /></a></p>
+<p>这里的关键变量可以称为**连续性**。在 base/shuffled 数据中，IVF/PQ 虽然在语义空间里找到了相邻候选，但这些候选对应的 row id 可能散落在不同 fragment、page 或对象存储 range 上；一次 top-k 回查会退化成多次小 range read。compact 之后，相同 partition 或相邻 partition 中的样本在物理上更接近，候选 row id 的跨度变小，payload range 更容易被合并读取。连续性变好，并不一定意味着读字节必然更少，因为合并 range 可能会读入一些桥接字节；但它通常会减少请求次数和随机 IO，这才是对象存储路径上最有价值的收益来源。</p>
+<h3 id="35-range-readiops-bridge-bytes">3.5 对象存储路径上的 range read、IOPS 与 bridge bytes<a class="headerlink" href="#35-range-readiops-bridge-bytes" title="Permanent link">&para;</a></h3>
+<p>在本地 NVMe 上，随机读和顺序读的差异已经足以影响 p50；到了对象存储路径，差异会进一步放大，因为每次 range read 都可能带来请求开销、网络 RTT 和调度开销。此时，真正影响延迟的不只是读了多少字节，还包括读了多少次、每次读之间是否可以合并、以及为了合并相邻 range 额外读取了多少“桥字节”。</p>
+<p>Lance reader 会尝试把相邻 range read 合并。当 row id 在物理上接近时，IOPS 可以显著下降；但合并也可能带来额外 bytes。旧直觉“少字节必更快”在这里并不总成立。对 Agent Search 来说，更接近 wall-time 的变量常常是 range read 次数、IOPS、payload 大小和对象存储路径上的 RTT 共同作用。</p>
+<h2 id="4-reorderadaptive-nprobe">4. 如何优化：Reorder、Adaptive nprobe 与策略封装<a class="headerlink" href="#4-reorderadaptive-nprobe" title="Permanent link">&para;</a></h2>
+<h3 id="41-reorder">4.1 Reorder：把语义局部性转成物理局部性<a class="headerlink" href="#41-reorder" title="Permanent link">&para;</a></h3>
+<p><code>reorder --compact</code> 的目标，是把 IVF partition 从纯粹的索引结构提升为物理布局的一等维度。IVF partition 可以看作语义空间里的粗粒度桶；如果 Agent query 会反复命中相近 partition，那么这些 partition 对应的 row 最好在物理上也尽量接近。</p>
+<p>这就是 <code>partition-primary compact</code> 的核心思想：让同一 IVF partition 中的 row 在磁盘上更连续，从而让 ANN 候选后的 payload 回查更容易被合并成连续 range read。它优化的不是向量距离计算本身，而是“候选已经找到之后，证据如何被读回来”。</p>
+<p>这个优化成立需要一个前提：查询确实会读回一批相关候选。若 Agent 只需要很少的 top-k，payload 又很轻，那么物理紧凑布局带来的 range 合并收益可能还没来得及显现，就已经被额外读取的桥字节、refine 开销、网络 RTT 或调度开销抵消。相反，当系统需要读回较多候选做 rerank、证据拼接或多轮验证时，payload 回查会放大物理局部性的价值。</p>
+<p>因此，compact 不能写成“默认加速器”。它更准确的定位是：<strong>当引用路径进入重候选、重 payload、对象存储 range-read 压力区间时，把语义局部性转化为 IO 局部性的布局策略</strong>。</p>
+<h3 id="42-adaptive-nprobe">4.2 Adaptive nprobe：动态控制检索预算<a class="headerlink" href="#42-adaptive-nprobe" title="Permanent link">&para;</a></h3>
+<p>如果说 reorder 是从数据布局侧优化引用路径，那么 adaptive nprobe 是从查询策略侧控制引用预算。</p>
+<p>固定 nprobe 的做法，是每次查询都探测同样多的 IVF partition。这种方式简单、稳定，但对 Agent Search 来说并不总是合适：有些 query 很明确，少量 partition 已经能给出足够好的候选；有些 query 更开放，必须扩大探测范围才能获得足够召回。用同一 nprobe 处理所有 query，本质上是在给所有引用请求分配相同预算。</p>
+<p><code>adaptive_nprobes</code> 的思路是从较小的探测范围开始，根据候选分数、margin 或置信度判断是否继续扩大搜索。它对应 Agentic Search 内部更细粒度的“继续找 / 停止找”决策：简单 query 尽早停止，困难 query 才继续扩大搜索半径。</p>
+<p>这和 reorder 是两类不同优化：reorder 改变“数据怎么放”，adaptive nprobe 改变“查询读多少”。前者影响候选回查的物理访问模式，后者影响候选召回的搜索预算。两者可以组合，但不能混在一起归因。否则我们会误以为某个布局更快，实际上收益来自查询侧早停；或者反过来，把查询策略的风险错误归因给存储格式。</p>
+<p><a class="glightbox" href="../../../../imgs/agentic-search/reorder-adaptive-nprobe.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Reorder 与 adaptive nprobe 优化的是引用路径中的不同环节" src="../../../../imgs/agentic-search/reorder-adaptive-nprobe.svg" width="100%" /></a></p>
+<h3 id="43">4.3 实验室验证：收益来自重引用路径，而不是所有查询<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<p>为了验证上述判断，我们做过一组可复现实验：在 Lance 数据集上构造 Wikipedia chunk + embedding 的 Agent Search 近似 workload，并分别在本地 NVMe 与 S3 模拟路径上比较 shuffled baseline 与 partition-primary compact 布局。实验并不是为了证明某个配置永远最佳，而是为了验证一个机制判断：<strong>物理布局优化是否只在重引用路径中稳定转化为收益</strong>。</p>
+<p>结果符合这个机制判断：当 top-k 很小、payload 很轻时，compact 并不会稳定带来延迟收益，有时还会因为额外读和调度开销而变慢；当候选集增大、payload 回查变重时，物理局部性开始稳定转化为更少的 range read、更低的 IOPS 和更好的 p50。对象存储路径会进一步放大这个边界：轻量查询更容易被 RTT 和调度成本吞掉收益，而重 payload 查询更容易从 range 合并中获益。</p>
+<p>为了给量级一个直觉：在我们的一组实验室数据中，重候选 / 重 payload 查询上，紧凑布局能带来约三到四成的 p50 下降，并显著减少读 IO；而轻量 top-k 查询基本只能算持平，甚至可能退化。这里重要的不是某个具体 K 或某个实验配置，而是边界本身：<strong>布局优化服务的是重引用路径，不是所有 ANN 查询</strong>。</p>
+<p>这说明 Agent Search 的优化不能只问“compact 是否更快”，而要先问：top-k 多大、payload 多重、是否需要 rerank、是否在对象存储路径、并发多高、refine 多强，以及当前 query 是否具有领域或会话局部性。</p>
+<h3 id="44-policy-query">4.4 Policy 封装：让不同 query 进入不同成本曲线<a class="headerlink" href="#44-policy-query" title="Permanent link">&para;</a></h3>
+<p>工程侧真正要做的，不是简单选择“数据库、搜索还是 RAG”，而是把引用路径封装成可组合、可观测、可迭代的组件：</p>
+<ul>
+<li><code>Retriever</code> 负责召回候选，并区分语义检索、关键词检索与 metadata filter。</li>
+<li><code>Ranker</code> 负责重排、裁剪和选择最终注入片段。</li>
+<li><code>Cache</code> 负责复用热点 query、近期工具结果和局部证据。</li>
+<li><code>Policy</code> 负责根据 query 形态选择轻量检索路径、局部性优化路径或重 payload 回查路径。</li>
+<li><code>Logger</code> 和 <code>Hook</code> 负责记录候选、注入片段、token 成本、延迟、IO 与失败原因。</li>
+</ul>
+<p>这里的观测不只是为了调试，而是为了判断“引用是否真的值得”。每次引用都应该留下证据链：为什么检索、命中了什么、注入了什么、节省或增加了多少 token 与延迟，以及最终是否改善任务结果。</p>
+<p>其他优化方向也应该放在这个策略框架里讨论。例如，小 k 和大 k 可以使用多版本索引；payload-aware layout 可以同时考虑 partition、文档归属、租户、权限和 chunk 邻接关系；session-local cache 可以复用近期候选和 rerank 结果；hybrid retrieval 可以先用关键词或 metadata filter 缩小范围，再在局部集合里做向量检索；hot/cold tier 可以把高频 partition 放到更近的存储层。</p>
+<p>这些优化都围绕同一件事：Agentic Search 不是一次固定查询，而是一组带局部性的引用决策。存储系统要暴露足够多的策略维度，让 Agent 在运行时选择合适的引用成本，而不是被某个默认索引配置锁死。</p>
+<h3 id="45">4.5 未来工作：渐进式索引与按需精度<a class="headerlink" href="#45" title="Permanent link">&para;</a></h3>
+<p>沿着这个方向继续走，索引本身也可以变成渐进式读取的对象。今天的向量索引通常在构建时就固定了精度与体积：要么使用较小但误差更大的压缩索引，要么使用更大、更接近原始向量的索引。对 Agentic Search 来说，更理想的形态是：<strong>完整 OPQ/PQ 码本作为一个整体存在，但每次查询只选择其中一部分精度切片：先读取很小的核心切片，获得大部分排序能力；如果 query 难、margin 小或任务风险高，再增量读取更多 refinement 切片，把精度逐步补上来</strong>。</p>
+<p>一个可探索的方向，是基于 OPQ（Optimized Product Quantization）构造渐进式 PQ 码本。这里可以把 PQ 的存储理解成一个二维矩阵：<strong>IVF 负责语义局部性，用行表示；OPQ/PQ 负责精度与成本局部性，用列表示</strong>。一次 query 先通过 IVF 选择少量语义相关的行，再通过 policy 选择需要读取多少精度列。简单 query 可能只读核心列，困难 query 才继续读取 refinement 列，用来修正距离、提高排序稳定性，或者服务高价值 query 的 rerank 前置阶段。</p>
+<p><a class="glightbox" href="../../../../imgs/agentic-search/progressive-opq-index.svg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="基于 OPQ/PQ 的渐进式索引设想" src="../../../../imgs/agentic-search/progressive-opq-index.svg" width="100%" /></a></p>
+<p>这和 adaptive nprobe 的思想是相通的，但控制对象不同：adaptive nprobe 决定“探测多少 partition”，渐进式 PQ 决定“为同一批候选读取多少精度”。前者扩展搜索半径，后者加深候选估计质量。两者结合之后，Agent 可以先用小半径、少量精度列得到低成本答案；只有在证据不足时，才同时扩大搜索范围和提高距离估计精度。</p>
+<p>这样的索引设计也更适合对象存储路径。语义上相近的 partition 行可以形成局部工作集；精度上常用的核心列可以更小、更热、更容易缓存；更高精度的 refinement 列可以冷一些，只有困难 query 才触发增量读取。于是，索引不再是一份必须一次性加载的在线服务状态，而更像一个可以按行、按列逐步展开的引用矩阵。</p>
+<h2 id="5">5. 总结：存储优化就是引用路径优化<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<p>大模型时代的存储优化，表面上是数据量、格式、索引、缓存和检索系统的变化；本质上是推理范式从“纯生成”转向“生成 + 引用”之后，系统对可引用数据的组织、调度与治理要求。</p>
+<p>Memory 和 Harness 决定什么值得引用；数据格式决定引用对象能否被稳定调用；Lance 这类 AI-native dataset 让 embedding、metadata 与 payload 能在同一数据资产中协同；reorder 把 Agent Search 的语义局部性转化为物理局部性；adaptive nprobe 动态控制查询预算；渐进式索引则进一步把“精度”也变成可按需读取的成本维度；Policy 则根据 query 形态选择不同成本曲线。</p>
+<p>更进一步看，Agentic Search 可能会把检索系统带到一个新方向：它不再把索引看成一份必须常驻内存、服务所有请求的固定结构，而是把索引、payload、缓存和工作集组织成可按需展开的引用系统。IVF 决定读哪些语义行，OPQ/PQ 决定读多少精度列，物理布局决定证据如何被低成本回查，Policy 则把这些选择组合成不同的成本曲线。</p>
+<p>未来的大模型系统，竞争力很可能不只来自模型参数本身，也来自它周围的存储与引用系统：哪些信息值得保存，如何保存成可调用形态，何时引用，引用多少，以及如何证明这次引用确实带来了质量或成本收益。</p>
+<h2 id="_1">参考<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents">Effective harnesses for long-running agents</a></li>
+<li><a href="https://www.anthropic.com/engineering/harness-design-long-running-apps">Harness design for long-running apps</a></li>
+<li><a href="https://openai.com/zh-Hans-CN/index/harness-engineering/">OpenAI: Harness Engineering</a></li>
+<li><a href="https://code.claude.com/docs/en/agent-sdk/overview">Claude Agent SDK</a></li>
+<li><a href="https://github.com/elastic/elasticsearch">Elasticsearch</a></li>
+<li><a href="https://github.com/infiniflow/ragflow">RAGFlow</a></li>
+<li><a href="https://ericfu.me/lancedb-and-binary-data-lake/">LanceDB and binary data lake</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2026年4月26日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2026年4月26日</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+  
+
+
+  
+
+
+
+  <h2 id="__comments">评论</h2>
+  <script src="https://giscus.app/client.js"
+    data-repo="reiase/reiase.github.io"
+    data-repo-id="R_kgDOHRMrag"
+    data-category="[在此输入分类名]"
+    data-category-id="[在此输入分类 ID]"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async>
+  </script>
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+      // Instruct Giscus to set theme
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+          // Instruct Giscus to change theme
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+        
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../../../../2025/10/01/superpod-ai-architecture/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 深度解析NVIDIA的超节点架构演进">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                深度解析NVIDIA的超节点架构演进
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2025 Reiase
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/reiase" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.tabs", "navigation.sections", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../assets/_markdown_exec_pyodide.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

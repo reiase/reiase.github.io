@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 920 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="IVF PQ index and payload fetch layout">
+  <style>
+    .title{font:700 18px sans-serif;fill:#172033}.label{font:600 14px sans-serif;fill:#172033}.small{font:12px sans-serif;fill:#334155}.tiny{font:11px sans-serif;fill:#475569}
+    .query{fill:#eef2ff;stroke:#6366f1;stroke-width:1.5}.ivf{fill:#ecfeff;stroke:#0891b2;stroke-width:1.5}.pq{fill:#fef3c7;stroke:#d97706;stroke-width:1.5}.row{fill:#dcfce7;stroke:#16a34a;stroke-width:1.5}.payload{fill:#fee2e2;stroke:#dc2626;stroke-width:1.5}
+    .page{fill:#fff;stroke:#64748b;stroke-width:1}.hot{fill:#fecaca;stroke:#dc2626;stroke-width:1.4}.arrow{stroke:#475569;stroke-width:1.6;fill:none;marker-end:url(#arrow)}.dashed{stroke:#64748b;stroke-width:1.5;fill:none;stroke-dasharray:5 5;marker-end:url(#arrow)}
+  </style>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7 Z" fill="#475569"/></marker></defs>
+  <rect width="920" height="470" fill="#fff"/>
+  <text x="28" y="34" class="title">IVF+PQ path: index finds candidates, layout decides payload fetch cost</text>
+  <rect x="35" y="74" width="145" height="70" rx="10" class="query"/>
+  <text x="60" y="104" class="label">Query embedding</text><text x="58" y="126" class="tiny">from task / agent state</text>
+  <rect x="240" y="52" width="220" height="250" rx="12" class="ivf"/>
+  <text x="272" y="82" class="label">IVF coarse partitions</text><text x="272" y="104" class="small">probe semantic buckets</text>
+  <rect x="270" y="130" width="160" height="34" rx="6" class="page"/><text x="286" y="152" class="tiny">partition 17</text>
+  <rect x="270" y="176" width="160" height="34" rx="6" class="hot"/><text x="286" y="198" class="tiny">partition 42 (hit)</text>
+  <rect x="270" y="222" width="160" height="34" rx="6" class="hot"/><text x="286" y="244" class="tiny">partition 43 (hit)</text>
+  <rect x="520" y="52" width="170" height="250" rx="12" class="pq"/>
+  <text x="548" y="82" class="label">PQ codes</text><text x="546" y="104" class="small">approx ranking in buckets</text>
+  <rect x="548" y="132" width="112" height="34" rx="6" class="page"/><text x="564" y="154" class="tiny">code -> row 8</text>
+  <rect x="548" y="178" width="112" height="34" rx="6" class="page"/><text x="564" y="200" class="tiny">code -> row 9</text>
+  <rect x="548" y="224" width="112" height="34" rx="6" class="page"/><text x="564" y="246" class="tiny">code -> row 10</text>
+  <rect x="745" y="52" width="140" height="250" rx="12" class="row"/>
+  <text x="780" y="82" class="label">Row IDs</text><text x="766" y="104" class="small">candidate locations</text>
+  <rect x="772" y="132" width="86" height="34" rx="6" class="page"/><text x="792" y="154" class="tiny">row 8</text>
+  <rect x="772" y="178" width="86" height="34" rx="6" class="page"/><text x="792" y="200" class="tiny">row 9</text>
+  <rect x="772" y="224" width="86" height="34" rx="6" class="page"/><text x="789" y="246" class="tiny">row 10</text>
+  <rect x="95" y="350" width="730" height="74" rx="12" class="payload"/>
+  <text x="120" y="380" class="label">Payload column pages / object-store ranges</text><text x="120" y="404" class="small">nearby row ids can be merged into fewer sequential range reads</text>
+  <rect x="500" y="366" width="50" height="34" rx="5" class="hot"/><rect x="556" y="366" width="50" height="34" rx="5" class="hot"/><rect x="612" y="366" width="50" height="34" rx="5" class="hot"/>
+  <text x="512" y="388" class="tiny">8</text><text x="568" y="388" class="tiny">9</text><text x="621" y="388" class="tiny">10</text>
+  <path d="M500 342 L662 342" stroke="#dc2626" stroke-width="4" stroke-linecap="round"/><text x="505" y="333" class="tiny">merged range read</text>
+  <path d="M180 110 C205 110,215 105,240 105" class="arrow"/><path d="M430 193 C470 193,488 193,520 193" class="arrow"/><path d="M660 193 C700 193,715 193,745 193" class="arrow"/><path d="M815 258 C815 320,660 325,630 358" class="dashed"/>
+  <text x="35" y="452" class="small">IVF/PQ decides who the candidates are. Payload layout decides how evidence is fetched. Reorder makes hit row ids more contiguous.</text>
+</svg>

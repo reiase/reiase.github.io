@@ -9,11 +9,12 @@
 <meta content="reiase &lt;reiase@gmail.com&gt;" name="author"/>
 <link href="https://reiase.github.io/2025/10/01/superpod-ai-architecture/" rel="canonical"/>
 <link href="../../../04/28/dist_probe_3/" rel="prev"/>
+<link href="../../../../2026/04/26/llm-storage-requirements/" rel="next"/>
 <link href="../../../../assets/favicon.png" rel="icon"/>
-<meta content="mkdocs-1.6.1, mkdocs-material-9.6.21" name="generator"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.6" name="generator"/>
 <title>深度解析NVIDIA的超节点架构演进 - Overfitting: From Algorithms to Silicon</title>
-<link href="../../../../assets/stylesheets/main.2a3383ac.min.css" rel="stylesheet"/>
-<link href="../../../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Source+Han+Sans+SC:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
 <style>:root{--md-text-font:"Source Han Sans SC";--md-code-font:"Roboto Mono"}</style>
@@ -22,7 +23,7 @@
 <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
 <script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-LMDTYMWWTF"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-LMDTYMWWTF",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-LMDTYMWWTF",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
 <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
-<meta content="深度解析NVIDIA的超节点架构演进" name="title"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/><meta content="website" property="og:type"/><meta content="https://reiase.github.io/2025/10/01/superpod-ai-architecture" property="og:url"/><meta content="深度解析NVIDIA的超节点架构演进" property="og:title"/><meta content="本文深度剖析NVIDIA超节点(SuperPod)的演进，从Hopper到Blackwell架构，详解其核心技术。内容涵盖NVLink、NVSwitch等硬件互联，分析Fat-Tree等网络拓扑，并探讨UVA与PGAS编程模型如何为MoE等未来AI应用提供系统级支持。" property="og:description"/><meta content="../../../../imgs/superpod/%E8%8A%AF%E7%89%87%E4%BA%92%E8%81%94.drawio.svg" property="og:image"/><meta content="summary_large_image" property="twitter:card"/><meta content="https://reiase.github.io/2025/10/01/superpod-ai-architecture" property="twitter:url"/><meta content="深度解析NVIDIA的超节点架构演进" property="twitter:title"/><meta content="本文深度剖析NVIDIA超节点(SuperPod)的演进，从Hopper到Blackwell架构，详解其核心技术。内容涵盖NVLink、NVSwitch等硬件互联，分析Fat-Tree等网络拓扑，并探讨UVA与PGAS编程模型如何为MoE等未来AI应用提供系统级支持。" property="twitter:description"/><meta content="../../../../imgs/superpod/%E8%8A%AF%E7%89%87%E4%BA%92%E8%81%94.drawio.svg" property="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "\u6df1\u5ea6\u89e3\u6790NVIDIA\u7684\u8d85\u8282\u70b9\u67b6\u6784\u6f14\u8fdb", "image": ["../../../../imgs/superpod/%E8%8A%AF%E7%89%87%E4%BA%92%E8%81%94.drawio.svg"], "datePublished": "2025-10-02 22:47:02 +0800", "dateModified": "2025-10-08 00:09:39 +0800", "author": [{"@type": "Organization", "name": "Ultralytics", "url": "https://ultralytics.com/"}], "abstract": "\u672c\u6587\u6df1\u5ea6\u5256\u6790NVIDIA\u8d85\u8282\u70b9(SuperPod)\u7684\u6f14\u8fdb\uff0c\u4eceHopper\u5230Blackwell\u67b6\u6784\uff0c\u8be6\u89e3\u5176\u6838\u5fc3\u6280\u672f\u3002\u5185\u5bb9\u6db5\u76d6NVLink\u3001NVSwitch\u7b49\u786c\u4ef6\u4e92\u8054\uff0c\u5206\u6790Fat-Tree\u7b49\u7f51\u7edc\u62d3\u6251\uff0c\u5e76\u63a2\u8ba8UVA\u4e0ePGAS\u7f16\u7a0b\u6a21\u578b\u5982\u4f55\u4e3aMoE\u7b49\u672a\u6765AI\u5e94\u7528\u63d0\u4f9b\u7cfb\u7edf\u7ea7\u652f\u6301\u3002"}</script> <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+ <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -182,7 +183,11 @@
 <div class="md-nav__link md-nav__container">
 <a class="md-nav__link" href="../../../..">
 <span class="md-ellipsis">
+    
+  
     博客
+  
+
     
   </span>
 </a>
@@ -193,14 +198,22 @@
 <nav aria-expanded="true" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="__nav_1">
 <span class="md-nav__icon md-icon"></span>
-            博客
+            
+  
+    博客
+  
+
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item md-nav__item--section md-nav__item--nested">
 <input class="md-nav__toggle md-toggle" id="__nav_1_2" type="checkbox"/>
 <label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="">
 <span class="md-ellipsis">
+    
+  
     归档
+  
+
     
   </span>
 <span class="md-nav__icon md-icon"></span>
@@ -208,13 +221,33 @@
 <nav aria-expanded="false" aria-labelledby="__nav_1_2_label" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="__nav_1_2">
 <span class="md-nav__icon md-icon"></span>
-            归档
+            
+  
+    归档
+  
+
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="../../../../archive/2026/">
+<span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../../../../archive/2025/">
 <span class="md-ellipsis">
+    
+  
     2025
+  
+
     
   </span>
 </a>
@@ -222,7 +255,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../../archive/2024/">
 <span class="md-ellipsis">
+    
+  
     2024
+  
+
     
   </span>
 </a>
@@ -234,7 +271,11 @@
 <input class="md-nav__toggle md-toggle" id="__nav_1_3" type="checkbox"/>
 <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
 <span class="md-ellipsis">
+    
+  
     分类
+  
+
     
   </span>
 <span class="md-nav__icon md-icon"></span>
@@ -242,13 +283,33 @@
 <nav aria-expanded="false" aria-labelledby="__nav_1_3_label" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="__nav_1_3">
 <span class="md-nav__icon md-icon"></span>
-            分类
+            
+  
+    分类
+  
+
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../../category/ai%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/">
 <span class="md-ellipsis">
+    
+  
     AI基础设施
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/agent/">
+<span class="md-ellipsis">
+    
+  
+    Agent
+  
+
     
   </span>
 </a>
@@ -256,7 +317,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../../category/fp8/">
 <span class="md-ellipsis">
+    
+  
     FP8
+  
+
     
   </span>
 </a>
@@ -264,7 +329,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../../category/llm/">
 <span class="md-ellipsis">
+    
+  
     LLM
+  
+
     
   </span>
 </a>
@@ -272,7 +341,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../../category/rl/">
 <span class="md-ellipsis">
+    
+  
     RL
+  
+
     
   </span>
 </a>
@@ -280,7 +353,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../../category/training/">
 <span class="md-ellipsis">
+    
+  
     Training
+  
+
     
   </span>
 </a>
@@ -288,7 +365,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../../category/training-dynamics/">
 <span class="md-ellipsis">
+    
+  
     Training Dynamics
+  
+
     
   </span>
 </a>
@@ -296,7 +377,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../../category/%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/">
 <span class="md-ellipsis">
+    
+  
     分布式训练
+  
+
     
   </span>
 </a>
@@ -310,7 +395,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../../tags/">
 <span class="md-ellipsis">
+    
+  
     标签
+  
+
     
   </span>
 </a>
@@ -319,7 +408,11 @@
 <input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
 <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
 <span class="md-ellipsis">
+    
+  
     代码片段
+  
+
     
   </span>
 <span class="md-nav__icon md-icon"></span>
@@ -327,13 +420,21 @@
 <nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="__nav_3">
 <span class="md-nav__icon md-icon"></span>
-            代码片段
+            
+  
+    代码片段
+  
+
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../../nodes/AdamW/">
 <span class="md-ellipsis">
+    
+  
     AdamW
+  
+
     
   </span>
 </a>
@@ -341,7 +442,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../../nodes/Importance%20Sampling/">
 <span class="md-ellipsis">
+    
+  
     Importance Sampling
+  
+
     
   </span>
 </a>
@@ -349,7 +454,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../../nodes/Minorize%20Maximization/">
 <span class="md-ellipsis">
+    
+  
     Minorize-Maximization
+  
+
     
   </span>
 </a>
@@ -357,7 +466,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../../nodes/Random%20Round/">
 <span class="md-ellipsis">
+    
+  
     Random Round
+  
+
     
   </span>
 </a>
@@ -365,7 +478,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../../nodes/Scaling%20Law%20%E8%AE%A1%E7%AE%97%E5%99%A8/">
 <span class="md-ellipsis">
+    
+  
     Scaling Law 计算器
+  
+
     
   </span>
 </a>
@@ -373,7 +490,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../../nodes/kaplan%20vs%20chinchilla/">
 <span class="md-ellipsis">
+    
+  
     Kaplan Scaling Law vs Chinchilla Optimal
+  
+
     
   </span>
 </a>
@@ -398,7 +519,9 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#_1">
 <span class="md-ellipsis">
-      什么是超节点
+      
+        什么是超节点
+      
     </span>
 </a>
 <nav aria-label="什么是超节点" class="md-nav">
@@ -406,14 +529,18 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#nvidia">
 <span class="md-ellipsis">
-      NVIDIA超节点产品
+      
+        NVIDIA超节点产品
+      
     </span>
 </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#_2">
 <span class="md-ellipsis">
-      超节点技术趋势分析
+      
+        超节点技术趋势分析
+      
     </span>
 </a>
 </li>
@@ -423,7 +550,9 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#_3">
 <span class="md-ellipsis">
-      超节点硬件系统
+      
+        超节点硬件系统
+      
     </span>
 </a>
 <nav aria-label="超节点硬件系统" class="md-nav">
@@ -431,14 +560,18 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#_4">
 <span class="md-ellipsis">
-      硬件互联技术
+      
+        硬件互联技术
+      
     </span>
 </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#_5">
 <span class="md-ellipsis">
-      电互联关键技术基础
+      
+        电互联关键技术基础
+      
     </span>
 </a>
 <nav aria-label="电互联关键技术基础" class="md-nav">
@@ -446,21 +579,27 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#laneserdes">
 <span class="md-ellipsis">
-      基础物理单元：Lane与SerDes
+      
+        基础物理单元：Lane与SerDes
+      
     </span>
 </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#oif-cei">
 <span class="md-ellipsis">
-      标准化接口：OIF-CEI规范
+      
+        标准化接口：OIF-CEI规范
+      
     </span>
 </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#cei">
 <span class="md-ellipsis">
-      主流协议的CEI实现
+      
+        主流协议的CEI实现
+      
     </span>
 </a>
 </li>
@@ -470,7 +609,9 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#_6">
 <span class="md-ellipsis">
-      电互联交换芯片的演进
+      
+        电互联交换芯片的演进
+      
     </span>
 </a>
 <nav aria-label="电互联交换芯片的演进" class="md-nav">
@@ -478,14 +619,18 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#_7">
 <span class="md-ellipsis">
-      数据中心网络交换芯片
+      
+        数据中心网络交换芯片
+      
     </span>
 </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#gpunvswitch">
 <span class="md-ellipsis">
-      GPU专用交换芯片：NVSwitch
+      
+        GPU专用交换芯片：NVSwitch
+      
     </span>
 </a>
 </li>
@@ -495,7 +640,9 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#_8">
 <span class="md-ellipsis">
-      互联拓扑
+      
+        互联拓扑
+      
     </span>
 </a>
 </li>
@@ -505,7 +652,9 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#_9">
 <span class="md-ellipsis">
-      软件系统
+      
+        软件系统
+      
     </span>
 </a>
 <nav aria-label="软件系统" class="md-nav">
@@ -513,21 +662,27 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#gpu">
 <span class="md-ellipsis">
-      现代GPU访存体系
+      
+        现代GPU访存体系
+      
     </span>
 </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#_10">
 <span class="md-ellipsis">
-      超节点访存体系
+      
+        超节点访存体系
+      
     </span>
 </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#_11">
 <span class="md-ellipsis">
-      软件编程模型
+      
+        软件编程模型
+      
     </span>
 </a>
 <nav aria-label="软件编程模型" class="md-nav">
@@ -535,14 +690,18 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#spmd-bsp">
 <span class="md-ellipsis">
-      主流范式及其瓶颈：SPMD 与 BSP
+      
+        主流范式及其瓶颈：SPMD 与 BSP
+      
     </span>
 </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#pgas">
 <span class="md-ellipsis">
-      PGAS 与混合编程
+      
+        PGAS 与混合编程
+      
     </span>
 </a>
 </li>
@@ -555,7 +714,9 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#_12">
 <span class="md-ellipsis">
-      参考文献
+      
+        参考文献
+      
     </span>
 </a>
 </li>
@@ -1011,9 +1172,9 @@
 </tr>
 </tbody>
 </table>
-<p><small><br/>
-<em>注：NRZ (Non-Return-to-Zero) 每符号传输 1 bit 数据，PAM4 (Pulse Amplitude Modulation 4-level) 每符号传输 2 bit 数据，在相同波特率下可实现双倍数据速率。</em><br/>
-</small></p>
+<p><small><br>
+<em>注：NRZ (Non-Return-to-Zero) 每符号传输 1 bit 数据，PAM4 (Pulse Amplitude Modulation 4-level) 每符号传输 2 bit 数据，在相同波特率下可实现双倍数据速率。</em><br>
+</br></br></small></p>
 <p>OIF-CEI规范通常5-6年更新一代，每次发布新版本时速率翻倍。但上文提到的时间为定稿时间，在定稿前行业内就会有较多的讨论和实现，因此不能完全以规范的时间来推测相关产品的面世时间。</p>
 <h3 id="_6">电互联交换芯片的演进<a class="headerlink" href="#_6" title="Permanent link">¶</a></h3>
 <p>交换芯片(Switch ASIC)是构建互联网络的核心，其交换容量和SerDes速率直接决定网络总带宽和端口密度。根据应用场景不同，主要分为数据中心网络交换芯片和GPU专用交换芯片两类。</p>
@@ -1074,9 +1235,9 @@
 </tr>
 </tbody>
 </table>
-<p><small><br/>
-<em>注：上表中的“4-Lane 端口”指由 4 个 SerDes 通道组成的逻辑端口，在常见的国产GPU厂商中比较常见此种配置。例如，一个 100G 端口由 4x25G 组成，一个 400G 端口可由 4x100G 组成。随着 SerDes 速率翻倍，单芯片的总交换容量和端口速率也随之翻倍，这是网络技术演进的核心驱动力。</em><br/>
-</small></p>
+<p><small><br>
+<em>注：上表中的“4-Lane 端口”指由 4 个 SerDes 通道组成的逻辑端口，在常见的国产GPU厂商中比较常见此种配置。例如，一个 100G 端口由 4x25G 组成，一个 400G 端口可由 4x100G 组成。随着 SerDes 速率翻倍，单芯片的总交换容量和端口速率也随之翻倍，这是网络技术演进的核心驱动力。</em><br>
+</br></br></small></p>
 <p>Broadcom的高端交换芯片通常两年一代，交换容量翻倍。而从芯片产品面世到广泛被交换机使用，大约也需要1-2年时间。此外，从Broadcom芯片规格的发展也能看出，行业领先厂商对CEI标准的实现和落地通常会先于规范的正式定稿。</p>
 <h4 id="gpunvswitch">GPU专用交换芯片：NVSwitch<a class="headerlink" href="#gpunvswitch" title="Permanent link">¶</a></h4>
 <p>NVSwitch 负责在单机或机柜域内构建 GPU 全互连（all-to-all / non-blocking）通信结构，其能力随 NVLink 代际一起提升。提升路径主要有两种：增加每 GPU 可用的 NVLink 数量（link fan-out）与提高单条 NVLink 的速率。下表采用 “GB/s (双向)” 口径（NVIDIA 官方常用聚合带宽，等于 2 × 单方向带宽；1 GB/s ≈ 8 Gb/s）。本表中：† 表示来自官方白皮书 / 数据手册 / Keynote；* 表示根据公开演讲、产品图片、拓扑描述或带宽反推的推测/半推测值；未标记默认为公开资料已多点交叉验证。</p>
@@ -1156,14 +1317,14 @@
 </tr>
 </tbody>
 </table>
-<p><small><br/>
-说明：</small></p>
+<p><small><br>
+说明：</br></small></p>
 <ol>
 <li>“每 Link 双向带宽”遵循 NVIDIA 常用口径（聚合双向）。</li>
 <li>Lane 数由于官方文档通常未直接公布，表中以 * 标示；其值通过已知总带宽、单 Lane 速率与历代封装约束反向推断。如未来出现官方差异数据，应以官方为准。</li>
 <li>“最大 NVLink 域”指官方在对应代际提及的（或 Keynote 展示的）最大可支持互联规模；Blackwell 576 带 * 为推测（推断自 72×GB200 NVL72 单元 × 互联分层聚合）。</li>
-<li>Volta 时代 NVLink 2.0 在 NVSwitch 中实现的 Fan-out、Lane 数量公开资料缺少直接原始表格，使用多来源拆解/演讲交叉验证。<br/>
-</li>
+<li>Volta 时代 NVLink 2.0 在 NVSwitch 中实现的 Fan-out、Lane 数量公开资料缺少直接原始表格，使用多来源拆解/演讲交叉验证。<br>
+</br></li>
 </ol>
 <h3 id="_8">互联拓扑<a class="headerlink" href="#_8" title="Permanent link">¶</a></h3>
 <p>互联拓扑定义了计算节点（或GPU）间的物理连接方式与逻辑结构，它直接决定了整个系统的通信性能，包括带宽、延迟、扩展性和成本。在超节点架构中，选择合适的拓扑是构建高效、无阻塞通信域的基石。当前主流技术路径为电子分组交换（Electronic Packet Switching，EPS），而光学电路交换（Optical Circuit Switching，OCS）作为前沿方向也备受关注。我们首先以最为常见的 <strong>Full Mesh拓扑</strong> 为例来分析GPU的互联拓扑，以及互联拓扑有哪些关键性质。</p>
@@ -1302,11 +1463,11 @@
     C --&gt; E[分配 Peer ID]
     D --&gt; E</code></pre>
 <ol start="2">
-<li><strong>Aperture选择与地址映射</strong> ：驱动程序分配UVA地址，并根据连接类型选择不同的Aperture通道：<br/>
-   - <strong>本地显存 (VID Memory)</strong> ：同一GPU内的内存访问<br/>
-   - <strong>对等内存 (Peer Memory)</strong> ：通过NVLink直接访问远程GPU显存<br/>
-   - <strong>系统内存 (SYS Memory)</strong> ：通过PCIe访问CPU主存<br/>
-   - <strong>Fabric内存</strong> ：在NVSwitch环境下的专用地址空间</li>
+<li><strong>Aperture选择与地址映射</strong> ：驱动程序分配UVA地址，并根据连接类型选择不同的Aperture通道：<br>
+   - <strong>本地显存 (VID Memory)</strong> ：同一GPU内的内存访问<br>
+   - <strong>对等内存 (Peer Memory)</strong> ：通过NVLink直接访问远程GPU显存<br>
+   - <strong>系统内存 (SYS Memory)</strong> ：通过PCIe访问CPU主存<br>
+   - <strong>Fabric内存</strong> ：在NVSwitch环境下的专用地址空间</br></br></br></br></li>
 <li><strong>硬件透明的远程访存</strong> ：当CUDA Kernel访问虚拟地址时，GPU MMU自动完成地址翻译和路由。硬件MMU通常提供4-5级页表，支持4K-128K页大小。考虑到MMU页表中的地址可能并非全部是内存地址，也包含部分IO地址。因此GPU MMU的表项也会标识是否支持缓存一致性。</li>
 </ol>
 <p>以下是GPU上访问UVA地址的流程：</p>
@@ -1330,8 +1491,8 @@
     RemoteGPU--&gt;&gt;RemoteGPU: 5. 访问本地物理显存
     Note right of RemoteGPU: 数据被读取/写入
     RemoteGPU--&gt;&gt;App: 6. (经由硬件)返回结果
-    deactivate RemoteGPU</code></pre><br/>
-UVA在节点内实现的编程透明性与硬件高效性，为构建更大规模、跨节点的统一地址空间奠定了范式基础。随着硬件演进，软件侧的地址模型与编程范式也在逐步向CPU成熟的体系靠拢。总体趋势是：CPU与OS内核正从“关键数据路径”中解放出来，转而扮演“控制平面”的角色，通过配置虚拟地址与MMU来管理访存与通信，而非直接参与每一次操作。</p>
+    deactivate RemoteGPU</code></pre><br>
+UVA在节点内实现的编程透明性与硬件高效性，为构建更大规模、跨节点的统一地址空间奠定了范式基础。随着硬件演进，软件侧的地址模型与编程范式也在逐步向CPU成熟的体系靠拢。总体趋势是：CPU与OS内核正从“关键数据路径”中解放出来，转而扮演“控制平面”的角色，通过配置虚拟地址与MMU来管理访存与通信，而非直接参与每一次操作。</br></p>
 <h3 id="_10">超节点访存体系<a class="headerlink" href="#_10" title="Permanent link">¶</a></h3>
 <p>传统的UVA和PCIe P2P机制的边界仅限于单个PCIe根联合体（Root Complex），无法原生支持跨物理服务器节点的直接访存。以下是PCIe总线上节点内部的访存体系：</p>
 <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../../../../imgs/superpod/MMIO.drawio.svg"><img alt="mmio" src="../../../../imgs/superpod/MMIO.drawio.svg"/></a></p>
@@ -1402,8 +1563,8 @@ UVA在节点内实现的编程透明性与硬件高效性，为构建更大规�
 <hr/>
 <ol>
 <li id="fn:gh200">
-<p><a href="https://resources.nvidia.com/en-us-data-center-overview-mc/en-us-data-center-overview/grace-hopper-superchip-datasheet-partner">NVIDIA GH200 Grace Hopper<br/>
-Superchip</a> <a class="footnote-backref" href="#fnref:gh200" title="Jump back to footnote 1 in the text">↩</a></p>
+<p><a href="https://resources.nvidia.com/en-us-data-center-overview-mc/en-us-data-center-overview/grace-hopper-superchip-datasheet-partner">NVIDIA GH200 Grace Hopper<br>
+Superchip</br></a> <a class="footnote-backref" href="#fnref:gh200" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
 <li id="fn:gb200">
 <p><a href="https://resources.nvidia.com/en-us-dgx-systems/dgx-superpod-gb200-datasheet">NVIDIA DGX GB200</a> <a class="footnote-backref" href="#fnref:gb200" title="Jump back to footnote 2 in the text">↩</a><a class="footnote-backref" href="#fnref2:gb200" title="Jump back to footnote 2 in the text">↩</a></p>
@@ -1457,15 +1618,6 @@ Superchip</a> <a class="footnote-backref" href="#fnref:gh200" title="Jump back 
 <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2025年10月2日</span>
 </span>
 </aside>
-<div class="share-buttons">
-<button class="share-button hover-item" onclick="window.open('https://twitter.com/intent/tweet?url=https://reiase.github.io/2025/10/01/superpod-ai-architecture', 'TwitterShare', 'width=550,height=680,menubar=no,toolbar=no'); return false;">
-<i class="fa-brands fa-x-twitter"></i> Tweet
-    </button>
-<button class="share-button hover-item linkedin" onclick="window.open('https://www.linkedin.com/shareArticle?url=https://reiase.github.io/2025/10/01/superpod-ai-architecture', 'LinkedinShare', 'width=550,height=730,menubar=no,toolbar=no'); return false;">
-<i class="fa-brands fa-linkedin-in"></i> Share
-    </button>
-</div>
-<br/>
 <h2 id="__comments">评论</h2>
 <script async="" crossorigin="anonymous" data-category="[在此输入分类名]" data-category-id="[在此输入分类 ID]" data-emit-metadata="0" data-input-position="bottom" data-lang="zh-CN" data-mapping="pathname" data-reactions-enabled="1" data-repo="reiase/reiase.github.io" data-repo-id="R_kgDOHRMrag" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
 </script>
@@ -1528,6 +1680,19 @@ Superchip</a> <a class="footnote-backref" href="#fnref:gh200" title="Jump back 
               </div>
 </div>
 </a>
+<a aria-label="下一页: 从 Agentic Search 看大模型时代的存储优化" class="md-footer__link md-footer__link--next" href="../../../../2026/04/26/llm-storage-requirements/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                下一页
+              </span>
+<div class="md-ellipsis">
+                从 Agentic Search 看大模型时代的存储优化
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+</div>
+</a>
 </nav>
 <div class="md-footer-meta md-typeset">
 <div class="md-footer-meta__inner md-grid">
@@ -1544,7 +1709,7 @@ Superchip</a> <a class="footnote-backref" href="#fnref:gh200" title="Jump back 
 </div>
 <div class="md-social">
 <a class="md-social__link" href="https://github.com/reiase" rel="noopener" target="_blank" title="github.com">
-<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
 </a>
 </div>
 </div>
@@ -1554,8 +1719,8 @@ Superchip</a> <a class="footnote-backref" href="#fnref:gh200" title="Jump back 
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "../../../..", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.tabs", "navigation.sections", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
-<script src="../../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.tabs", "navigation.sections", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
 <script src="../../../../assets/_markdown_exec_pyodide.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
 <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});

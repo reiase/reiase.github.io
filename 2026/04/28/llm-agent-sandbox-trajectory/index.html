@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="本文从大模型蒸馏、RL 到 OPD 的训练范式出发，讨论轨迹为何成为模型能力迭代的核心数据形态，并进一步分析环境与沙箱系统如何决定轨迹生产的规模、质量、可复现性与安全边界。" name="description"/>
+<meta content="reiase &lt;reiase@gmail.com&gt;" name="author"/>
+<link href="https://reiase.github.io/2026/04/28/llm-agent-sandbox-trajectory/" rel="canonical"/>
+<link href="../../26/llm-storage-requirements/" rel="prev"/>
+<link href="../../../../assets/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.6" name="generator"/>
+<title>环境与沙箱系统：从轨迹到智能体训练基础设施 - Overfitting: From Algorithms to Silicon</title>
+<link href="../../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"JetBrains Mono"}</style>
+<link href="../../../../assets/_markdown_exec_pyodide.css" rel="stylesheet"/>
+<link href="../../../../css/heti.css" rel="stylesheet"/>
+<link href="../../../../extra.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-LMDTYMWWTF"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-LMDTYMWWTF",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-LMDTYMWWTF",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+<link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#rl">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Overfitting: From Algorithms to Silicon" class="md-header__button md-logo" data-md-component="logo" href="../../../.." title="Overfitting: From Algorithms to Silicon">
+<svg viewbox="0 0 89 89" xmlns="http://www.w3.org/2000/svg">
+<path d="M3.136,17.387l0,42.932l42.932,21.467l-42.932,-64.399Z"></path>
+<path d="M21.91,8l42.933,64.398l-18.775,9.388l-42.932,-64.399l18.774,-9.387Z" style="fill-opacity: 0.5"></path>
+<path d="M67.535,17.387l-27.262,18.156l21.878,32.818l5.384,2.691l0,-53.665Z"></path>
+<path d="M67.535,17.387l0,53.666l18.774,-9.388l0,-53.665l-18.774,9.387Z" style="fill-opacity: 0.25"></path>
+</svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Overfitting: From Algorithms to Silicon
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              环境与沙箱系统：从轨迹到智能体训练基础设施
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="indigo" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="indigo" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<a aria-label="分享" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="分享">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../../..">
+          
+  
+  
+    
+  
+  博客
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../tags/">
+        
+  
+  
+    
+  
+  标签
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../../nodes/AdamW/">
+          
+  
+  
+    
+  
+  代码片段
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden="">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Overfitting: From Algorithms to Silicon" class="md-nav__button md-logo" data-md-component="logo" href="../../../.." title="Overfitting: From Algorithms to Silicon">
+<svg viewbox="0 0 89 89" xmlns="http://www.w3.org/2000/svg">
+<path d="M3.136,17.387l0,42.932l42.932,21.467l-42.932,-64.399Z"></path>
+<path d="M21.91,8l42.933,64.398l-18.775,9.388l-42.932,-64.399l18.774,-9.387Z" style="fill-opacity: 0.5"></path>
+<path d="M67.535,17.387l-27.262,18.156l21.878,32.818l5.384,2.691l0,-53.665Z"></path>
+<path d="M67.535,17.387l0,53.666l18.774,-9.388l0,-53.665l-18.774,9.387Z" style="fill-opacity: 0.25"></path>
+</svg>
+</a>
+    Overfitting: From Algorithms to Silicon
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../../..">
+<span class="md-ellipsis">
+    
+  
+    博客
+  
+
+    
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    博客
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_2" id="__nav_1_2_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    归档
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    归档
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../archive/2026/">
+<span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../archive/2025/">
+<span class="md-ellipsis">
+    
+  
+    2025
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../archive/2024/">
+<span class="md-ellipsis">
+    
+  
+    2024
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+<span class="md-ellipsis">
+    
+  
+    分类
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    分类
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/ai%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/">
+<span class="md-ellipsis">
+    
+  
+    AI基础设施
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/agent/">
+<span class="md-ellipsis">
+    
+  
+    Agent
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/fp8/">
+<span class="md-ellipsis">
+    
+  
+    FP8
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/llm/">
+<span class="md-ellipsis">
+    
+  
+    LLM
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/rl/">
+<span class="md-ellipsis">
+    
+  
+    RL
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/training/">
+<span class="md-ellipsis">
+    
+  
+    Training
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/training-dynamics/">
+<span class="md-ellipsis">
+    
+  
+    Training Dynamics
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../category/%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%AD%E7%BB%83/">
+<span class="md-ellipsis">
+    
+  
+    分布式训练
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../tags/">
+<span class="md-ellipsis">
+    
+  
+    标签
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    代码片段
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    代码片段
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../nodes/AdamW/">
+<span class="md-ellipsis">
+    
+  
+    AdamW
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../nodes/Importance%20Sampling/">
+<span class="md-ellipsis">
+    
+  
+    Importance Sampling
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../nodes/Minorize%20Maximization/">
+<span class="md-ellipsis">
+    
+  
+    Minorize-Maximization
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../nodes/Random%20Round/">
+<span class="md-ellipsis">
+    
+  
+    Random Round
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../nodes/Scaling%20Law%20%E8%AE%A1%E7%AE%97%E5%99%A8/">
+<span class="md-ellipsis">
+    
+  
+    Scaling Law 计算器
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../nodes/kaplan%20vs%20chinchilla/">
+<span class="md-ellipsis">
+    
+  
+    Kaplan Scaling Law vs Chinchilla Optimal
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content md-content--post" data-md-component="content">
+<div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner md-post">
+<nav class="md-nav md-nav--primary">
+<div class="md-post__back">
+<div class="md-nav__title md-nav__container">
+<a class="md-nav__link" href="../../../..">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+<span class="md-ellipsis">
+                    回到主页
+                  </span>
+</a>
+</div>
+</div>
+<ul class="md-post__meta md-nav__list">
+<li class="md-nav__item md-nav__item--section">
+<div class="md-post__title">
+<span class="md-ellipsis">
+                    元数据
+                  </span>
+</div>
+<nav class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"></path></svg>
+<time class="md-ellipsis" datetime="2026-04-28 00:00:00+00:00">2026年4月28日</time>
+</div>
+</li>
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"></path></svg>
+<span class="md-ellipsis">
+                            分类于
+                            
+                              <a href="../../../../category/llm/">LLM</a>, 
+                              <a href="../../../../category/ai%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/">AI基础设施</a>, 
+                              <a href="../../../../category/agent/">Agent</a></span>
+</div>
+</li>
+<li class="md-nav__item">
+<div class="md-nav__link">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"></path></svg>
+<span class="md-ellipsis">
+                            
+                              需要 6 分钟阅读时间
+                            
+                          </span>
+</div>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rl">
+<span class="md-ellipsis">
+      
+        从蒸馏到 RL：训练对象从答案走向过程
+      
+    </span>
+</a>
+<nav aria-label="从蒸馏到 RL：训练对象从答案走向过程" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_1">
+<span class="md-ellipsis">
+      
+        蒸馏：把强模型的行为压缩进弱模型
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rl_1">
+<span class="md-ellipsis">
+      
+        RL：让模型在环境反馈中学习策略
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rl-sft">
+<span class="md-ellipsis">
+      
+        从 RL 轨迹回流到 SFT
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#opd">
+<span class="md-ellipsis">
+      
+        OPD：在模型自己的分布上融合多个专家
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_2">
+<span class="md-ellipsis">
+      
+        轨迹、环境与沙箱：从数据形态到生产边界
+      
+    </span>
+</a>
+<nav aria-label="轨迹、环境与沙箱：从数据形态到生产边界" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_3">
+<span class="md-ellipsis">
+      
+        轨迹：从静态知识到动态行为
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_4">
+<span class="md-ellipsis">
+      
+        环境：让轨迹从生成文本变成真实反馈
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_5">
+<span class="md-ellipsis">
+      
+        沙箱：让真实环境可以安全规模化
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_6">
+<span class="md-ellipsis">
+      
+        如何基于沙箱生产轨迹
+      
+    </span>
+</a>
+<nav aria-label="如何基于沙箱生产轨迹" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rollout">
+<span class="md-ellipsis">
+      
+        轨迹采集层：Rollout 流程与数据形态
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_7">
+<span class="md-ellipsis">
+      
+        沙箱运行时层：性能、隔离与功能覆盖
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_8">
+<span class="md-ellipsis">
+      
+        调度平台层：规模、恢复与平台化
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_9">
+<span class="md-ellipsis">
+      
+        轨迹湖、检索分析与训练回流
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_10">
+<span class="md-ellipsis">
+      
+        结语：训练智能体，就是生产高质量轨迹
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<article class="md-content__inner md-typeset">
+<nav class="md-tags">
+<a class="md-tag" href="../../../../tags/#tag:ai基础设施">AI基础设施</a>
+<a class="md-tag" href="../../../../tags/#tag:agent">Agent</a>
+<a class="md-tag" href="../../../../tags/#tag:distillation">Distillation</a>
+<a class="md-tag" href="../../../../tags/#tag:llm">LLM</a>
+<a class="md-tag" href="../../../../tags/#tag:rl">RL</a>
+<a class="md-tag" href="../../../../tags/#tag:sandbox">Sandbox</a>
+</nav>
+<h1>环境与沙箱系统：从轨迹到智能体训练基础设施</h1>
+<p><em>本文为原创文章，版权归作者所有。未经许可，禁止转载。</em></p>
+<p>大模型训练最早给人的印象是“喂文本”。预训练阶段，模型从大规模语料中学习语言、知识和世界规律；<span>SFT<span class="heti-spacing"> </span></span>阶段，模型从人工标注的指令数据中学习如何回答问题。这个视角在早期足够有效，因为模型要学的主要是输入到输出的映射：给定一段<span><span class="heti-spacing"> </span>prompt</span>，生成一段符合人类偏好的<span><span class="heti-spacing"> </span>response</span>。</p>
+<p>但当模型开始具备推理、工具调用、代码修改、网页浏览和长程任务执行能力后，训练对象发生了变化。模型最终说了什么不再是最重要的问题。更值得关心的是它<span class="heti-skip"><span class="heti-spacing"> </span>**<span class="heti-spacing"> </span></span>如何一步一步到达结果<span><span class="heti-spacing"> </span>**</span>——查了哪些信息，调用了什么工具，执行了哪些命令，观察到什么反馈，在哪一步修正了计划，又是如何判断任务已经完成的。</p>
+<p>这些过程合在一起，就是轨迹。</p>
+<!-- more -->
+<p>轨迹不是普通的日志。日志记录系统发生了什么，轨迹记录一个智能体如何行动、观察、决策和学习。对于今天的<span class="heti-skip"><span class="heti-spacing"> </span>Agent<span class="heti-spacing"> </span></span>模型来说，轨迹正在变成和语料同等重要，甚至更接近能力本身的数据形态。</p>
+<h2 id="rl">从蒸馏到<span><span class="heti-spacing"> </span>RL</span>：训练对象从答案走向过程<a class="headerlink" href="#rl" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<h3 id="_1">蒸馏：把强模型的行为压缩进弱模型<a class="headerlink" href="#_1" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>蒸馏的基本思想：让一个较小或较便宜的学生模型，学习一个更强教师模型的输出。早期蒸馏常常发生在<span class="heti-skip"><span class="heti-spacing"> </span>token<span class="heti-spacing"> </span></span>或<span class="heti-skip"><span class="heti-spacing"> </span>response<span class="heti-spacing"> </span></span>层面。教师模型给出答案，学生模型学习这个答案的分布，尽量在相同输入下复现教师的行为。</p>
+<p>如果任务只是问答、总结、分类或简单代码生成，最终答案本身就包含了大量监督信号。模型只要学会在给定输入下输出类似答案，就能获得可见提升。</p>
+<p>但对于复杂推理任务，最终答案往往太稀疏。一个数学题最后只有一个数字，一个代码任务最后只有一个<span><span class="heti-spacing"> </span>patch</span>，一个搜索任务最后只有一段结论。只看最终结果，学生模型很难知道教师模型中间经历了什么：它是如何拆解问题的，哪些路径被排除了，哪些证据被采纳了，哪些工具调用真正推动了任务进展。</p>
+<p>这也是为什么<span><span class="heti-spacing"> </span>reasoning trace</span>、tool trace、<span>execution trace<span class="heti-spacing"> </span></span>会变得重要。蒸馏不再只是蒸馏答案，而是在蒸馏一种行为模式：面对复杂任务时，模型如何分解、探索、验证和收敛。</p>
+<h3 id="rl_1">RL：让模型在环境反馈中学习策略<a class="headerlink" href="#rl_1" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>RL<span class="heti-spacing"> </span></span>进一步改变了训练问题。在<span class="heti-skip"><span class="heti-spacing"> </span>SFT<span class="heti-spacing"> </span></span>或蒸馏中，数据通常先被生产出来，模型再学习这些数据；而在<span class="heti-skip"><span class="heti-spacing"> </span>RL<span class="heti-spacing"> </span></span>中，模型要自己和环境交互，生成行动序列，再根据奖励信号更新策略。</p>
+<p>这时，轨迹就不只是训练材料，而是训练过程本身。一次<span class="heti-skip"><span class="heti-spacing"> </span>rollout<span class="heti-spacing"> </span></span>可以被看成：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a>state -&gt; action -&gt; observation -&gt; action -&gt; observation -&gt; ... -&gt; reward
+</span></code></pre></div>
+<p>在大模型场景中，这条链路可以具体化为：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a>prompt
+</span><span id="__span-1-2"><a href="#__codelineno-1-2" id="__codelineno-1-2" name="__codelineno-1-2"></a>  -&gt; model thought / plan
+</span><span id="__span-1-3"><a href="#__codelineno-1-3" id="__codelineno-1-3" name="__codelineno-1-3"></a>  -&gt; tool call
+</span><span id="__span-1-4"><a href="#__codelineno-1-4" id="__codelineno-1-4" name="__codelineno-1-4"></a>  -&gt; environment result
+</span><span id="__span-1-5"><a href="#__codelineno-1-5" id="__codelineno-1-5" name="__codelineno-1-5"></a>  -&gt; updated context
+</span><span id="__span-1-6"><a href="#__codelineno-1-6" id="__codelineno-1-6" name="__codelineno-1-6"></a>  -&gt; next action
+</span><span id="__span-1-7"><a href="#__codelineno-1-7" id="__codelineno-1-7" name="__codelineno-1-7"></a>  -&gt; final answer
+</span><span id="__span-1-8"><a href="#__codelineno-1-8" id="__codelineno-1-8" name="__codelineno-1-8"></a>  -&gt; verifier / reward
+</span></code></pre></div>
+<p><span>RL<span class="heti-spacing"> </span></span>的关键不是“奖励最终答案”，而是通过大量轨迹估计哪些行为更可能带来高质量结果。对于数学、代码、搜索、网页操作、软件工程任务来说，模型能力来自反复经历完整任务过程，而不是只背下正确答案。</p>
+<p>这也解释了为什么<span class="heti-skip"><span class="heti-spacing"> </span>Agent<span class="heti-spacing"> </span></span>训练天然依赖环境。没有环境，模型只能生成看似合理的动作；有了环境，动作才会变成可执行事件，随后产生真实反馈。代码能不能编译、测试是否通过、网页按钮是否存在、搜索证据是否支持结论、文件修改是否破坏已有逻辑，这些都不是模型自己凭空判断出来的，而是环境返回给它的。</p>
+<h3 id="rl-sft">从<span class="heti-skip"><span class="heti-spacing"> </span>RL<span class="heti-spacing"> </span></span>轨迹回流到<span><span class="heti-spacing"> </span>SFT</span><a class="headerlink" href="#rl-sft" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p><span>RL<span class="heti-spacing"> </span></span>轨迹回流到<span class="heti-skip"><span class="heti-spacing"> </span>SFT<span class="heti-spacing"> </span></span>还有一层意义：<span>RL<span class="heti-spacing"> </span></span>不只是一种直接优化模型策略的方法，也可以变成一种高质量轨迹生产机制。<span>DeepSeek-V3<span class="heti-spacing"> </span></span>的技术报告中已经体现了这个思路：先通过<span class="heti-skip"><span class="heti-spacing"> </span>RL<span class="heti-spacing"> </span></span>让模型在任务中探索，产生带有推理过程、行动路径和验证结果的高质量轨迹；再把这些轨迹筛选、整理成<span class="heti-skip"><span class="heti-spacing"> </span>SFT<span class="heti-spacing"> </span></span>数据，回流给模型做监督微调。</p>
+<p><span>SFT<span class="heti-spacing"> </span></span>因此不再完全依赖人类从零书写示范，也不只是学习强模型给出的最终答案。<span>RL<span class="heti-spacing"> </span></span>在这里扮演了“搜索器”的角色：它在巨大的行为空间里探索哪些推理路径、工具使用方式和解题步骤真的有效；<span>SFT<span class="heti-spacing"> </span></span>则把这些被验证过的行为压缩成更稳定、更便宜、更容易学习的数据分布。</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a>Base Model
+</span><span id="__span-2-2"><a href="#__codelineno-2-2" id="__codelineno-2-2" name="__codelineno-2-2"></a>  -&gt; RL Exploration
+</span><span id="__span-2-3"><a href="#__codelineno-2-3" id="__codelineno-2-3" name="__codelineno-2-3"></a>  -&gt; Successful / High-Reward Trajectories
+</span><span id="__span-2-4"><a href="#__codelineno-2-4" id="__codelineno-2-4" name="__codelineno-2-4"></a>  -&gt; Filtering and Formatting
+</span><span id="__span-2-5"><a href="#__codelineno-2-5" id="__codelineno-2-5" name="__codelineno-2-5"></a>  -&gt; SFT Dataset
+</span><span id="__span-2-6"><a href="#__codelineno-2-6" id="__codelineno-2-6" name="__codelineno-2-6"></a>  -&gt; Model with Internalized Capability
+</span></code></pre></div>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../../../../imgs/sandbox/trajectory-training-loop.svg"><img alt="RL 轨迹回流为 SFT 与 OPD 训练数据" src="../../../../imgs/sandbox/trajectory-training-loop.svg" width="100%"/></a></p>
+<p>这条路径解释了为什么轨迹会成为能力迁移的中间形态。<span>RL<span class="heti-spacing"> </span></span>负责在环境和奖励中发现能力，<span>SFT<span class="heti-spacing"> </span></span>负责把能力固化到模型参数中。模型最后看起来像是“学会了某种推理能力”，但这背后并不是凭空出现的，而是大量可验证轨迹被反复生产、筛选和蒸馏的结果。</p>
+<h3 id="opd">OPD：在模型自己的分布上融合多个专家<a class="headerlink" href="#opd" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>OPD，也就是<span><span class="heti-spacing"> </span>On-Policy Distillation</span>，是蒸馏和<span class="heti-skip"><span class="heti-spacing"> </span>RL<span class="heti-spacing"> </span></span>之间的一种连接。传统蒸馏常常让学生学习教师在固定数据上的输出，而<span class="heti-skip"><span class="heti-spacing"> </span>OPD<span class="heti-spacing"> </span></span>更强调在学生自己的生成轨迹上学习教师分布。也就是说，学生不是只看静态题库，而是在自己会走到的状态上，接受一个或多个教师模型的指导。</p>
+<p>这个变化改变了训练问题的结构。对于复杂任务，学生模型和教师模型看到的状态分布可能并不一致。教师模型可能一步就走到高质量路径，而学生模型会走到更多中间状态、错误状态、犹豫状态和偏离状态。如果只在教师轨迹上蒸馏，学生一旦偏离教师路径，就可能不知道如何恢复。</p>
+<p><span>OPD<span class="heti-spacing"> </span></span>的价值在于：让教师在学生真实会进入的状态上提供监督。它不只教学生“理想情况下应该怎么做”，也教学生“当你已经走到这里，下一步应该如何修正”。</p>
+<p>从这个角度看，轨迹质量直接决定<span class="heti-skip"><span class="heti-spacing"> </span>OPD<span class="heti-spacing"> </span></span>的上限。轨迹必须覆盖足够多真实状态，包含足够丰富的任务分布，并保留能让教师、奖励模型或<span class="heti-skip"><span class="heti-spacing"> </span>verifier<span class="heti-spacing"> </span></span>判断质量的上下文。如果轨迹只有最终答案，<span>OPD<span class="heti-spacing"> </span></span>能学到的只是表面行为；如果轨迹保留了完整的<span><span class="heti-spacing"> </span>action</span>、observation、环境状态和验证结果，它就能成为模型策略改进的细粒度材料。</p>
+<h2 id="_2">轨迹、环境与沙箱：从数据形态到生产边界<a class="headerlink" href="#_2" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>如果沿着前面的训练范式继续往下看，轨迹的重要性并不只在算法层面。它同时改变了数据、环境和基础设施的组织方式。数据不再只是静态样本，环境不再只是评测工具，沙箱也不再只是安全容器。三者组合起来，才构成了智能体能力生产的基本单元。</p>
+<h3 id="_3">轨迹：从静态知识到动态行为<a class="headerlink" href="#_3" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>轨迹的重要性，可以从三个层面理解。</p>
+<p>第一，轨迹把能力从静态知识变成动态行为。预训练语料告诉模型世界上有什么，指令数据告诉模型人类希望它怎么回答，而轨迹告诉模型在一个变化的环境中如何行动。<span>Agent<span class="heti-spacing"> </span></span>能力本质上不是单次生成能力，而是跨多轮状态转移的决策能力。</p>
+<p>第二，轨迹把结果和原因连接起来。一个任务成功或失败，往往不是由最后一句话决定的，而是由之前几十步选择共同决定的。没有轨迹，我们只能看到成功率；有了轨迹，才能分析失败发生在哪个环节：是计划错了，工具用错了，证据没读懂，测试没跑，还是环境状态被污染了。</p>
+<p>第三，轨迹是可复用的训练资产。同一条高质量轨迹可以用于<span><span class="heti-spacing"> </span>SFT</span>、偏好建模、<span>RL reward<span class="heti-spacing"> </span></span>设计、OPD、错误分析、<span>benchmark regression<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>harness<span class="heti-spacing"> </span></span>改进。它既是样本，也是证据；既服务模型训练，也服务系统迭代。</p>
+<p>因此，大模型时代的数据工程会从“收集文本”走向“生产轨迹”。而一旦目标变成生产轨迹，环境和沙箱就会从边缘工具变成核心基础设施。</p>
+<h3 id="_4">环境：让轨迹从生成文本变成真实反馈<a class="headerlink" href="#_4" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>轨迹不是模型单方面生成的。它一定发生在某个环境中。</p>
+<p>对于代码<span><span class="heti-spacing"> </span>Agent</span>，环境包括仓库、依赖、编译器、测试框架、文件系统、shell、网络和权限。对于浏览器<span><span class="heti-spacing"> </span>Agent</span>，环境包括网页<span><span class="heti-spacing"> </span>DOM</span>、账号状态、网络延迟、前端错误、弹窗和真实用户路径。对于数据分析<span><span class="heti-spacing"> </span>Agent</span>，环境包括数据文件、<span>Python<span class="heti-spacing"> </span></span>包、数据库连接、查询权限和可视化工具。</p>
+<p>如果环境是假的，轨迹也会失真。模型可以声称自己运行了测试，但如果没有真实<span><span class="heti-spacing"> </span>shell</span>，这只是文本；模型可以声称自己修好了<span><span class="heti-spacing"> </span>bug</span>，但如果没有真实仓库和验证器，这只是猜测；模型可以声称搜索到了证据，但如果没有可追溯来源，这只是生成。</p>
+<p>真实环境给轨迹提供三个东西：</p>
+<ul>
+<li><strong>可执行性</strong>：动作真的发生，工具调用真的改变状态。</li>
+<li><strong>可验证性</strong>：结果可以被测试、编译、比较、审计或人工复查。</li>
+<li><strong>反事实信息</strong>：错误、异常、失败测试和权限拒绝会暴露模型原本看不到的边界。</li>
+</ul>
+<p>很多时候，失败轨迹比成功轨迹更有价值。因为失败轨迹包含了模型能力的真实缺口：它不知道哪个命令会超时，不知道哪个<span class="heti-skip"><span class="heti-spacing"> </span>API<span class="heti-spacing"> </span></span>已废弃，不知道测试失败意味着什么，不知道环境状态已经被上一步破坏。没有这些环境反馈，训练只能强化“看起来合理”的回答，而不是强化“在真实世界里有效”的行动。</p>
+<h3 id="_5">沙箱：让真实环境可以安全规模化<a class="headerlink" href="#_5" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>如果说环境决定轨迹是否真实，那么沙箱决定轨迹能否安全、稳定、低成本地规模化生产。</p>
+<p><span>Agent<span class="heti-spacing"> </span></span>训练和评测需要大量并发执行。每个任务都可能启动一个仓库、安装依赖、运行测试、写文件、访问网络、调用工具，甚至执行模型生成的任意代码。直接在共享机器上运行这些动作是不现实的：安全风险太高，状态污染不可控，资源隔离困难，复现也几乎不可能。</p>
+<p>沙箱的作用，是把每条轨迹放进一个受控边界里。这个边界至少要解决几个问题：</p>
+<ul>
+<li><strong>隔离</strong>：一个任务不能破坏宿主机，也不能影响其他任务。</li>
+<li><strong>复现</strong>：相同初始状态、相同输入和相同工具版本，应当尽量得到可解释的结果。</li>
+<li><strong>回收</strong>：任务结束后，文件、进程、网络连接和临时状态可以被清理。</li>
+<li><strong>观测</strong>：命令、文件变更、stdout、stderr、退出码、资源用量和时间线需要被记录。</li>
+<li><strong>恢复</strong>：训练任务被抢占或机器故障后，已完成的部分不应全部丢失。</li>
+</ul>
+<p><span>DeepSeek-V4<span class="heti-spacing"> </span></span>中提到的<span class="heti-skip"><span class="heti-spacing"> </span>DSec<span class="heti-spacing"> </span></span>是一个很典型的方向：它不是只提供一个<span class="heti-skip"><span class="heti-spacing"> </span>Docker<span class="heti-spacing"> </span></span>容器，而是把<span><span class="heti-spacing"> </span>Function Call</span>、Container、microVM、<span>fullVM<span class="heti-spacing"> </span></span>放到统一接口下面，根据任务需求选择不同隔离强度和执行成本。轻量函数调用可以走预热容器池，普通代码任务可以走<span><span class="heti-spacing"> </span>Docker-compatible container</span>，安全敏感或高密度场景可以走<span><span class="heti-spacing"> </span>Firecracker microVM</span>，需要任意操作系统时再走<span><span class="heti-spacing"> </span>QEMU fullVM</span>。</p>
+<p>这个设计背后的含义是：<span>Agent<span class="heti-spacing"> </span></span>轨迹生产不是单一工作负载。不同任务对启动速度、隔离强度、镜像大小、系统调用、网络访问、文件持久化和可恢复性的要求完全不同。一个成熟的沙箱系统，必须把这些执行形态统一到同一套<span><span class="heti-spacing"> </span>command execution</span>、<span>file transfer<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>TTY access<span class="heti-spacing"> </span></span>接口之下，让上层训练框架不用关心底层到底是容器还是虚拟机。</p>
+<h2 id="_6">如何基于沙箱生产轨迹<a class="headerlink" href="#_6" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>参考<span class="heti-skip"><span class="heti-spacing"> </span>DeepSeek-V4<span class="heti-spacing"> </span></span>技术报告中<span class="heti-skip"><span class="heti-spacing"> </span>DSec<span class="heti-spacing"> </span></span>的描述，环境和沙箱系统不应该只被理解成“运行代码的容器”。更准确地说，它是一套围绕轨迹生产建立的分层基础设施。上层负责<span class="heti-skip"><span class="heti-spacing"> </span>rollout<span class="heti-spacing"> </span></span>流程和数据采集，中层负责沙箱运行时本身，下层负责调度、分发、恢复和平台化管理。</p>
+<p>更完整地看，轨迹系统是一条数据闭环：沙箱负责采集真实交互，轨迹湖负责保存原始过程和环境工件，检索与分析系统负责发现失败模式和高价值样本，再加工系统负责把原始轨迹切片、重标注、压缩和整理成训练数据，最后回流到<span><span class="heti-spacing"> </span>SFT</span>、RL、<span>OPD<span class="heti-spacing"> </span></span>和评测回归。</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../../../../imgs/sandbox/trajectory-system-architecture.svg"><img alt="轨迹系统从采集到训练回流的整体架构" src="../../../../imgs/sandbox/trajectory-system-architecture.svg" width="100%"/></a></p>
+<p>从系统边界上看，可以把它拆成三层：</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../../../../imgs/sandbox/sandbox-three-layer-architecture.svg"><img alt="环境与沙箱系统的三层架构" src="../../../../imgs/sandbox/sandbox-three-layer-architecture.svg" width="100%"/></a></p>
+<p>这三层分别回答三个问题：轨迹如何被生产出来，动作在哪里执行，以及如何把大量沙箱作为一个平台稳定运行。这样的分层也能解释<span><span class="heti-spacing"> </span>OpenSandbox</span>、E2B、<span>OpenReward<span class="heti-spacing"> </span></span>这类框架的差异：有的更靠近运行时，有的更靠近托管平台，有的更靠近<span><span class="heti-spacing"> </span>episode</span>、<span>reward<span class="heti-spacing"> </span></span>和环境协议。</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../../../../imgs/sandbox/environment-framework-map.svg"><img alt="OpenSandbox、E2B 与 OpenReward 在轨迹生产链路中的位置" src="../../../../imgs/sandbox/environment-framework-map.svg" width="100%"/></a></p>
+<h3 id="rollout">轨迹采集层：<span>Rollout<span class="heti-spacing"> </span></span>流程与数据形态<a class="headerlink" href="#rollout" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>第一层是轨迹采集层，它回答“轨迹如何产生”。这一层主要由训推框架、rollout worker、工具调用协议、沙箱内<span><span class="heti-spacing"> </span>server</span>、<span>verifier<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>trace schema<span class="heti-spacing"> </span></span>决定。</p>
+<p>一次<span class="heti-skip"><span class="heti-spacing"> </span>rollout<span class="heti-spacing"> </span></span>并不是简单地调用模型得到答案，而是一个持续交互过程：模型生成<span><span class="heti-spacing"> </span>action</span>，沙箱执行<span><span class="heti-spacing"> </span>action</span>，环境返回<span><span class="heti-spacing"> </span>observation</span>，<span>verifier<span class="heti-spacing"> </span></span>给出<span class="heti-skip"><span class="heti-spacing"> </span>reward<span class="heti-spacing"> </span></span>或中间判断，训练框架再把这些内容写入轨迹。最终沉淀下来的数据，也不应该只有<span class="heti-skip"><span class="heti-spacing"> </span>prompt<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>answer</span>，而应该包括<span><span class="heti-spacing"> </span>action</span>、observation、工具返回、文件<span><span class="heti-spacing"> </span>diff</span>、stdout/stderr、退出码、资源消耗、环境状态摘要、reward、模型版本、采样参数和任务版本。</p>
+<p>这一层最关键的是数据结构。如果<span class="heti-skip"><span class="heti-spacing"> </span>trace schema<span class="heti-spacing"> </span></span>设计得太粗，后续只能做最终成败统计；如果<span class="heti-skip"><span class="heti-spacing"> </span>trace schema<span class="heti-spacing"> </span></span>足够细，就可以支持失败归因、步骤级<span><span class="heti-spacing"> </span>reward</span>、工具使用分析、轨迹切片、<span>SFT<span class="heti-spacing"> </span></span>样本抽取和<span class="heti-skip"><span class="heti-spacing"> </span>OPD<span class="heti-spacing"> </span></span>训练。也就是说，轨迹采集层决定了这条轨迹未来能否被检索、分析和再加工。</p>
+<p>在这个分层里，沙箱内<span class="heti-skip"><span class="heti-spacing"> </span>server<span class="heti-spacing"> </span></span>是非常关键的边界组件。它既参与<span class="heti-skip"><span class="heti-spacing"> </span>rollout<span class="heti-spacing"> </span></span>采集，又不能把太多控制面逻辑带进任务环境。</p>
+<p>很多环境框架并不是让外部调度器直接操作沙箱里的进程和文件，而是在沙箱内部注入一个轻量<span><span class="heti-spacing"> </span>server</span>。<span>OpenSandbox<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>OpenReward<span class="heti-spacing"> </span></span>这类系统都可以放在这个模式下理解：外部<span><span class="heti-spacing"> </span>SDK</span>、训练框架或<span class="heti-skip"><span class="heti-spacing"> </span>rollout worker<span class="heti-spacing"> </span></span>通过<span class="heti-skip"><span class="heti-spacing"> </span>RPC / HTTP<span class="heti-spacing"> </span></span>与沙箱内<span class="heti-skip"><span class="heti-spacing"> </span>server<span class="heti-spacing"> </span></span>通信，<span>server<span class="heti-spacing"> </span></span>再在本地执行命令、读写文件、暴露工具接口、收集<span><span class="heti-spacing"> </span>observation</span>，并把结果返回给外部。</p>
+<p>这个<span class="heti-skip"><span class="heti-spacing"> </span>server<span class="heti-spacing"> </span></span>如果直接用<span class="heti-skip"><span class="heti-spacing"> </span>Python<span class="heti-spacing"> </span></span>编写，短期开发会很方便。<span>Agent<span class="heti-spacing"> </span></span>环境里的工具链、评测脚本、数据处理、浏览器自动化、科学计算和<span class="heti-skip"><span class="heti-spacing"> </span>reward<span class="heti-spacing"> </span></span>逻辑大量依赖<span class="heti-skip"><span class="heti-spacing"> </span>Python<span class="heti-spacing"> </span></span>生态，把控制<span class="heti-skip"><span class="heti-spacing"> </span>server<span class="heti-spacing"> </span></span>放进沙箱内部，可以让环境逻辑更贴近真实执行上下文，也方便复用<span class="heti-skip"><span class="heti-spacing"> </span>Python<span class="heti-spacing"> </span></span>包、任务<span class="heti-skip"><span class="heti-spacing"> </span>harness<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>verifier</span>。</p>
+<p>但这个设计的代价也很明显：它对沙箱和容器的侵入性太高。原本沙箱应该尽量像一个干净、可替换、可复现的执行环境；一旦把<span class="heti-skip"><span class="heti-spacing"> </span>env worker<span class="heti-spacing"> </span></span>注入进去，基础镜像就必须携带额外<span><span class="heti-spacing"> </span>server</span>、Python runtime、依赖包、端口协议和启动逻辑。环境不再只是任务环境，而变成了“任务环境<span class="heti-skip"><span class="heti-spacing"> </span>+<span class="heti-spacing"> </span></span>控制面代理”的混合体。</p>
+<p>更麻烦的是，<span>server<span class="heti-spacing"> </span></span>的升级和任务定义的升级都会牵动镜像升级。如果每次调整工具协议、<span>reward<span class="heti-spacing"> </span></span>逻辑、verifier、任务<span><span class="heti-spacing"> </span>harness</span>，都要重新构建并分发环境镜像，那么镜像存储和分发会很快变成系统瓶颈。轨迹生产需要大量并发沙箱，镜像层一旦频繁变动，缓存命中率下降，冷启动变慢，存储侧也会积累大量只差一点点的镜像版本。</p>
+<p>一种自然的反方向，是把<span class="heti-skip"><span class="heti-spacing"> </span>server<span class="heti-spacing"> </span></span>放到沙箱外部，由宿主侧或<span class="heti-skip"><span class="heti-spacing"> </span>sidecar<span class="heti-spacing"> </span></span>负责命令执行、文件传输和资源观测。这样确实能降低对镜像的侵入，但它会失去一个关键优势：外部<span class="heti-skip"><span class="heti-spacing"> </span>server<span class="heti-spacing"> </span></span>并不天然处在沙箱的文件系统、环境变量、进程命名空间和权限上下文里。它要么需要<span class="heti-skip"><span class="heti-spacing"> </span>runtime<span class="heti-spacing"> </span></span>提供一套复杂的<span class="heti-skip"><span class="heti-spacing"> </span>exec / copy / inspect<span class="heti-spacing"> </span></span>接口，要么需要重新模拟沙箱内部状态。这样虽然控制面更干净，但环境语义反而容易变得不一致。</p>
+<p>所以更合理的折中，是沙箱内部仍然保留一个<span><span class="heti-spacing"> </span>server</span>，但这个<span class="heti-skip"><span class="heti-spacing"> </span>server<span class="heti-spacing"> </span></span>必须是<span class="heti-skip"><span class="heti-spacing"> </span>**<span class="heti-spacing"> </span></span>最小调用面<span><span class="heti-spacing"> </span>**</span>。它不应该承载任务逻辑、<span>reward<span class="heti-spacing"> </span></span>逻辑或复杂<span class="heti-skip"><span class="heti-spacing"> </span>Python<span class="heti-spacing"> </span></span>依赖，而只提供稳定的原语：执行命令、读写文件、查询环境、流式返回<span><span class="heti-spacing"> </span>stdout/stderr</span>、上报退出码和资源使用。任务定义、<span>verifier<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>reward<span class="heti-spacing"> </span></span>可以作为显式挂载或外部配置进入沙箱，而不是和<span class="heti-skip"><span class="heti-spacing"> </span>server<span class="heti-spacing"> </span></span>一起烘进基础镜像。</p>
+<p>这个最小<span class="heti-skip"><span class="heti-spacing"> </span>server<span class="heti-spacing"> </span></span>更适合用<span class="heti-skip"><span class="heti-spacing"> </span>Go<span class="heti-spacing"> </span></span>或<span class="heti-skip"><span class="heti-spacing"> </span>Rust<span class="heti-spacing"> </span></span>编写，并做成全静态链接的单文件二进制。这样它不依赖<span><span class="heti-spacing"> </span>Python runtime</span>，不污染任务依赖，不容易和用户环境发生包版本冲突，也更容易在不同容器、<span>microVM<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>fullVM<span class="heti-spacing"> </span></span>里复用。<span>server<span class="heti-spacing"> </span></span>本身应该像一个稳定的系统组件，而不是跟着每个任务频繁变化的应用代码。</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../../../../imgs/sandbox/sandbox-python-server-architecture.svg"><img alt="沙箱内最小静态 Server 的整机架构" src="../../../../imgs/sandbox/sandbox-python-server-architecture.svg" width="100%"/></a></p>
+<p>从轨迹生产的角度看，沙箱内<span class="heti-skip"><span class="heti-spacing"> </span>server<span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span>action<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>environment<span class="heti-spacing"> </span></span>之间的转译层。这个转译层越小、越稳定，<span>observation<span class="heti-spacing"> </span></span>越可信，轨迹越完整，任务也越容易被复现。</p>
+<h3 id="_7">沙箱运行时层：性能、隔离与功能覆盖<a class="headerlink" href="#_7" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>第二层是沙箱运行时层，它回答“动作在哪里执行”。这一层决定沙箱的性能、隔离强度、功能覆盖和环境语义。</p>
+<p><span>DeepSeek-V4<span class="heti-spacing"> </span></span>中提到的<span class="heti-skip"><span class="heti-spacing"> </span>DSec<span class="heti-spacing"> </span></span>把<span><span class="heti-spacing"> </span>Function Call</span>、Container、microVM、<span>fullVM<span class="heti-spacing"> </span></span>放到统一接口下面，正是在运行时层处理不同任务的差异。轻量函数调用需要低延迟和预热池，代码任务需要<span><span class="heti-spacing"> </span>Docker-compatible container</span>，安全敏感或高密度场景需要<span><span class="heti-spacing"> </span>Firecracker microVM</span>，需要任意<span class="heti-skip"><span class="heti-spacing"> </span>guest OS<span class="heti-spacing"> </span></span>时则需要<span><span class="heti-spacing"> </span>QEMU fullVM</span>。</p>
+<p>运行时层还承担镜像和文件系统问题。镜像要包含任务运行所需的依赖、工具链、数据文件和初始化脚本。为了支持大规模并发，镜像不能每次完整拉取和解压，而要通过分层存储、按需加载、<span>copy-on-write<span class="heti-spacing"> </span></span>和本地缓存来降低冷启动成本。对于<span class="heti-skip"><span class="heti-spacing"> </span>microVM<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>fullVM</span>，还要考虑块设备格式、快照恢复和虚拟化带来的<span class="heti-skip"><span class="heti-spacing"> </span>page cache<span class="heti-spacing"> </span></span>重复问题。</p>
+<p>这一层的核心权衡是：越接近真实机器，功能越完整、隔离越强，但启动和运行成本越高；越接近函数调用，启动越快、密度越高，但环境语义越受限。一个成熟的沙箱系统必须把这些执行形态统一到同一套<span><span class="heti-spacing"> </span>command execution</span>、<span>file transfer<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>TTY access<span class="heti-spacing"> </span></span>接口之下，让上层<span class="heti-skip"><span class="heti-spacing"> </span>rollout<span class="heti-spacing"> </span></span>框架不用关心底层到底是容器还是虚拟机。</p>
+<h3 id="_8">调度平台层：规模、恢复与平台化<a class="headerlink" href="#_8" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>第三层是调度平台层，它回答“如何大规模运行”。当轨迹生产从少量评测任务扩展到<span><span class="heti-spacing"> </span>RL</span>、<span>OPD<span class="heti-spacing"> </span></span>和大规模<span class="heti-skip"><span class="heti-spacing"> </span>benchmark rollout<span class="heti-spacing"> </span></span>时，瓶颈会从单个沙箱的执行能力，转移到平台对数十万并发实例的生命周期管理能力。</p>
+<p>这一层通常需要<span><span class="heti-spacing"> </span>API gateway</span>、per-host agent、<span>cluster watcher<span class="heti-spacing"> </span></span>或类似组件。<span>API gateway<span class="heti-spacing"> </span></span>面向训练框架提供统一入口；<span>per-host agent<span class="heti-spacing"> </span></span>管理本机<span class="heti-skip"><span class="heti-spacing"> </span>sandbox<span class="heti-spacing"> </span></span>的启动、销毁、文件挂载、网络和资源限制；<span>cluster watcher<span class="heti-spacing"> </span></span>负责健康检查、容量感知、失败恢复和全局调度。<span>DeepSeek DSec<span class="heti-spacing"> </span></span>中的<span><span class="heti-spacing"> </span>Apiserver</span>、Edge、<span>Watcher<span class="heti-spacing"> </span></span>就是类似分工。</p>
+<p>调度层还必须和训练任务的生命周期对齐。<span>RL<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>OPD rollout<span class="heti-spacing"> </span></span>经常运行在可抢占资源上，<span>GPU<span class="heti-spacing"> </span></span>训练任务也可能因为资源调度或硬件故障中断。如果沙箱和训练任务不能一起恢复，轨迹就会丢失或变得不可复现。因此平台需要记录命令轨迹、保存必要状态、支持<span><span class="heti-spacing"> </span>checkpoint-based resumption</span>，并在恢复时避免重复执行非幂等操作。</p>
+<p>这也是为什么<span class="heti-skip"><span class="heti-spacing"> </span>DeepSeek-V4<span class="heti-spacing"> </span></span>技术报告强调<span class="heti-skip"><span class="heti-spacing"> </span>trajectory logging<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>preemption-safe resumption</span>。轨迹日志不只是<span class="heti-skip"><span class="heti-spacing"> </span>debug<span class="heti-spacing"> </span></span>工具，而是平台恢复、溯源和确定性回放的基础设施。对于大规模轨迹生产来说，调度层如果不能处理抢占、失败、镜像分发和资源密度，运行时再强也很难变成稳定的数据生产系统。</p>
+<h3 id="_9">轨迹湖、检索分析与训练回流<a class="headerlink" href="#_9" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
+<p>三层沙箱系统生产出来的轨迹，还需要进入轨迹湖。完整轨迹应至少包含输入、动作、观察、环境状态摘要、文件<span><span class="heti-spacing"> </span>diff</span>、工具输出、资源消耗、错误信息、最终答案和验证结果。更进一步，还可以记录每一步对应的模型版本、采样参数、系统<span><span class="heti-spacing"> </span>prompt</span>、工具<span><span class="heti-spacing"> </span>schema</span>、镜像版本和数据版本。只有这样，轨迹才真正可复现、可筛选、可归因。</p>
+<p>轨迹湖之上的检索和分析系统，决定这些轨迹能否再次被使用。它需要支持按任务类型、模型版本、错误类型、工具调用、<span>reward<span class="heti-spacing"> </span></span>分布、环境版本和<span class="heti-skip"><span class="heti-spacing"> </span>verifier<span class="heti-spacing"> </span></span>结果检索轨迹，也需要支持失败聚类、重复样本识别、异常环境过滤和高价值轨迹发现。</p>
+<p>轨迹再加工则把原始交互转化为训练数据。成功轨迹可以被切成<span class="heti-skip"><span class="heti-spacing"> </span>SFT<span class="heti-spacing"> </span></span>样本，失败轨迹可以用于训练恢复策略或构造<span><span class="heti-spacing"> </span>hard negative</span>，步骤级<span class="heti-skip"><span class="heti-spacing"> </span>observation<span class="heti-spacing"> </span></span>可以用于<span class="heti-skip"><span class="heti-spacing"> </span>reward model<span class="heti-spacing"> </span></span>或<span class="heti-skip"><span class="heti-spacing"> </span>verifier<span class="heti-spacing"> </span></span>校准，完整<span class="heti-skip"><span class="heti-spacing"> </span>session<span class="heti-spacing"> </span></span>可以用于<span><span class="heti-spacing"> </span>OPD</span>，让教师在学生真实会进入的状态上提供监督。</p>
+<p>这条链路可以抽象为：</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a>Task Spec
+</span><span id="__span-3-2"><a href="#__codelineno-3-2" id="__codelineno-3-2" name="__codelineno-3-2"></a>  -&gt; Rollout and Trace Collection
+</span><span id="__span-3-3"><a href="#__codelineno-3-3" id="__codelineno-3-3" name="__codelineno-3-3"></a>  -&gt; Sandbox Runtime
+</span><span id="__span-3-4"><a href="#__codelineno-3-4" id="__codelineno-3-4" name="__codelineno-3-4"></a>  -&gt; Platform Scheduling and Recovery
+</span><span id="__span-3-5"><a href="#__codelineno-3-5" id="__codelineno-3-5" name="__codelineno-3-5"></a>  -&gt; Trajectory Lake
+</span><span id="__span-3-6"><a href="#__codelineno-3-6" id="__codelineno-3-6" name="__codelineno-3-6"></a>  -&gt; Retrieval / Analysis / Reprocessing
+</span><span id="__span-3-7"><a href="#__codelineno-3-7" id="__codelineno-3-7" name="__codelineno-3-7"></a>  -&gt; SFT / RL / OPD / Evaluation
+</span></code></pre></div>
+<p>这条链路里，沙箱不是执行细节，而是数据生产机器。它生产的不是单次工具结果，而是可训练、可审计、可重放的行为样本。真正困难的是把这台机器做成系统：上层轨迹采集要稳定，中层运行时要高性能且隔离可靠，下层调度平台要能承受大规模并发和频繁抢占。</p>
+<h2 id="_10">结语：训练智能体，就是生产高质量轨迹<a class="headerlink" href="#_10" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
+<p>从蒸馏到<span><span class="heti-spacing"> </span>RL</span>，再到<span><span class="heti-spacing"> </span>OPD</span>，大模型训练越来越依赖过程数据。答案仍然重要，但答案已经不够。真正能提升<span class="heti-skip"><span class="heti-spacing"> </span>Agent<span class="heti-spacing"> </span></span>能力的，是模型在环境中行动、观察、修正和验证的完整过程。</p>
+<p>这也是环境和沙箱系统的重要性所在。环境让轨迹真实，沙箱让轨迹可控，日志和快照让轨迹可复现，调度和分层镜像让轨迹可以规模化生产。最终，模型能力的迭代不再只是参数、数据和算法的问题，也变成了一个基础设施问题。</p>
+<p>未来的<span class="heti-skip"><span class="heti-spacing"> </span>Agent<span class="heti-spacing"> </span></span>训练平台，很可能会围绕轨迹生产来设计：上层是模型、教师、奖励和<span><span class="heti-spacing"> </span>OPD</span>；中间是任务、工具、<span>verifier<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>harness</span>；底层则是环境、沙箱、存储、调度和日志。谁能更稳定地生产高质量轨迹，谁就能更快地把真实世界反馈转化为模型能力。</p>
+<aside class="md-source-file">
+<span class="md-source-file__fact">
+<span class="md-icon" title="最后更新">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2026年5月5日</span>
+</span>
+<span class="md-source-file__fact">
+<span class="md-icon" title="创建日期">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"></path></svg>
+</span>
+<span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2026年5月5日</span>
+</span>
+</aside>
+<h2 id="__comments">评论</h2>
+<script async="" crossorigin="anonymous" data-category="[在此输入分类名]" data-category-id="[在此输入分类 ID]" data-emit-metadata="0" data-input-position="bottom" data-lang="zh-CN" data-mapping="pathname" data-reactions-enabled="1" data-repo="reiase/reiase.github.io" data-repo-id="R_kgDOHRMrag" data-strict="0" data-theme="preferred_color_scheme" src="https://giscus.app/client.js">
+</script>
+<!-- Synchronize Giscus theme with palette -->
+<script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+      // Instruct Giscus to set theme
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+          // Instruct Giscus to change theme
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  回到页面顶部
+</button>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 大模型时代的存储：从生成到引用" class="md-footer__link md-footer__link--prev" href="../../26/llm-storage-requirements/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                上一页
+              </span>
+<div class="md-ellipsis">
+                大模型时代的存储：从生成到引用
+              </div>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2023 - 2025 Reiase
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/reiase" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.tabs", "navigation.sections", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "toc.integrate", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="../../../../assets/_markdown_exec_pyodide.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

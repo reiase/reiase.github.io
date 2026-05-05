@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="560" viewBox="0 0 1080 560" role="img" aria-labelledby="title desc">
+  <title id="title">OpenSandbox、E2B 与 OpenReward 在轨迹生产链路中的位置</title>
+  <desc id="desc">展示三类环境框架分别覆盖沙箱运行时、托管沙箱云和 reward/environment 协议层。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#2563eb"/></marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.12"/></filter>
+    <style>.bg{fill:#f8fafc}.lane{fill:#fff;stroke:#e2e8f0;stroke-width:2}.open{fill:#eef2ff;stroke:#818cf8;stroke-width:2;filter:url(#shadow)}.e2b{fill:#ecfeff;stroke:#67e8f9;stroke-width:2;filter:url(#shadow)}.reward{fill:#fff7ed;stroke:#fdba74;stroke-width:2;filter:url(#shadow)}.core{fill:#ecfdf5;stroke:#86efac;stroke-width:2}.title{font:700 28px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#172033}.label{font:700 18px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#172033}.text{font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#475569}.small{font:13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#64748b}.arrow{stroke:#2563eb;stroke-width:3;fill:none;marker-end:url(#arrow)}.muted{stroke:#94a3b8;stroke-width:2;stroke-dasharray:7 7;fill:none}</style>
+  </defs>
+  <rect class="bg" width="1080" height="560" rx="28"/>
+  <text class="title" x="52" y="58">三类框架覆盖轨迹生产的不同层次</text>
+  <text class="text" x="52" y="88">OpenSandbox / E2B 更靠近执行环境，OpenReward 更靠近 episode、reward 与训练接口。</text>
+  <rect class="lane" x="52" y="132" width="976" height="292" rx="24"/>
+  <rect class="core" x="82" y="258" width="140" height="76" rx="16"/><text class="label" x="116" y="288">Agent</text><text class="small" x="107" y="314">生成 action</text>
+  <rect class="open" x="282" y="166" width="212" height="106" rx="18"/><text class="label" x="330" y="206">OpenSandbox</text><text class="small" x="316" y="236">自托管、多运行时</text><text class="small" x="316" y="256">容器 / K8s / 强隔离</text>
+  <rect class="e2b" x="282" y="318" width="212" height="76" rx="18"/><text class="label" x="370" y="350">E2B</text><text class="small" x="320" y="376">托管沙箱云，快速接入</text>
+  <rect class="core" x="560" y="248" width="172" height="96" rx="18"/><text class="label" x="598" y="286">真实环境</text><text class="small" x="592" y="314">Shell / File / Browser</text><text class="small" x="592" y="336">Tool / Verifier</text>
+  <rect class="reward" x="792" y="224" width="190" height="130" rx="18"/><text class="label" x="835" y="264">OpenReward</text><text class="small" x="826" y="294">Episode / Reward</text><text class="small" x="826" y="318">Task Split / Curriculum</text><text class="small" x="826" y="340">训练框架解耦</text>
+  <path class="arrow" d="M222 296 L276 224"/><path class="arrow" d="M222 296 L276 356"/><path class="arrow" d="M494 220 C530 228 540 262 554 286"/><path class="arrow" d="M494 356 C532 348 542 322 554 306"/><path class="arrow" d="M732 296 L786 296"/>
+  <rect class="lane" x="164" y="462" width="760" height="46" rx="14"/><text class="small" x="196" y="491">轨迹生产链路：action 执行 -> observation 收集 -> reward 打分 -> 训练数据沉淀</text>
+  <path class="muted" d="M544 424 L544 462"/>
+</svg>

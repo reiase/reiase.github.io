@@ -1,6 +1,4 @@
-
 <!DOCTYPE html>
-
 <html class="no-js" lang="zh">
 <head>
 <meta charset="utf-8"/>
@@ -16,14 +14,15 @@
 <link href="../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css?family=Source+Han+Sans+SC:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
-<style>:root{--md-text-font:"Source Han Sans SC";--md-code-font:"Roboto Mono"}</style>
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"JetBrains Mono"}</style>
 <link href="../../assets/_markdown_exec_pyodide.css" rel="stylesheet"/>
+<link href="../../css/heti.css" rel="stylesheet"/>
 <link href="../../extra.css" rel="stylesheet"/>
 <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
 <script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-LMDTYMWWTF"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-LMDTYMWWTF",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-LMDTYMWWTF",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
 <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
- <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -38,9 +37,6 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#fp8">
-          跳转至
-        </a>
 </div>
 <div data-md-component="announce">
 </div>
@@ -78,7 +74,7 @@
 <label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"></path></svg>
 </label>
-<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="indigo" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
 <label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"></path></svg>
 </label>
@@ -165,7 +161,7 @@
 <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
-<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
 <label class="md-nav__title" for="__drawer">
 <a aria-label="Overfitting: From Algorithms to Silicon" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Overfitting: From Algorithms to Silicon">
 <svg viewbox="0 0 89 89" xmlns="http://www.w3.org/2000/svg">
@@ -316,17 +312,6 @@
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
-<label class="md-nav__link md-nav__link--active" for="__toc">
-<span class="md-ellipsis">
-    
-  
-    FP8
-  
-
-    
-  </span>
-<span class="md-nav__icon md-icon"></span>
-</label>
 <a class="md-nav__link md-nav__link--active" href="./">
 <span class="md-ellipsis">
     
@@ -337,32 +322,6 @@
     
   </span>
 </a>
-<nav aria-label="目录" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#int8">
-<span class="md-ellipsis">
-      
-        INT8也能训练
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#deepseek-v3fp8">
-<span class="md-ellipsis">
-      
-        从DeepSeek V3看FP8训练的挑战
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../llm/">
@@ -545,38 +504,6 @@
 </div>
 </div>
 </div>
-<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav aria-label="目录" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#int8">
-<span class="md-ellipsis">
-      
-        INT8也能训练
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#deepseek-v3fp8">
-<span class="md-ellipsis">
-      
-        从DeepSeek V3看FP8训练的挑战
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</div>
-</div>
-</div>
 <div class="md-content" data-md-component="content">
 <div class="md-content__inner">
 <header class="md-typeset">
@@ -603,33 +530,33 @@
 </div>
 </header>
 <div class="md-post__content md-typeset">
-<h2 id="int8"><a class="toclink" href="../../2025/02/15/int8_training/">INT8也能训练</a></h2>
-<p>在 <a href="../../../../../../../2025/02/12/fp8_training">前一篇博客</a> 中，我们深入探讨了DeepSeek V3如何通过FP8实现高效训练，并成功克服了精度挑战。本文探讨另一个问题：如果用INT8代替FP8做训练，会发生什么？</p>
-<h3 id="int8_1"><a class="toclink" href="../../2025/02/15/int8_training/#int8_1">INT8 量化</a></h3>
-<p>给定一个浮点数向量 <span class="arithmatex">\(x \in \mathbb{R}^n\)</span>，INT8量化的目标是将其映射到 [-128, 127] 的整数空间。这一过程需要确定缩放因子 <span class="arithmatex">\(\alpha\)</span> 和零点偏移 <span class="arithmatex">\(\beta\)</span>，使得：</p>
+<h2 id="int8"><a class="toclink" href="../../2025/02/15/int8_training/"><span>INT8<span class="heti-spacing"> </span></span>也能训练</a></h2>
+<p>在 <a href="../../../../../../../2025/02/12/fp8_training">前一篇博客</a> 中，我们深入探讨了<span class="heti-skip"><span class="heti-spacing"> </span>DeepSeek V3<span class="heti-spacing"> </span></span>如何通过<span class="heti-skip"><span class="heti-spacing"> </span>FP8<span class="heti-spacing"> </span></span>实现高效训练，并成功克服了精度挑战。本文探讨另一个问题：如果用<span class="heti-skip"><span class="heti-spacing"> </span>INT8<span class="heti-spacing"> </span></span>代替<span class="heti-skip"><span class="heti-spacing"> </span>FP8<span class="heti-spacing"> </span></span>做训练，会发生什么？</p>
+<h3 id="int8_1"><a class="toclink" href="../../2025/02/15/int8_training/#int8_1"><span>INT8<span class="heti-spacing"> </span></span>量化</a></h3>
+<p>给定一个浮点数向量<span><span class="heti-spacing"> </span><span class="arithmatex">\(x \in \mathbb{R}^n\)</span></span>，<span>INT8<span class="heti-spacing"> </span></span>量化的目标是将其映射到<span class="heti-skip"><span class="heti-spacing"> </span>[-128, 127]<span class="heti-spacing"> </span></span>的整数空间。这一过程需要确定缩放因子<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha\)</span><span class="heti-spacing"> </span></span>和零点偏移<span><span class="heti-spacing"> </span><span class="arithmatex">\(\beta\)</span></span>，使得：</p>
 <div class="arithmatex">\[ x_q = round(\frac{x}{\alpha}) + \beta \]</div>
-<p>其中 <span class="arithmatex">\(x_q\)</span> 表示量化后的INT8值。缩放因子 <span class="arithmatex">\(\alpha\)</span> 通常通过以下方式计算：</p>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_q\)</span><span class="heti-spacing"> </span></span>表示量化后的<span class="heti-skip"><span class="heti-spacing"> </span>INT8<span class="heti-spacing"> </span></span>值。缩放因子<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha\)</span><span class="heti-spacing"> </span></span>通常通过以下方式计算：</p>
 <div class="arithmatex">\[ \alpha = \frac{max(|x|)}{127} \]</div>
-<p>这确保了量化后的值不会超出INT8的表示范围。而零点偏移 <span class="arithmatex">\(\beta\)</span> 在对称量化场景下通常设置为0，在非对称量化时则需要根据数据分布来确定。</p>
-<p>对于LLM训练场景，由于权重和激活值通常呈现对称分布，我们可以使用对称量化方案：</p>
+<p>这确保了量化后的值不会超出<span class="heti-skip"><span class="heti-spacing"> </span>INT8<span class="heti-spacing"> </span></span>的表示范围。而零点偏移<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\beta\)</span><span class="heti-spacing"> </span></span>在对称量化场景下通常设置为<span><span class="heti-spacing"> </span>0</span>，在非对称量化时则需要根据数据分布来确定。</p>
+<p>对于<span class="heti-skip"><span class="heti-spacing"> </span>LLM<span class="heti-spacing"> </span></span>训练场景，由于权重和激活值通常呈现对称分布，我们可以使用对称量化方案：</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a href="#__codelineno-8-1" id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">symmetric_quantize</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 </span><span id="__span-8-2"><a href="#__codelineno-8-2" id="__codelineno-8-2" name="__codelineno-8-2"></a>    <span class="n">alpha</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="mf">127.0</span>  <span class="c1"># 计算缩放因子</span>
 </span><span id="__span-8-3"><a href="#__codelineno-8-3" id="__codelineno-8-3" name="__codelineno-8-3"></a>    <span class="n">x_q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="n">alpha</span><span class="p">)</span>   <span class="c1"># 量化</span>
 </span><span id="__span-8-4"><a href="#__codelineno-8-4" id="__codelineno-8-4" name="__codelineno-8-4"></a>    <span class="n">x_q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">x_q</span><span class="p">,</span> <span class="o">-</span><span class="mi">128</span><span class="p">,</span> <span class="mi">127</span><span class="p">)</span>  <span class="c1"># 截断</span>
 </span><span id="__span-8-5"><a href="#__codelineno-8-5" id="__codelineno-8-5" name="__codelineno-8-5"></a>    <span class="k">return</span> <span class="n">x_q</span><span class="p">,</span> <span class="n">alpha</span>
 </span></code></pre></div>
-<p>反量化操作则是将INT8值映射回浮点数空间：</p>
+<p>反量化操作则是将<span class="heti-skip"><span class="heti-spacing"> </span>INT8<span class="heti-spacing"> </span></span>值映射回浮点数空间：</p>
 <div class="arithmatex">\[ x_r = (x_q - \beta) \times \alpha \]</div>
-<p>其中 <span class="arithmatex">\(x_r\)</span> 是反量化后的浮点数值。在对称量化场景下，由于 <span class="arithmatex">\(\beta = 0\)</span>，反量化简化为：</p>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_r\)</span><span class="heti-spacing"> </span></span>是反量化后的浮点数值。在对称量化场景下，由于<span><span class="heti-spacing"> </span><span class="arithmatex">\(\beta = 0\)</span></span>，反量化简化为：</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a href="#__codelineno-9-1" id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">symmetric_dequantize</span><span class="p">(</span><span class="n">x_q</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
 </span><span id="__span-9-2"><a href="#__codelineno-9-2" id="__codelineno-9-2" name="__codelineno-9-2"></a>    <span class="k">return</span> <span class="n">x_q</span> <span class="o">*</span> <span class="n">alpha</span>
 </span></code></pre></div>
-<p>与FP8的浮点量化不同，INT8采用均匀量化方案：</p>
+<p>与<span class="heti-skip"><span class="heti-spacing"> </span>FP8<span class="heti-spacing"> </span></span>的浮点量化不同，<span>INT8<span class="heti-spacing"> </span></span>采用均匀量化方案：</p>
 <ul>
 <li>优势区间：大值区域精度更高（固定量化步长）</li>
 <li>劣势区间：小值区域精度较低（相对误差更大）</li>
 </ul>
-<p>这种特性使得INT8对数据分布形态更为敏感，需要针对性优化策略。</p>
+<p>这种特性使得<span class="heti-skip"><span class="heti-spacing"> </span>INT8<span class="heti-spacing"> </span></span>对数据分布形态更为敏感，需要针对性优化策略。</p>
 <nav class="md-post__action">
 <a href="../../2025/02/15/int8_training/">
           继续阅读
@@ -658,20 +585,20 @@
 </div>
 </header>
 <div class="md-post__content md-typeset">
-<h2 id="deepseek-v3fp8"><a class="toclink" href="../../2025/02/12/fp8_training/">从DeepSeek V3看FP8训练的挑战</a></h2>
-<p>DeepSeek V3 的发布引起了对 FP8 训练的广泛关注，业界也出现了大量文章解析 How 的问题——DeepSeek 是怎么进行 FP8 训练的，与传统方案有哪些不同。但是目前鲜有文章对 Why 问题进行深入探讨，为何 DeepSeek 的方案能够取得成功。本文尝试对 FP8 训练所面临的挑战进行深入解析，并尝试猜测 DeepSeek 团队设计其 FP 方案的背后原理。（如果你对 INT8 训练感兴趣，可以参考本文的姊妹篇：<a href="../../../../../../../2025/02/15/int8_training">INT8 训练</a>）</p>
-<h3 id="1-fp8"><a class="toclink" href="../../2025/02/12/fp8_training/#1-fp8">1. FP8 浮点格式</a></h3>
-<h4 id="11-fp8"><a class="toclink" href="../../2025/02/12/fp8_training/#11-fp8">1.1 FP8 格式的历史</a></h4>
-<p>FP8 是一种遵循 IEEE 754 规范<sup id="fnref5:ieee754"><a class="footnote-ref" href="../../2025/02/12/fp8_training/#fn:ieee754">1</a></sup>的 8 位浮点数格式，由 Nvidia 在 2022 年发布的 H100 GPU 中首次引入。在此之前，Nvidia 硬件上浮点数格式的发展历程如下<sup id="fnref5:huang_law_1"><a class="footnote-ref" href="../../2025/02/12/fp8_training/#fn:huang_law_1">2</a></sup>：</p>
+<h2 id="deepseek-v3fp8"><a class="toclink" href="../../2025/02/12/fp8_training/">从<span class="heti-skip"><span class="heti-spacing"> </span>DeepSeek V3<span class="heti-spacing"> </span></span>看<span class="heti-skip"><span class="heti-spacing"> </span>FP8<span class="heti-spacing"> </span></span>训练的挑战</a></h2>
+<p><span>DeepSeek V3<span class="heti-spacing"> </span></span>的发布引起了对<span class="heti-skip"><span class="heti-spacing"> </span>FP8<span class="heti-spacing"> </span></span>训练的广泛关注，业界也出现了大量文章解析<span class="heti-skip"><span class="heti-spacing"> </span>How<span class="heti-spacing"> </span></span>的问题——<span>DeepSeek<span class="heti-spacing"> </span></span>是怎么进行<span class="heti-skip"><span class="heti-spacing"> </span>FP8<span class="heti-spacing"> </span></span>训练的，与传统方案有哪些不同。但是目前鲜有文章对<span class="heti-skip"><span class="heti-spacing"> </span>Why<span class="heti-spacing"> </span></span>问题进行深入探讨，为何<span class="heti-skip"><span class="heti-spacing"> </span>DeepSeek<span class="heti-spacing"> </span></span>的方案能够取得成功。本文尝试对<span class="heti-skip"><span class="heti-spacing"> </span>FP8<span class="heti-spacing"> </span></span>训练所面临的挑战进行深入解析，并尝试猜测<span class="heti-skip"><span class="heti-spacing"> </span>DeepSeek<span class="heti-spacing"> </span></span>团队设计其<span class="heti-skip"><span class="heti-spacing"> </span>FP<span class="heti-spacing"> </span></span>方案的背后原理<heti-adjacent class="heti-adjacent-half">。</heti-adjacent>（如果你对<span class="heti-skip"><span class="heti-spacing"> </span>INT8<span class="heti-spacing"> </span></span>训练感兴趣，可以参考本文的姊妹篇：<a href="../../../../../../../2025/02/15/int8_training"><span>INT8<span class="heti-spacing"> </span></span>训练</a>）</p>
+<h3 id="1-fp8"><a class="toclink" href="../../2025/02/12/fp8_training/#1-fp8"><span>1. FP8<span class="heti-spacing"> </span></span>浮点格式</a></h3>
+<h4 id="11-fp8"><a class="toclink" href="../../2025/02/12/fp8_training/#11-fp8"><span>1.1 FP8<span class="heti-spacing"> </span></span>格式的历史</a></h4>
+<p><span>FP8<span class="heti-spacing"> </span></span>是一种遵循<span class="heti-skip"><span class="heti-spacing"> </span>IEEE 754<span class="heti-spacing"> </span></span>规范<sup id="fnref5:ieee754"><a class="footnote-ref" href="../../2025/02/12/fp8_training/#fn:ieee754"><span class="heti-skip"><span class="heti-spacing"> </span>1<span class="heti-spacing"> </span></span></a></sup>的<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>位浮点数格式，由<span class="heti-skip"><span class="heti-spacing"> </span>Nvidia<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>2022<span class="heti-spacing"> </span></span>年发布的<span class="heti-skip"><span class="heti-spacing"> </span>H100 GPU<span class="heti-spacing"> </span></span>中首次引入。在此之前，<span>Nvidia<span class="heti-spacing"> </span></span>硬件上浮点数格式的发展历程如下<sup id="fnref5:huang_law_1"><a class="footnote-ref" href="../../2025/02/12/fp8_training/#fn:huang_law_1"><span><span class="heti-spacing"> </span>2</span></a></sup>：</p>
 <ul>
-<li>2016 年 P100 GPU 首次引入 FP16 数据格式，直接开启了深度学习混合精度训练的技术路线；</li>
-<li>2017 年 V100 GPU 首次引入 Tensor Core, 用于加速 FP16 矩阵乘法运算；</li>
-<li>2020 年 A100 GPU 首次引入 TF32 数据格式，可通过 Tensor Core 加速；引入 bfloat16 数据格式，提供比 FP16 更宽的动态范围（当下 BF16 已经成为 LLM 训练的主流方案）；</li>
-<li>2022 年 H100 GPU 首次引入 FP8 数据格式；</li>
+<li><span>2016<span class="heti-spacing"> </span></span>年<span class="heti-skip"><span class="heti-spacing"> </span>P100 GPU<span class="heti-spacing"> </span></span>首次引入<span class="heti-skip"><span class="heti-spacing"> </span>FP16<span class="heti-spacing"> </span></span>数据格式，直接开启了深度学习混合精度训练的技术路线；</li>
+<li><span>2017<span class="heti-spacing"> </span></span>年<span class="heti-skip"><span class="heti-spacing"> </span>V100 GPU<span class="heti-spacing"> </span></span>首次引入<span class="heti-skip"><span class="heti-spacing"> </span>Tensor Core,<span class="heti-spacing"> </span></span>用于加速<span class="heti-skip"><span class="heti-spacing"> </span>FP16<span class="heti-spacing"> </span></span>矩阵乘法运算；</li>
+<li><span>2020<span class="heti-spacing"> </span></span>年<span class="heti-skip"><span class="heti-spacing"> </span>A100 GPU<span class="heti-spacing"> </span></span>首次引入<span class="heti-skip"><span class="heti-spacing"> </span>TF32<span class="heti-spacing"> </span></span>数据格式，可通过<span class="heti-skip"><span class="heti-spacing"> </span>Tensor Core<span class="heti-spacing"> </span></span>加速；引入<span class="heti-skip"><span class="heti-spacing"> </span>bfloat16<span class="heti-spacing"> </span></span>数据格式，提供比<span class="heti-skip"><span class="heti-spacing"> </span>FP16<span class="heti-spacing"> </span></span>更宽的动态范围（当下<span class="heti-skip"><span class="heti-spacing"> </span>BF16<span class="heti-spacing"> </span></span>已经成为<span class="heti-skip"><span class="heti-spacing"> </span>LLM<span class="heti-spacing"> </span></span>训练的主流方案<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；</li>
+<li><span>2022<span class="heti-spacing"> </span></span>年<span class="heti-skip"><span class="heti-spacing"> </span>H100 GPU<span class="heti-spacing"> </span></span>首次引入<span class="heti-skip"><span class="heti-spacing"> </span>FP8<span class="heti-spacing"> </span></span>数据格式；</li>
 </ul>
-<p>FP8 被 Nvidia 给予厚望，认为其成功的延续了 CEO 提出的 Huang’s Law<sup id="fnref5:huang_law_2"><a class="footnote-ref" href="../../2025/02/12/fp8_training/#fn:huang_law_2">3</a></sup>，即 10 年间 GPU 硬件算力提升 1000 倍。在过去的 10 年间，新型数值表达的引入了 16 倍算力提升，是诸多技术中贡献最大者，GPU 架构与复杂指令集紧随其后带来了 12.5 倍提升，而制程进步带来的收益非常有限，仅 2.5 倍<sup id="fnref5:nvidia_gpu"><a class="footnote-ref" href="../../2025/02/12/fp8_training/#fn:nvidia_gpu">4</a></sup>。</p>
-<h4 id="12-ieee-754"><a class="toclink" href="../../2025/02/12/fp8_training/#12-ieee-754">1.2. 常见浮点数与 IEEE 754</a></h4>
-<p>IEEE 754 是目前广为使用的浮点数规范，定义了浮点数的 bitwise 表达与量化方式。浮点数的二进制表达分为三部分：</p>
+<p><span>FP8<span class="heti-spacing"> </span></span>被<span class="heti-skip"><span class="heti-spacing"> </span>Nvidia<span class="heti-spacing"> </span></span>给予厚望，认为其成功的延续了<span class="heti-skip"><span class="heti-spacing"> </span>CEO<span class="heti-spacing"> </span></span>提出的<span><span class="heti-spacing"> </span>Huang</span>’s Law<sup id="fnref5:huang_law_2"><a class="footnote-ref" href="../../2025/02/12/fp8_training/#fn:huang_law_2">3</a></sup>，即<span class="heti-skip"><span class="heti-spacing"> </span>10<span class="heti-spacing"> </span></span>年间<span class="heti-skip"><span class="heti-spacing"> </span>GPU<span class="heti-spacing"> </span></span>硬件算力提升<span class="heti-skip"><span class="heti-spacing"> </span>1000<span class="heti-spacing"> </span></span>倍。在过去的<span class="heti-skip"><span class="heti-spacing"> </span>10<span class="heti-spacing"> </span></span>年间，新型数值表达的引入了<span class="heti-skip"><span class="heti-spacing"> </span>16<span class="heti-spacing"> </span></span>倍算力提升，是诸多技术中贡献最大者，<span>GPU<span class="heti-spacing"> </span></span>架构与复杂指令集紧随其后带来了<span class="heti-skip"><span class="heti-spacing"> </span>12.5<span class="heti-spacing"> </span></span>倍提升，而制程进步带来的收益非常有限，仅<span class="heti-skip"><span class="heti-spacing"> </span>2.5<span class="heti-spacing"> </span></span>倍<sup id="fnref5:nvidia_gpu"><a class="footnote-ref" href="../../2025/02/12/fp8_training/#fn:nvidia_gpu"><span><span class="heti-spacing"> </span>4</span></a></sup>。</p>
+<h4 id="12-ieee-754"><a class="toclink" href="../../2025/02/12/fp8_training/#12-ieee-754"><span>1.2.<span class="heti-spacing"> </span></span>常见浮点数与<span><span class="heti-spacing"> </span>IEEE 754</span></a></h4>
+<p><span>IEEE 754<span class="heti-spacing"> </span></span>是目前广为使用的浮点数规范，定义了浮点数的<span class="heti-skip"><span class="heti-spacing"> </span>bitwise<span class="heti-spacing"> </span></span>表达与量化方式。浮点数的二进制表达分为三部分：</p>
 <ul>
 <li>符号位（sign）</li>
 <li>指数位（exponent）</li>
@@ -789,8 +716,8 @@
     class e1,e2,e3,e4,e5,e6,e7,e8 exp
     class ee1,ee2,ee3,ee4,ee5,ee6,ee7,ee8 exp
     class eee1,eee2,eee3,eee4,eee5,eee6,eee7,eee8 exp</code></pre>
-<h4 id="13-fp8"><a class="toclink" href="../../2025/02/12/fp8_training/#13-fp8">1.3. FP8 有两种格式</a></h4>
-<p>随着浮点数位数从 16 位进一步降低到 8 位，动态范围不足的问题逐渐显现。因此 Nvidia、Arm 和 Intel 在 FP8 规范中设计了两种浮点数类型<sup id="fnref5:fp8"><a class="footnote-ref" href="../../2025/02/12/fp8_training/#fn:fp8">5</a></sup>：E4M3 和 E5M2</p>
+<h4 id="13-fp8"><a class="toclink" href="../../2025/02/12/fp8_training/#13-fp8"><span>1.3. FP8<span class="heti-spacing"> </span></span>有两种格式</a></h4>
+<p>随着浮点数位数从<span class="heti-skip"><span class="heti-spacing"> </span>16<span class="heti-spacing"> </span></span>位进一步降低到<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>位，动态范围不足的问题逐渐显现。因此<span><span class="heti-spacing"> </span>Nvidia</span>、<span>Arm<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>Intel<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>FP8<span class="heti-spacing"> </span></span>规范中设计了两种浮点数类型<sup id="fnref5:fp8"><a class="footnote-ref" href="../../2025/02/12/fp8_training/#fn:fp8"><span><span class="heti-spacing"> </span>5</span></a></sup>：<span>E4M3<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>E5M2</span></p>
 <table>
 <thead>
 <tr>
@@ -847,8 +774,8 @@
 </tr>
 </tbody>
 </table>
-<p>浮点数都会分配一些二进制表达来表示特殊值**NaN**和 <strong><span class="arithmatex">\(\mathbb{\pm}\)</span>Inf</strong>，IEEE 754 规范约定使用指数位全**1**的二进制表达来表示这些特殊值。对于 E4M3 格式来说，若严格遵循 IEEE 754 规范，会 8 个二进制表达。因此在定义 E4M3 规范时对这些二进制表达进行了额外开发，仅在指数位尾数位同时全为 <strong>1</strong> 时才表示 <strong>NaN</strong>，全为 <strong>0</strong> 的时候表示 <strong><span class="arithmatex">\(\pm\)</span>Inf</strong>。</p>
-<p>H100 的 Tensor Core 提供 3 倍 A100 FP16 性能，若启用 FP8 算力能够再次翻倍。</p>
+<p>浮点数都会分配一些二进制表达来表示特殊值<span class="heti-skip"><span class="heti-spacing"> </span>**NaN**<span class="heti-spacing"> </span></span>和 <strong><span class="arithmatex">\(\mathbb{\pm}\)</span>Inf</strong>，<span>IEEE 754<span class="heti-spacing"> </span></span>规范约定使用指数位全<span class="heti-skip"><span class="heti-spacing"> </span>**1**<span class="heti-spacing"> </span></span>的二进制表达来表示这些特殊值。对于<span class="heti-skip"><span class="heti-spacing"> </span>E4M3<span class="heti-spacing"> </span></span>格式来说，若严格遵循<span class="heti-skip"><span class="heti-spacing"> </span>IEEE 754<span class="heti-spacing"> </span></span>规范，会<span class="heti-skip"><span class="heti-spacing"> </span>8<span class="heti-spacing"> </span></span>个二进制表达。因此在定义<span class="heti-skip"><span class="heti-spacing"> </span>E4M3<span class="heti-spacing"> </span></span>规范时对这些二进制表达进行了额外开发，仅在指数位尾数位同时全为 <strong>1</strong> 时才表示 <strong>NaN</strong>，全为 <strong>0</strong> 的时候表示 <strong><span class="arithmatex">\(\pm\)</span>Inf</strong>。</p>
+<p><span>H100<span class="heti-spacing"> </span></span>的<span class="heti-skip"><span class="heti-spacing"> </span>Tensor Core<span class="heti-spacing"> </span></span>提供<span class="heti-skip"><span class="heti-spacing"> </span>3<span class="heti-spacing"> </span></span>倍<span class="heti-skip"><span class="heti-spacing"> </span>A100 FP16<span class="heti-spacing"> </span></span>性能，若启用<span class="heti-skip"><span class="heti-spacing"> </span>FP8<span class="heti-spacing"> </span></span>算力能够再次翻倍。</p>
 <p><img alt="" src="https://developer-blogs.nvidia.com/zh-cn-blog/wp-content/uploads/sites/2/2024/04/%E8%A1%A81-1536x819.png"/></p>
 <nav class="md-post__action">
 <a href="../../2025/02/12/fp8_training/">
@@ -922,7 +849,7 @@
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.tabs", "navigation.sections", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.tabs", "navigation.sections", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "toc.integrate", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
 <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
 <script src="../../assets/_markdown_exec_pyodide.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>

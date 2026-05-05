@@ -1,6 +1,4 @@
-
 <!DOCTYPE html>
-
 <html class="no-js" lang="zh">
 <head>
 <meta charset="utf-8"/>
@@ -16,14 +14,15 @@
 <link href="../../../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
 <link href="../../../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css?family=Source+Han+Sans+SC:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
-<style>:root{--md-text-font:"Source Han Sans SC";--md-code-font:"Roboto Mono"}</style>
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"JetBrains Mono"}</style>
 <link href="../../../../assets/_markdown_exec_pyodide.css" rel="stylesheet"/>
+<link href="../../../../css/heti.css" rel="stylesheet"/>
 <link href="../../../../extra.css" rel="stylesheet"/>
 <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
 <script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-LMDTYMWWTF"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-LMDTYMWWTF",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-LMDTYMWWTF",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
 <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
- <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+<link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -78,7 +77,7 @@
 <label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"></path></svg>
 </label>
-<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="indigo" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
 <label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"></path></svg>
 </label>
@@ -165,7 +164,7 @@
 <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden="">
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
-<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
 <label class="md-nav__title" for="__drawer">
 <a aria-label="Overfitting: From Algorithms to Silicon" class="md-nav__button md-logo" data-md-component="logo" href="../../../.." title="Overfitting: From Algorithms to Silicon">
 <svg viewbox="0 0 89 89" xmlns="http://www.w3.org/2000/svg">
@@ -507,246 +506,6 @@
 </div>
 </div>
 </div>
-<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav aria-label="目录" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#1-rl-reinforcement-learning">
-<span class="md-ellipsis">
-      
-        1. 什么是强化学习(RL, Reinforcement Learning)
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#2">
-<span class="md-ellipsis">
-      
-        2. 如何进行强化学习
-      
-    </span>
-</a>
-<nav aria-label="2. 如何进行强化学习" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#21-q-learning">
-<span class="md-ellipsis">
-      
-        2.1. Q-Learning
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#22-q-learning">
-<span class="md-ellipsis">
-      
-        2.2. Q-Learning 的学习过程
-      
-    </span>
-</a>
-<nav aria-label="2.2. Q-Learning 的学习过程" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#221-exploitation-exploration">
-<span class="md-ellipsis">
-      
-        2.2.1. 利用和探索（exploitation &amp; exploration）
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#222">
-<span class="md-ellipsis">
-      
-        2.2.2. 强化学习的目标
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#223">
-<span class="md-ellipsis">
-      
-        2.2.3. 强化学习的挑战
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#3">
-<span class="md-ellipsis">
-      
-        3. 策略梯度方法
-      
-    </span>
-</a>
-<nav aria-label="3. 策略梯度方法" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#31">
-<span class="md-ellipsis">
-      
-        3.1. 策略梯度定理
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#32-trpotrust-region-policy-optimization">
-<span class="md-ellipsis">
-      
-        3.2. 策略梯度方法的改进–TRPO（Trust Region Policy Optimization）
-      
-    </span>
-</a>
-<nav aria-label="3.2. 策略梯度方法的改进–TRPO（Trust Region Policy Optimization）" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#_1">
-<span class="md-ellipsis">
-      
-        优势函数
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#33-ppoproximal-policy-optimization">
-<span class="md-ellipsis">
-      
-        3.3. 策略梯度方法的改进–PPO(Proximal Policy Optimization)
-      
-    </span>
-</a>
-<nav aria-label="3.3. 策略梯度方法的改进–PPO(Proximal Policy Optimization)" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#_2">
-<span class="md-ellipsis">
-      
-        优势函数的估计
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#rlhf-with-ppo">
-<span class="md-ellipsis">
-      
-        RLHF with PPO
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#34-grpogroup-relative-policy-optimization">
-<span class="md-ellipsis">
-      
-        3.4. 策略梯度方法的改进–GRPO（Group Relative Policy Optimization）
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#deepseek-r1">
-<span class="md-ellipsis">
-      
-        DeepSeek R1
-      
-    </span>
-</a>
-<nav aria-label="DeepSeek R1" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#deepseek-r1-zero">
-<span class="md-ellipsis">
-      
-        DeepSeek R1-Zero
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#deepseek-r1_1">
-<span class="md-ellipsis">
-      
-        DeepSeek R1
-      
-    </span>
-</a>
-<nav aria-label="DeepSeek R1" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#cold-start">
-<span class="md-ellipsis">
-      
-        Cold Start
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#reasoning-rl">
-<span class="md-ellipsis">
-      
-        Reasoning RL
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#sft">
-<span class="md-ellipsis">
-      
-        拒绝采样与SFT
-      
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#rl-for-all-scenarios">
-<span class="md-ellipsis">
-      
-        RL for all scenarios
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-</ul>
-</nav>
-</li>
-</ul>
-</nav>
-</div>
-</div>
-</div>
 <div class="md-content md-content--post" data-md-component="content">
 <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
 <div class="md-sidebar__scrollwrap">
@@ -803,6 +562,112 @@
 </li>
 </ul>
 </nav>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-rl-reinforcement-learning">
+<span class="md-ellipsis">
+      
+        1. 什么是强化学习(RL, Reinforcement Learning)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2">
+<span class="md-ellipsis">
+      
+        2. 如何进行强化学习
+      
+    </span>
+</a>
+<nav aria-label="2. 如何进行强化学习" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#21-q-learning">
+<span class="md-ellipsis">
+      
+        2.1. Q-Learning
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#22-q-learning">
+<span class="md-ellipsis">
+      
+        2.2. Q-Learning 的学习过程
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3">
+<span class="md-ellipsis">
+      
+        3. 策略梯度方法
+      
+    </span>
+</a>
+<nav aria-label="3. 策略梯度方法" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#31">
+<span class="md-ellipsis">
+      
+        3.1. 策略梯度定理
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#32-trpotrust-region-policy-optimization">
+<span class="md-ellipsis">
+      
+        3.2. 策略梯度方法的改进–TRPO（Trust Region Policy Optimization）
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#33-ppoproximal-policy-optimization">
+<span class="md-ellipsis">
+      
+        3.3. 策略梯度方法的改进–PPO(Proximal Policy Optimization)
+      
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#34-grpogroup-relative-policy-optimization">
+<span class="md-ellipsis">
+      
+        3.4. 策略梯度方法的改进–GRPO（Group Relative Policy Optimization）
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deepseek-r1">
+<span class="md-ellipsis">
+      
+        DeepSeek R1
+      
+    </span>
+</a>
+</li>
+</ul>
+</nav>
 </div>
 </div>
 </div>
@@ -812,32 +677,32 @@
 <a class="md-tag" href="../../../../tags/#tag:rl">RL</a>
 <a class="md-tag" href="../../../../tags/#tag:training">Training</a>
 </nav>
-<h1>从强化学习到DeepSeek R1</h1>
-<h2 id="1-rl-reinforcement-learning">1. 什么是强化学习(RL, Reinforcement Learning)<a class="headerlink" href="#1-rl-reinforcement-learning" title="Permanent link">¶</a></h2>
+<h1>从强化学习到<span><span class="heti-spacing"> </span>DeepSeek R1</span></h1>
+<h2 id="1-rl-reinforcement-learning"><span>1.<span class="heti-spacing"> </span></span>什么是强化学习<span><span class="heti-spacing"> </span>(RL, Reinforcement Learning)</span><a class="headerlink" href="#1-rl-reinforcement-learning" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
 <p>传统的机器学习，包括深度学习，其本质是数学性的，严格遵守函数的数学定义：对于给定输入，产生确定的输出</p>
 <div class="arithmatex">\[F(x) = y\]</div>
-<p>随着输入<span class="arithmatex">\(x\)</span>和输出<span class="arithmatex">\(y\)</span>的不同，这一范式可以适配各种不同的任务，比如：</p>
+<p>随着输入<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>和输出<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y\)</span><span class="heti-spacing"> </span></span>的不同，这一范式可以适配各种不同的任务，比如：</p>
 <ul>
-<li><span class="arithmatex">\(x\)</span> 是图像，<span class="arithmatex">\(y\)</span>是类别，那么<span class="arithmatex">\(F\)</span>就是Resnet这种图像模型；</li>
-<li><span class="arithmatex">\(x\)</span> 是语音信号，<span class="arithmatex">\(y\)</span>是文字，那么<span class="arithmatex">\(F\)</span>就是一个语音识别模型；</li>
-<li><span class="arithmatex">\(x\)</span> 是文本输入，<span class="arithmatex">\(y\)</span>是文本输出，那么<span class="arithmatex">\(F\)</span>就是时下火热的大语言模型；<br/>
+<li><span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>是图像，<span><span class="arithmatex">\(y\)</span><span class="heti-spacing"> </span></span>是类别，那么<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(F\)</span><span class="heti-spacing"> </span></span>就是<span class="heti-skip"><span class="heti-spacing"> </span>Resnet<span class="heti-spacing"> </span></span>这种图像模型；</li>
+<li><span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>是语音信号，<span><span class="arithmatex">\(y\)</span><span class="heti-spacing"> </span></span>是文字，那么<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(F\)</span><span class="heti-spacing"> </span></span>就是一个语音识别模型；</li>
+<li><span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>是文本输入，<span><span class="arithmatex">\(y\)</span><span class="heti-spacing"> </span></span>是文本输出，那么<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(F\)</span><span class="heti-spacing"> </span></span>就是时下火热的大语言模型；<br/>
 …</li>
 </ul>
 <p>强化学习（Reinforcement Learning）的本质上则是哲学性的，它探讨三个核心问题：</p>
 <ul>
-<li>我是谁？一个Agent</li>
-<li>我在哪？处于某个State</li>
-<li>到哪里去？采取一个Action</li>
+<li>我是谁？一个<span><span class="heti-spacing"> </span>Agent</span></li>
+<li>我在哪？处于某个<span><span class="heti-spacing"> </span>State</span></li>
+<li>到哪里去？采取一个<span><span class="heti-spacing"> </span>Action</span></li>
 </ul>
-<p>如果站在上帝视角去观测这个Agent，我们还会发现：</p>
+<p>如果站在上帝视角去观测这个<span><span class="heti-spacing"> </span>Agent</span>，我们还会发现：</p>
 <ul>
-<li>Agent处在一个环境中（Environment）</li>
-<li>Agent有一个用来策略（Policy）告诉我该采取什么动作（Action）</li>
-<li>每执行一个动作（Action），环境都会给我反馈 (Reward)</li>
+<li><span>Agent<span class="heti-spacing"> </span></span>处在一个环境中（Environment）</li>
+<li><span>Agent<span class="heti-spacing"> </span></span>有一个用来策略（Policy）告诉我该采取什么动作（Action）</li>
+<li>每执行一个动作（Action<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，环境都会给我反馈<span><span class="heti-spacing"> </span>(Reward)</span></li>
 </ul>
 <p>以上就是强化学习中的主要概念。</p>
 <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../../../../imgs/rl.png"><img alt="alt text" src="../../../../imgs/rl.png"/></a></p>
-<h2 id="2">2. 如何进行强化学习<a class="headerlink" href="#2" title="Permanent link">¶</a></h2>
+<h2 id="2"><span>2.<span class="heti-spacing"> </span></span>如何进行强化学习<a class="headerlink" href="#2" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
 <p>这里以一个迷宫问题为例，介绍如何进行强化学习：</p>
 <p>迷宫：(S: Start, E: End, W: Wall)</p>
 <pre class="mermaid"><code>block-beta
@@ -846,10 +711,10 @@
   S4 S5 S6
   S7["S7(W)"] S8 S9["S9(E)"]
 </code></pre>
-<p>这个迷宫就是一个Environment。我们放置一个机器人在开始处（Start），让机器人自动学习如何走迷宫的策略（Policy）。这个策略可以记成<span class="arithmatex">\(\pi(s)\rightarrow a, s \in [1-9], a \in [上, 下, 左, 右]\)</span>。开始时机器人对于迷宫一无所知，所以<span class="arithmatex">\(\pi(s)会随机输出一个方向\)</span>。</p>
+<p>这个迷宫就是一个<span><span class="heti-spacing"> </span>Environment</span>。我们放置一个机器人在开始处（Start<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，让机器人自动学习如何走迷宫的策略（Policy<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。这个策略可以记成<span><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(s)\rightarrow a, s \in [1-9], a \in [上, 下, 左, 右]\)</span></span>。开始时机器人对于迷宫一无所知，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(s)会随机输出一个方向\)</span></span>。</p>
 <!-- more -->
 <h3 id="21-q-learning">2.1. Q-Learning<a class="headerlink" href="#21-q-learning" title="Permanent link">¶</a></h3>
-<p>Q-Learning是最早，也是最简单的强化学习算法。前文提到的策略<span class="arithmatex">\(\pi(s)\)</span>过于抽象了，所以我们也定义以下表格</p>
+<p><span>Q-Learning<span class="heti-spacing"> </span></span>是最早，也是最简单的强化学习算法。前文提到的策略<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(s)\)</span><span class="heti-spacing"> </span></span>过于抽象了，所以我们也定义以下表格</p>
 <table>
 <thead>
 <tr>
@@ -884,7 +749,7 @@
 </tr>
 </tbody>
 </table>
-<p>我们称这张表为Q值表，表里边的元素 <span class="arithmatex">\(Q(s, a)\)</span>表示在状态<span class="arithmatex">\(s\)</span>下，采取动作<span class="arithmatex">\(a\)</span>的奖励<span class="arithmatex">\(reward\)</span>。基于这张Q值表，我们可以定义策略：<br/>
+<p>我们称这张表为<span class="heti-skip"><span class="heti-spacing"> </span>Q<span class="heti-spacing"> </span></span>值表，表里边的元素<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(Q(s, a)\)</span><span class="heti-spacing"> </span></span>表示在状态<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span><span class="heti-spacing"> </span></span>下，采取动作<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a\)</span><span class="heti-spacing"> </span></span>的奖励<span><span class="heti-spacing"> </span><span class="arithmatex">\(reward\)</span></span>。基于这张<span class="heti-skip"><span class="heti-spacing"> </span>Q<span class="heti-spacing"> </span></span>值表，我们可以定义策略：<br/>
 $$<br/>
 \pi(s_i) \rightarrow \arg\max_a Q(s, a)|_{s=s_i}<br/>
 $$<br/>
@@ -930,13 +795,13 @@ $$<br/>
 </tr>
 </tbody>
 </table>
-<p>可以指挥Agent沿如下路径行进</p>
+<p>可以指挥<span class="heti-skip"><span class="heti-spacing"> </span>Agent<span class="heti-spacing"> </span></span>沿如下路径行进</p>
 <pre class="mermaid"><code>block-beta
   columns 3
   S1["S1(S)↓"] S2 S3["S3(W)"]
   S4["S4→"] S5["S5↓"] S6
   S7["S7(W)"] S8["S8→"] S9["S9(E)"]</code></pre>
-<p>但是我们很快发现Agent行进的路径并不唯一，比如以下路径也能让Agent走到终点</p>
+<p>但是我们很快发现<span class="heti-skip"><span class="heti-spacing"> </span>Agent<span class="heti-spacing"> </span></span>行进的路径并不唯一，比如以下路径也能让<span class="heti-skip"><span class="heti-spacing"> </span>Agent<span class="heti-spacing"> </span></span>走到终点</p>
 <pre class="mermaid"><code>block-beta
   columns 3
   S1["S1(S)→"] S2["S2↓"] S3["S3(W)"]
@@ -944,42 +809,42 @@ $$<br/>
   S7["S7(W)"] S8["S8→"] S9["S9(E)"]
 </code></pre>
 <p>这是强化学习的第一个问题，<strong>模型的解不唯一</strong>。稍后我们讨论这种解不唯一带来的问题。</p>
-<h3 id="22-q-learning">2.2. Q-Learning 的学习过程<a class="headerlink" href="#22-q-learning" title="Permanent link">¶</a></h3>
+<h3 id="22-q-learning"><span>2.2. Q-Learning<span class="heti-spacing"> </span></span>的学习过程<a class="headerlink" href="#22-q-learning" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
 <ol>
-<li>Q值表初始化，可以全部初始化为0；</li>
+<li><span>Q<span class="heti-spacing"> </span></span>值表初始化，可以全部初始化为<span><span class="heti-spacing"> </span>0</span>；</li>
 <li>
-<p>迭代学习：我们假设Agent被初始化在S0位置</p>
+<p>迭代学习：我们假设<span class="heti-skip"><span class="heti-spacing"> </span>Agent<span class="heti-spacing"> </span></span>被初始化在<span class="heti-skip"><span class="heti-spacing"> </span>S0<span class="heti-spacing"> </span></span>位置</p>
 <ol>
 <li>
-<p>选择action </p>
+<p>选择<span><span class="heti-spacing"> </span>action</span> </p>
 <div class="arithmatex">\[a = \pi(s_i) = \arg\max_a Q(s, a)|_{s=s_i}\]</div>
 </li>
 <li>
-<p>执行action, 环境Environment给出下一个状态<span class="arithmatex">\(s'与奖励\)</span>r$</p>
+<p>执行<span class="heti-skip"><span class="heti-spacing"> </span>action,<span class="heti-spacing"> </span></span>环境<span class="heti-skip"><span class="heti-spacing"> </span>Environment<span class="heti-spacing"> </span></span>给出下一个状态<span><span class="heti-spacing"> </span><span class="arithmatex">\(s'与奖励\)</span>r$</span></p>
 <div class="arithmatex">\[s',r = Environment(s, a)\]</div>
 </li>
 <li>
-<p>更新Q值，这里一般使用Bellman方程：</p>
+<p>更新<span class="heti-skip"><span class="heti-spacing"> </span>Q<span class="heti-spacing"> </span></span>值，这里一般使用<span class="heti-skip"><span class="heti-spacing"> </span>Bellman<span class="heti-spacing"> </span></span>方程：</p>
 <div class="arithmatex">\[Q(s,a)\leftarrow Q(s,a) + \alpha [r+\gamma \max_{a'}Q(s',a')-Q(s,a)]\]</div>
 </li>
 </ol>
 <p>其中：</p>
 <ul>
-<li><span class="arithmatex">\(\alpha\)</span> 为学习率，控制Q值表的更新幅度；</li>
-<li><span class="arithmatex">\(\gamma\)</span> 为折扣因子，控制长期奖励与即时奖励的平衡；</li>
+<li><span><span class="arithmatex">\(\alpha\)</span><span class="heti-spacing"> </span></span>为学习率，控制<span class="heti-skip"><span class="heti-spacing"> </span>Q<span class="heti-spacing"> </span></span>值表的更新幅度；</li>
+<li><span><span class="arithmatex">\(\gamma\)</span><span class="heti-spacing"> </span></span>为折扣因子，控制长期奖励与即时奖励的平衡；</li>
 </ul>
 </li>
 </ol>
-<p>Q-Learning本质上就是记住当前格子的奖励，同时不断根据未来价值重新评估当前格子的价值。最优情况下，总是选择未来价值最高的动作。在学习过程中，每个格子的Q值总是依赖于其他格子的Q值，格子之间相互依赖，非常容易导致Q值长期震荡无法收敛。此时需要对学习过程进行精细挑参才能保证学习过程的收敛性。这是强化学习的第二个问题。</p>
-<h4 id="221-exploitation-exploration">2.2.1. 利用和探索（exploitation &amp; exploration）<a class="headerlink" href="#221-exploitation-exploration" title="Permanent link">¶</a></h4>
+<p><span>Q-Learning<span class="heti-spacing"> </span></span>本质上就是记住当前格子的奖励，同时不断根据未来价值重新评估当前格子的价值。最优情况下，总是选择未来价值最高的动作。在学习过程中，每个格子的<span class="heti-skip"><span class="heti-spacing"> </span>Q<span class="heti-spacing"> </span></span>值总是依赖于其他格子的<span class="heti-skip"><span class="heti-spacing"> </span>Q<span class="heti-spacing"> </span></span>值，格子之间相互依赖，非常容易导致<span class="heti-skip"><span class="heti-spacing"> </span>Q<span class="heti-spacing"> </span></span>值长期震荡无法收敛。此时需要对学习过程进行精细挑参才能保证学习过程的收敛性。这是强化学习的第二个问题。</p>
+<h4 id="221-exploitation-exploration"><span>2.2.1.<span class="heti-spacing"> </span></span>利用和探索（exploitation &amp; exploration）<a class="headerlink" href="#221-exploitation-exploration" title="Permanent link">¶</a></h4>
 <p>如果单纯使用上述学习方法，很容易出现如下问题：</p>
 <pre class="mermaid"><code>block-beta
   columns 3
   S1["S1(S)→"] S2["S2↓"] S3["S3(W)"]
   S4["S4"] S5["S5↑"] S6
   S7["S7(W)"] S8["S8"] S9["S9(E)"]</code></pre>
-<p>即Agent在S2和S5之间反复震荡，无法真的走到终点S9。其原因在于Agent只能获取其历史路径上的Q值，缺乏对整个世界（Environment）的认知，无法发现S8和S6这种更加靠近终点的路径。我们称这种利用历史知识的过程为“利用”（exploitation）。</p>
-<p>除了“利用”以外，我们还需要让Agent有一定的“探索”（exploration）能力，保持对世界的好奇心。最常见的探索方法是使用<span class="arithmatex">\(\epsilon-greedy\)</span>改造策略 <span class="arithmatex">\(\phi\)</span>:</p>
+<p>即<span class="heti-skip"><span class="heti-spacing"> </span>Agent<span class="heti-spacing"> </span></span>在<span class="heti-skip"><span class="heti-spacing"> </span>S2<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>S5<span class="heti-spacing"> </span></span>之间反复震荡，无法真的走到终点<span><span class="heti-spacing"> </span>S9</span>。其原因在于<span class="heti-skip"><span class="heti-spacing"> </span>Agent<span class="heti-spacing"> </span></span>只能获取其历史路径上的<span class="heti-skip"><span class="heti-spacing"> </span>Q<span class="heti-spacing"> </span></span>值，缺乏对整个世界（Environment）的认知，无法发现<span class="heti-skip"><span class="heti-spacing"> </span>S8<span class="heti-spacing"> </span></span>和<span class="heti-skip"><span class="heti-spacing"> </span>S6<span class="heti-spacing"> </span></span>这种更加靠近终点的路径。我们称这种利用历史知识的过程为“利用”（exploitation<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。</p>
+<p>除了“利用”以外，我们还需要让<span class="heti-skip"><span class="heti-spacing"> </span>Agent<span class="heti-spacing"> </span></span>有一定的“探索”（exploration）能力，保持对世界的好奇心。最常见的探索方法是使用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon-greedy\)</span><span class="heti-spacing"> </span></span>改造策略<span><span class="heti-spacing"> </span><span class="arithmatex">\(\phi\)</span>:</span></p>
 <div class="arithmatex">\[
 \phi(s_i) = 
 \begin{cases} 
@@ -987,82 +852,82 @@ $$<br/>
 \text{random action} &amp; \text{with probability } \epsilon 
 \end{cases}
 \]</div>
-<p>即以概率<span class="arithmatex">\(1-\epsilon\)</span>选择最优动作，以概率 <span class="arithmatex">\(\epsilon\)</span> 选择随机动作。为了让Q-Learning更好的收敛，可以在训练过程中逐步降低探索概率<span class="arithmatex">\(\epsilon\)</span>。</p>
-<h4 id="222">2.2.2. 强化学习的目标<a class="headerlink" href="#222" title="Permanent link">¶</a></h4>
-<p>强化学习的核心目标是找到一个最优策略<span class="arithmatex">\(\pi^*\)</span>，使Agent在其生命周期内获得的期望奖励最大化：</p>
+<p>即以概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(1-\epsilon\)</span><span class="heti-spacing"> </span></span>选择最优动作，以概率<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span><span class="heti-spacing"> </span></span>选择随机动作。为了让<span class="heti-skip"><span class="heti-spacing"> </span>Q-Learning<span class="heti-spacing"> </span></span>更好的收敛，可以在训练过程中逐步降低探索概率<span><span class="heti-spacing"> </span><span class="arithmatex">\(\epsilon\)</span></span>。</p>
+<h4 id="222"><span>2.2.2.<span class="heti-spacing"> </span></span>强化学习的目标<a class="headerlink" href="#222" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>强化学习的核心目标是找到一个最优策略<span><span class="heti-spacing"> </span><span class="arithmatex">\(\pi^*\)</span></span>，使<span class="heti-skip"><span class="heti-spacing"> </span>Agent<span class="heti-spacing"> </span></span>在其生命周期内获得的期望奖励最大化：</p>
 <div class="arithmatex">\[J(\pi) = \mathbb{E}\left[ \sum_{t=0}^{\infty} \gamma^t R_t \mid \pi \right]\]</div>
-<p>直接在策略空间优化<span class="arithmatex">\(\pi\)</span> 通常是不可行的：</p>
+<p>直接在策略空间优化<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi\)</span><span class="heti-spacing"> </span></span>通常是不可行的：</p>
 <ul>
-<li>策略空间过大：<span class="arithmatex">\(\pi(a|s)\)</span>是一个概率分布，极大的增加了搜索难度；</li>
+<li>策略空间过大：<span><span class="arithmatex">\(\pi(a|s)\)</span><span class="heti-spacing"> </span></span>是一个概率分布，极大的增加了搜索难度；</li>
 <li>无梯度信息：不经过特殊设计，难以直接对策略求导；</li>
 </ul>
 <p>为了解决上述问题，引入了 <strong>值函数</strong> 来简化优化过程，值函数一般有两类：</p>
 <ul>
-<li><strong>状态价值函数<span class="arithmatex">\(V^\pi(s)\)</span></strong>: 表示从某个状态<span class="arithmatex">\(s\)</span>开始，遵循策略<span class="arithmatex">\(\pi\)</span>后，所能获得的长期回报</li>
+<li><strong>状态价值函数<span><span class="heti-spacing"> </span><span class="arithmatex">\(V^\pi(s)\)</span></span></strong><span>:<span class="heti-spacing"> </span></span>表示从某个状态<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span><span class="heti-spacing"> </span></span>开始，遵循策略<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi\)</span><span class="heti-spacing"> </span></span>后，所能获得的长期回报</li>
 </ul>
 <div class="arithmatex">\[
 V^\pi(s) = \mathbb{E} \left[ \sum_{t=0}^{\infty} \gamma^t r_t \mid s_0 = s \right]
 \]</div>
 <ul>
-<li><span class="arithmatex">\(\gamma\)</span>为折扣因子，控制未来奖励的重要性；</li>
-<li><span class="arithmatex">\(r_t\)</span>为时刻<span class="arithmatex">\(t\)</span>的即时奖励；</li>
-<li><span class="arithmatex">\(\mathbb{{E}}_\pi\)</span>表示对策略<span class="arithmatex">\(\pi\)</span>的所有可能多做求期望。</li>
+<li><span><span class="arithmatex">\(\gamma\)</span><span class="heti-spacing"> </span></span>为折扣因子，控制未来奖励的重要性；</li>
+<li><span><span class="arithmatex">\(r_t\)</span><span class="heti-spacing"> </span></span>为时刻<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>的即时奖励；</li>
+<li><span><span class="arithmatex">\(\mathbb{{E}}_\pi\)</span><span class="heti-spacing"> </span></span>表示对策略<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi\)</span><span class="heti-spacing"> </span></span>的所有可能多做求期望。</li>
 </ul>
-<p>Bellman方程是上述值函数定义的递归形似，将上述定义拆解成了当前奖励和未来状态价值：</p>
+<p><span>Bellman<span class="heti-spacing"> </span></span>方程是上述值函数定义的递归形似，将上述定义拆解成了当前奖励和未来状态价值：</p>
 <div class="arithmatex">\[
 V^\pi(s) = \sum_{a} \pi(a|s) [r(s, a)+\gamma V^\pi(s')]
 \]</div>
 <ul>
-<li><strong>动作价值函数</strong><span class="arithmatex">\(Q^\pi(s, a)\)</span>: 与状态价值函数类似，只是表示状态<span class="arithmatex">\(s\)</span>下执行动作<span class="arithmatex">\(a\)</span>后，能够得到的长期回报</li>
+<li><strong>动作价值函数</strong><span><span class="arithmatex">\(Q^\pi(s, a)\)</span>:<span class="heti-spacing"> </span></span>与状态价值函数类似，只是表示状态<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s\)</span><span class="heti-spacing"> </span></span>下执行动作<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a\)</span><span class="heti-spacing"> </span></span>后，能够得到的长期回报</li>
 <li>
 <div class="arithmatex">\[
     Q^\pi(s,a) = \mathbb{E} \left[ \sum_{t=0}^{\infty} \gamma^t r_t \mid s_0 = s, a_0=a \right]
 \]</div>
 </li>
 </ul>
-<h4 id="223">2.2.3. 强化学习的挑战<a class="headerlink" href="#223" title="Permanent link">¶</a></h4>
+<h4 id="223"><span>2.2.3.<span class="heti-spacing"> </span></span>强化学习的挑战<a class="headerlink" href="#223" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
 <ol>
 <li>
-<p><strong>训练样本的概率分布问题</strong> 传统的监督学习中，一般要求训练样本和测试样本独立同分布，即样本独立抽样，但样本来源的概率分布保持不变。这样才能让监督学习算法从数据里边总结和学习规律。而强化学习通过与环境交互来获取样本，Agent的初始状态、运行轨迹都会影响采样过程。即不能保证两次训练之间的样本是独立同分布，也无法保证测试与训练的样本是独立同分布。</p>
+<p><strong>训练样本的概率分布问题</strong> 传统的监督学习中，一般要求训练样本和测试样本独立同分布，即样本独立抽样，但样本来源的概率分布保持不变。这样才能让监督学习算法从数据里边总结和学习规律。而强化学习通过与环境交互来获取样本，<span>Agent<span class="heti-spacing"> </span></span>的初始状态、运行轨迹都会影响采样过程。即不能保证两次训练之间的样本是独立同分布，也无法保证测试与训练的样本是独立同分布。</p>
 </li>
 <li>
-<p><strong>部分观测与环境随机性</strong> 强化学习训练过程只能对整个世界（Environment）进行部分观测，不能感知整个世界（没见过市面）。模型经常出现对局部过度学习、过拟合，对全局欠拟合。由于无法界定过拟合和欠拟合部分的边界，难以保证Agent在未见过的新环境中行为的合理性和稳定性。</p>
+<p><strong>部分观测与环境随机性</strong> 强化学习训练过程只能对整个世界（Environment）进行部分观测，不能感知整个世界（没见过市面<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。模型经常出现对局部过度学习、过拟合，对全局欠拟合。由于无法界定过拟合和欠拟合部分的边界，难以保证<span class="heti-skip"><span class="heti-spacing"> </span>Agent<span class="heti-spacing"> </span></span>在未见过的新环境中行为的合理性和稳定性。</p>
 </li>
 <li>
-<p><strong>延迟反馈与稀疏奖励</strong> 在许多强化学习问题中，奖励信号往往是延迟且稀疏的，导致Agent难以及时判定行为的好坏。这种激励信号的不连续性使得价值函数估计方差变大，会增加优化难度，必须采用奖励整形、经验回放等策略来缓解这一问题。</p>
+<p><strong>延迟反馈与稀疏奖励</strong> 在许多强化学习问题中，奖励信号往往是延迟且稀疏的，导致<span class="heti-skip"><span class="heti-spacing"> </span>Agent<span class="heti-spacing"> </span></span>难以及时判定行为的好坏。这种激励信号的不连续性使得价值函数估计方差变大，会增加优化难度，必须采用奖励整形、经验回放等策略来缓解这一问题。</p>
 </li>
 </ol>
-<h2 id="3">3. 策略梯度方法<a class="headerlink" href="#3" title="Permanent link">¶</a></h2>
+<h2 id="3"><span>3.<span class="heti-spacing"> </span></span>策略梯度方法<a class="headerlink" href="#3" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h2>
 <p>在介绍策略梯度方法之前，我们先来看值函数方法的几个问题：</p>
 <ol>
 <li>只适合离散状态与动作空间</li>
 <li>需要额外组合探索策略</li>
 <li>随机探索对最坏情况缺乏控制；</li>
 </ol>
-<p>而策略梯度方法是直接对策略进行求导的方法，首先需要将策略函数参数化<span class="arithmatex">\(\pi(a|s) \rightarrow \pi_\theta(a|s)\)</span>，此时可以将强化学习的目标函数写为</p>
+<p>而策略梯度方法是直接对策略进行求导的方法，首先需要将策略函数参数化<span><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(a|s) \rightarrow \pi_\theta(a|s)\)</span></span>，此时可以将强化学习的目标函数写为</p>
 <div class="arithmatex">\[
   J(\theta) = \mathbb{E}_{\tau \sim p_\theta(\tau)}\left[ R(\tau) \right]
 \]</div>
 <p>这里：</p>
 <ul>
-<li><span class="arithmatex">\(\tau = (s_0, a_0, s_1, a_1, ..., s_T, a_T)\)</span>是一个轨迹；</li>
-<li><span class="arithmatex">\(R(\tau) = \sum_{t=0}^{T} r(s_t, a_t)\)</span> 是轨迹的概率分布；</li>
-<li><span class="arithmatex">\(p_\theta(\tau)\)</span> 是轨迹的概率，由策略概率和环境的转移概率组成；</li>
+<li><span><span class="arithmatex">\(\tau = (s_0, a_0, s_1, a_1, ..., s_T, a_T)\)</span><span class="heti-spacing"> </span></span>是一个轨迹；</li>
+<li><span><span class="arithmatex">\(R(\tau) = \sum_{t=0}^{T} r(s_t, a_t)\)</span><span class="heti-spacing"> </span></span>是轨迹的概率分布；</li>
+<li><span><span class="arithmatex">\(p_\theta(\tau)\)</span><span class="heti-spacing"> </span></span>是轨迹的概率，由策略概率和环境的转移概率组成；</li>
 </ul>
-<h3 id="31">3.1. 策略梯度定理<a class="headerlink" href="#31" title="Permanent link">¶</a></h3>
+<h3 id="31"><span>3.1.<span class="heti-spacing"> </span></span>策略梯度定理<a class="headerlink" href="#31" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h3>
 <p>策略梯度可以根据策略梯度定理计算</p>
 <div class="arithmatex">\[
 \nabla_\theta J(\theta) = \mathbb{E}_{\tau \sim p_\theta(\tau)}\left[\sum_{t=0}^{T} \nabla_\theta \log \pi_\theta(a_t|s_t)R(\tau)\right]
 \]</div>
-<p>其中，<span class="arithmatex">\(\nabla_\theta \log \pi_\theta(a_t|s_t)\)</span>是策略的梯度，通过这个梯度可以更新策略在状态<span class="arithmatex">\(s_t\)</span>下采用 <span class="arithmatex">\(a_t\)</span>的概率。而<span class="arithmatex">\(R(\tau)\)</span>表示策略带来的未来回报，回报越高动作被采纳的概率越高。估计未来回报是计算策略梯度最重要的步骤，常见实现有两种：</p>
+<p>其中，<span><span class="arithmatex">\(\nabla_\theta \log \pi_\theta(a_t|s_t)\)</span><span class="heti-spacing"> </span></span>是策略的梯度，通过这个梯度可以更新策略在状态<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(s_t\)</span><span class="heti-spacing"> </span></span>下采用<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a_t\)</span><span class="heti-spacing"> </span></span>的概率。而<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(R(\tau)\)</span><span class="heti-spacing"> </span></span>表示策略带来的未来回报，回报越高动作被采纳的概率越高。估计未来回报是计算策略梯度最重要的步骤，常见实现有两种：</p>
 <ul>
-<li>使用蒙特卡洛方法估计<span class="arithmatex">\(Q_\pi(s,a)\)</span>，由于不需要使用模型，也称为无模型策略梯度算法；</li>
-<li>通过引入价值函数（<span class="arithmatex">\(V_\pi\)</span>或者<span class="arithmatex">\(Q_\pi\)</span>）来估计未来回报；</li>
+<li>使用蒙特卡洛方法估计<span><span class="heti-spacing"> </span><span class="arithmatex">\(Q_\pi(s,a)\)</span></span>，由于不需要使用模型，也称为无模型策略梯度算法；</li>
+<li>通过引入价值函数（<span><span class="arithmatex">\(V_\pi\)</span><span class="heti-spacing"> </span></span>或者<span><span class="heti-spacing"> </span><span class="arithmatex">\(Q_\pi\)</span></span>）来估计未来回报；</li>
 </ul>
 <p>策略梯度方法对比值函数方法，具备如下特点：</p>
 <ul>
 <li>可以基于轨迹学习，而不需要实时交互和反馈</li>
-<li>适合高维连续动作空间（包括embedding空间）</li>
+<li>适合高维连续动作空间（包括<span class="heti-skip"><span class="heti-spacing"> </span>embedding<span class="heti-spacing"> </span></span>空间）</li>
 <li>可以把序列生成模型可以作为策略：<ul>
 <li>用户输入作为状态空间　Ｓ；</li>
 <li>模型输出作为动作空间　Ａ；</li>
@@ -1070,9 +935,9 @@ V^\pi(s) = \sum_{a} \pi(a|s) [r(s, a)+\gamma V^\pi(s')]
 </ul>
 </li>
 </ul>
-<p>给出人类偏好反馈 <span class="arithmatex">\(R(\tau)\)</span>即可直接使用PG方法训练LLM对齐人类偏好。但PG算法的梯度方差较大，稳定性欠佳。同时<span class="arithmatex">\(R(\tau)\)</span> 也难以直接定义、打分，因此PG方法并未实际应用于LLM对齐任务。</p>
-<h3 id="32-trpotrust-region-policy-optimization">3.2. 策略梯度方法的改进–TRPO（Trust Region Policy Optimization）<a class="headerlink" href="#32-trpotrust-region-policy-optimization" title="Permanent link">¶</a></h3>
-<p>当把策略梯度方法应用于训练时，可以通过下式计算minibatch梯度：</p>
+<p>给出人类偏好反馈<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(R(\tau)\)</span><span class="heti-spacing"> </span></span>即可直接使用<span class="heti-skip"><span class="heti-spacing"> </span>PG<span class="heti-spacing"> </span></span>方法训练<span class="heti-skip"><span class="heti-spacing"> </span>LLM<span class="heti-spacing"> </span></span>对齐人类偏好。但<span class="heti-skip"><span class="heti-spacing"> </span>PG<span class="heti-spacing"> </span></span>算法的梯度方差较大，稳定性欠佳。同时<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(R(\tau)\)</span><span class="heti-spacing"> </span></span>也难以直接定义、打分，因此<span class="heti-skip"><span class="heti-spacing"> </span>PG<span class="heti-spacing"> </span></span>方法并未实际应用于<span class="heti-skip"><span class="heti-spacing"> </span>LLM<span class="heti-spacing"> </span></span>对齐任务。</p>
+<h3 id="32-trpotrust-region-policy-optimization"><span>3.2.<span class="heti-spacing"> </span></span>策略梯度方法的改进–TRPO（Trust Region Policy Optimization）<a class="headerlink" href="#32-trpotrust-region-policy-optimization" title="Permanent link">¶</a></h3>
+<p>当把策略梯度方法应用于训练时，可以通过下式计算<span class="heti-skip"><span class="heti-spacing"> </span>minibatch<span class="heti-spacing"> </span></span>梯度：</p>
 <div class="arithmatex">\[
 \nabla_\theta J(\theta)
 = \frac{1}{m} \sum_{i=1}^{m} \sum_{t=0}^{T} \nabla_\theta \log \pi_\theta(a_t|s_t)R(\tau)
@@ -1081,7 +946,7 @@ V^\pi(s) = \sum_{a} \pi(a|s) [r(s, a)+\gamma V^\pi(s')]
 <div class="arithmatex">\[
   \theta \leftarrow \theta + \alpha \nabla_\theta J(\theta) 
 \]</div>
-<p>策略更新如何选择步长<span class="arithmatex">\(\alpha\)</span>是一个非常关键的问题：</p>
+<p>策略更新如何选择步长<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\alpha\)</span><span class="heti-spacing"> </span></span>是一个非常关键的问题：</p>
 <ul>
 <li>过大的步长会导致策略剧烈变化，破坏已学到的好的行为</li>
 <li>过小的步长会导致训练效率低下</li>
@@ -1091,12 +956,12 @@ V^\pi(s) = \sum_{a} \pi(a|s) [r(s, a)+\gamma V^\pi(s')]
 \theta \leftarrow \theta + \alpha \nabla_\theta J(\theta) 
 \]</div>
 <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../../../../imgs/rl/line_search_trust_region.png"><img alt="alt text" src="../../../../imgs/rl/line_search_trust_region.png"/></a></p>
-<p>固定步长方法是最为朴素的方法，但是步长会影响收敛性和稳定性，对实际问题搜索合理步长会比较麻烦；线性搜索会沿着梯度方向尝试多个步长，并选择最优步长，搜索开销较大，但效果最好；信赖域方法会根据梯度计算自适应信赖域，并保证在信赖域内更新。信赖域方法一方面能够保证每一步更新不会距离原策略太远，另一方面能够在梯度噪声过高时自动缩小信赖域，能够比较好的解决PG方法梯度噪声高问题。</p>
-<h4 id="_1">优势函数<a class="headerlink" href="#_1" title="Permanent link">¶</a></h4>
-<p>上边讨论的步长搜索算法都在某种程度上要求目标函数具备凸性，而强化学习的目标显然不是凸函数。为了解决目标函数凸性的问题，TRPO又引入了 <a href="/nodes/Minorize Maximization/">Minorize-Maximization思想</a> ：对于一个难以优化，难以求导的目标函数，可以选择一个替代函数来描述目标函数的上届，通过迭代最大化这个上届替代函数可以完成对原目标函数的优化。</p>
+<p>固定步长方法是最为朴素的方法，但是步长会影响收敛性和稳定性，对实际问题搜索合理步长会比较麻烦；线性搜索会沿着梯度方向尝试多个步长，并选择最优步长，搜索开销较大，但效果最好；信赖域方法会根据梯度计算自适应信赖域，并保证在信赖域内更新。信赖域方法一方面能够保证每一步更新不会距离原策略太远，另一方面能够在梯度噪声过高时自动缩小信赖域，能够比较好的解决<span class="heti-skip"><span class="heti-spacing"> </span>PG<span class="heti-spacing"> </span></span>方法梯度噪声高问题。</p>
+<h4 id="_1">优势函数<a class="headerlink" href="#_1" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
+<p>上边讨论的步长搜索算法都在某种程度上要求目标函数具备凸性，而强化学习的目标显然不是凸函数。为了解决目标函数凸性的问题，<span>TRPO<span class="heti-spacing"> </span></span>又引入了<a href="/nodes/Minorize Maximization/"><span class="heti-skip"><span class="heti-spacing"> </span>Minorize-Maximization<span class="heti-spacing"> </span></span>思想</a> ：对于一个难以优化，难以求导的目标函数，可以选择一个替代函数来描述目标函数的上届，通过迭代最大化这个上届替代函数可以完成对原目标函数的优化。</p>
 <div class="admonition note">
 <p class="admonition-title">什么是凸性</p>
-<p><strong>凸性</strong> 是优化理论中最为重要的一个概念。若一个函数满足任意亮点<span class="arithmatex">\(x_1\)</span>与<span class="arithmatex">\(x_2\)</span>，满足：<br/>
+<p><strong>凸性</strong> 是优化理论中最为重要的一个概念。若一个函数满足任意亮点<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x_1\)</span><span class="heti-spacing"> </span></span>与<span><span class="heti-spacing"> </span><span class="arithmatex">\(x_2\)</span></span>，满足：<br/>
 $$<br/>
 f(\lambda x_1 +(1-\lambda)x_2) \le \lambda f(x_1) + (1-\lambda)f(x_2)<br/>
 $$<br/>
@@ -1106,23 +971,23 @@ $$<br/>
 <div class="arithmatex">\[
 A_\pi(s,a) = Q_\pi(s,a) - V_\pi(s)
 \]</div>
-<p>这个函数表示策略<span class="arithmatex">\(\pi\)</span>采取动作<span class="arithmatex">\(a\)</span>时的奖励比平均奖励高多少。TRPO最终求解的问题就变成<br/>
+<p>这个函数表示策略<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\pi\)</span><span class="heti-spacing"> </span></span>采取动作<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(a\)</span><span class="heti-spacing"> </span></span>时的奖励比平均奖励高多少。<span>TRPO<span class="heti-spacing"> </span></span>最终求解的问题就变成<br/>
 $$<br/>
 \begin{aligned}<br/>
 \max_{\theta} &amp; E[\frac{\pi_\theta(a|s)}{\pi_{\theta_{old}}(a|s)} A_\theta(s,a)] \<br/>
 \textrm{s.t.} &amp;　E[D_{KL}(\pi_{\theta_{old}}(a|s) \pi_\theta(a|s))] \le \delta<br/>
 \end{aligned}<br/>
 $$</p>
-<p>其中，<span class="arithmatex">\(\frac{\pi_\theta(a|s)}{\pi_{\theta_{old}}(a|s)}\)</span>是 <a href="/nodes/Importance Sampling/">重要性采样</a> 。由于训练时只能使用旧策略产出的轨迹，我们需要通过重要性采样对目标函数中的期望进行修正，使其能够反映新策略的期望回报。</p>
-<h3 id="33-ppoproximal-policy-optimization">3.3. 策略梯度方法的改进–PPO(Proximal Policy Optimization)<a class="headerlink" href="#33-ppoproximal-policy-optimization" title="Permanent link">¶</a></h3>
-<p>近端优化（Proximal Optimization）是这样一种优化方法：通过引入一个近端约束项，让优化迭代过程中步长尽可能小，避免因权重剧烈变化而带来的训练不稳定。Proximal OPtimization在传统的凸优化领域有着广泛的应用。<br/>
+<p>其中，<span><span class="arithmatex">\(\frac{\pi_\theta(a|s)}{\pi_{\theta_{old}}(a|s)}\)</span><span class="heti-spacing"> </span></span>是 <a href="/nodes/Importance Sampling/">重要性采样</a> 。由于训练时只能使用旧策略产出的轨迹，我们需要通过重要性采样对目标函数中的期望进行修正，使其能够反映新策略的期望回报。</p>
+<h3 id="33-ppoproximal-policy-optimization"><span>3.3.<span class="heti-spacing"> </span></span>策略梯度方法的改进–PPO(Proximal Policy Optimization)<a class="headerlink" href="#33-ppoproximal-policy-optimization" title="Permanent link">¶</a></h3>
+<p>近端优化（Proximal Optimization）是这样一种优化方法：通过引入一个近端约束项，让优化迭代过程中步长尽可能小，避免因权重剧烈变化而带来的训练不稳定。<span>Proximal OPtimization<span class="heti-spacing"> </span></span>在传统的凸优化领域有着广泛的应用。<br/>
 $$<br/>
   \theta^* = \arg \max_\theta \left( <br/>
     f(\theta) + \lambda |\theta - \theta_t|_p<br/>
   \right)<br/>
 $$<br/>
 其中<span class="arithmatex">\(p \in \{1, 2\}\)</span>，常见使用<span class="arithmatex">\(L_1\)</span>或者<span class="arithmatex">\(L_2\)</span>作为约束项。</p>
-<p>PPO通过clip操作限制策略的更新幅度</p>
+<p><span>PPO<span class="heti-spacing"> </span></span>通过<span class="heti-skip"><span class="heti-spacing"> </span>clip<span class="heti-spacing"> </span></span>操作限制策略的更新幅度</p>
 <p>$$<br/>
 J_{PPO}(\theta) = \mathbb{E} \left[ <br/>
   \min(<br/>
@@ -1132,46 +997,46 @@ J_{PPO}(\theta) = \mathbb{E} \left[ <br/>
 \right]<br/>
 $$<br/>
 其中<span class="arithmatex">\(clip()\)</span>函数会将<span class="arithmatex">\(\frac{\pi_\theta(a|s)}{\pi_{\theta_{old}}(a|s)}\)</span>这个比值限制在<span class="arithmatex">\([1-\epsilon,1+\epsilon]\)</span>。</p>
-<p>TRPO算法在计算信赖域时需要计算Fisher信息矩阵，并使用共轭梯度方法来更新，计算量较大。而PPO仅需要对重要性采样进行截断，更加的高效和稳定。</p>
-<h4 id="_2">优势函数的估计<a class="headerlink" href="#_2" title="Permanent link">¶</a></h4>
+<p><span>TRPO<span class="heti-spacing"> </span></span>算法在计算信赖域时需要计算<span class="heti-skip"><span class="heti-spacing"> </span>Fisher<span class="heti-spacing"> </span></span>信息矩阵，并使用共轭梯度方法来更新，计算量较大。而<span class="heti-skip"><span class="heti-spacing"> </span>PPO<span class="heti-spacing"> </span></span>仅需要对重要性采样进行截断，更加的高效和稳定。</p>
+<h4 id="_2">优势函数的估计<a class="headerlink" href="#_2" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h4>
 <p>在进行优势函数（Advantage Function）估计的时候，通常有两种方法：蒙特卡扩估计与时间差分估计：</p>
 <ol>
-<li>蒙特卡洛估计：通过完整回报近似<span class="arithmatex">\(Q(s,a)\)</span>，需要完整的轨迹才能计算，一般用于离线数据</li>
+<li>蒙特卡洛估计：通过完整回报近似<span><span class="heti-spacing"> </span><span class="arithmatex">\(Q(s,a)\)</span></span>，需要完整的轨迹才能计算，一般用于离线数据</li>
 </ol>
 <div class="arithmatex">\[
 A(s,a) = Q(s,a)-V(s) \approx \sum \gamma^tr_{t} - V(s)
 \]</div>
 <ol start="2">
-<li>时间差分估计：通过折扣未来奖励来近似<span class="arithmatex">\(Q(s,a)\)</span>，可实时更新</li>
+<li>时间差分估计：通过折扣未来奖励来近似<span><span class="heti-spacing"> </span><span class="arithmatex">\(Q(s,a)\)</span></span>，可实时更新</li>
 </ol>
 <div class="arithmatex">\[
 A(s,a) = Q(s,a) - V(s) \approx r_t+\gamma V(s_{t+1}) -V(s)
 \]</div>
-<p>蒙特卡洛估计可以给出无偏估计，但是优势函数的方差较大，而时间差分方差较小，但误差偏差较大。为了平衡两者PPO引入了GAE（Generalized Advantage Estimation）：</p>
+<p>蒙特卡洛估计可以给出无偏估计，但是优势函数的方差较大，而时间差分方差较小，但误差偏差较大。为了平衡两者<span class="heti-skip"><span class="heti-spacing"> </span>PPO<span class="heti-spacing"> </span></span>引入了<span><span class="heti-spacing"> </span>GAE</span>（Generalized Advantage Estimation<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>：</p>
 <div class="arithmatex">\[
 A_t^{GAE(\gamma, \lambda)} = \sum_{l=0}^{T-t}(\gamma \lambda)^l\delta_t +l
 \]</div>
-<p>其中<span class="arithmatex">\(\delta_t\)</span>是<span class="arithmatex">\(t\)</span>时刻的TD残差</p>
+<p>其中<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\delta_t\)</span><span class="heti-spacing"> </span></span>是<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(t\)</span><span class="heti-spacing"> </span></span>时刻的<span class="heti-skip"><span class="heti-spacing"> </span>TD<span class="heti-spacing"> </span></span>残差</p>
 <div class="arithmatex">\[
 \delta_t = r_{t+1} + \gamma V(s_{t+1}) - V(s_t)
 \]</div>
-<p>参数<span class="arithmatex">\(\lambda\)</span>用来控制蒙特卡洛估计与时间差分估计之前的权衡：</p>
+<p>参数<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(\lambda\)</span><span class="heti-spacing"> </span></span>用来控制蒙特卡洛估计与时间差分估计之前的权衡：</p>
 <ol>
-<li><span class="arithmatex">\(\lambda\)</span> 越大越趋向于未来奖励，更倾向于蒙特卡罗方法，提供高方差低偏差的估计；</li>
-<li><span class="arithmatex">\(\lambda\)</span> 越小越趋向于即时奖励，更加倾向于时间差分方法，提供低方差但高偏差的估计；</li>
+<li><span><span class="arithmatex">\(\lambda\)</span><span class="heti-spacing"> </span></span>越大越趋向于未来奖励，更倾向于蒙特卡罗方法，提供高方差低偏差的估计；</li>
+<li><span><span class="arithmatex">\(\lambda\)</span><span class="heti-spacing"> </span></span>越小越趋向于即时奖励，更加倾向于时间差分方法，提供低方差但高偏差的估计；</li>
 </ol>
 <h4 id="rlhf-with-ppo">RLHF with PPO<a class="headerlink" href="#rlhf-with-ppo" title="Permanent link">¶</a></h4>
-<p>RLHF巧妙的在PPO框架下引入了人类反馈（Human Feedback），整个框架共涉及4个模型：</p>
+<p><span>RLHF<span class="heti-spacing"> </span></span>巧妙的在<span class="heti-skip"><span class="heti-spacing"> </span>PPO<span class="heti-spacing"> </span></span>框架下引入了人类反馈（Human Feedback<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，整个框架共涉及<span class="heti-skip"><span class="heti-spacing"> </span>4<span class="heti-spacing"> </span></span>个模型：</p>
 <ul>
-<li><strong>Actor Model：</strong> 演员模型，就是需要对齐的LLM模型，用于提供策略<span class="arithmatex">\(\pi(a|s)\)</span>；</li>
-<li><strong>Critic Model：</strong> 评论家模型，用于估计总收益 <span class="arithmatex">\(V_t\)</span>；</li>
-<li><strong>Reward Model：</strong> 奖励模型，用于估计计算即时收益 <span class="arithmatex">\(R_t\)</span>；</li>
-<li><strong>Reference Model：</strong> 参考模型，用于提供训练阶段的约束，防止模型训歪（用于计算KL散度）；</li>
+<li><strong>Actor Model：</strong> 演员模型，就是需要对齐的<span class="heti-skip"><span class="heti-spacing"> </span>LLM<span class="heti-spacing"> </span></span>模型，用于提供策略<span><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(a|s)\)</span></span>；</li>
+<li><strong>Critic Model：</strong> 评论家模型，用于估计总收益<span><span class="heti-spacing"> </span><span class="arithmatex">\(V_t\)</span></span>；</li>
+<li><strong>Reward Model：</strong> 奖励模型，用于估计计算即时收益<span><span class="heti-spacing"> </span><span class="arithmatex">\(R_t\)</span></span>；</li>
+<li><strong>Reference Model：</strong> 参考模型，用于提供训练阶段的约束，防止模型训歪（用于计算<span class="heti-skip"><span class="heti-spacing"> </span>KL<span class="heti-spacing"> </span></span>散度<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>；</li>
 </ul>
-<p>训练时，RM模型需要独立训练，而Actor Model与Critic Model则是在PPO的过程中一起训练。如果两者共享参数，但是使用不同的head，我们也称Actor Model为策略网络，Critic Model为值网络。</p>
-<p>RLHF的过程相当繁琐，并且训练过程也并不非常稳定，因此LLaMa系列模型在开始的时候仅使用了SFT，但是在LLaMa2时又重新引入了RL进行偏好对齐，提升用户体验。</p>
-<h3 id="34-grpogroup-relative-policy-optimization">3.4. 策略梯度方法的改进–GRPO（Group Relative Policy Optimization）<a class="headerlink" href="#34-grpogroup-relative-policy-optimization" title="Permanent link">¶</a></h3>
-<p>PPO算法中的值函数只对最后一个token评估，复杂并且引入额外的不确定性。GRPO能够避免值函数估计，使得整个训练过程更加简单，具体来说：</p>
+<p>训练时，<span>RM<span class="heti-spacing"> </span></span>模型需要独立训练，而<span class="heti-skip"><span class="heti-spacing"> </span>Actor Model<span class="heti-spacing"> </span></span>与<span class="heti-skip"><span class="heti-spacing"> </span>Critic Model<span class="heti-spacing"> </span></span>则是在<span class="heti-skip"><span class="heti-spacing"> </span>PPO<span class="heti-spacing"> </span></span>的过程中一起训练。如果两者共享参数，但是使用不同的<span><span class="heti-spacing"> </span>head</span>，我们也称<span class="heti-skip"><span class="heti-spacing"> </span>Actor Model<span class="heti-spacing"> </span></span>为策略网络，<span>Critic Model<span class="heti-spacing"> </span></span>为值网络。</p>
+<p><span>RLHF<span class="heti-spacing"> </span></span>的过程相当繁琐，并且训练过程也并不非常稳定，因此<span class="heti-skip"><span class="heti-spacing"> </span>LLaMa<span class="heti-spacing"> </span></span>系列模型在开始的时候仅使用了<span><span class="heti-spacing"> </span>SFT</span>，但是在<span class="heti-skip"><span class="heti-spacing"> </span>LLaMa2<span class="heti-spacing"> </span></span>时又重新引入了<span class="heti-skip"><span class="heti-spacing"> </span>RL<span class="heti-spacing"> </span></span>进行偏好对齐，提升用户体验。</p>
+<h3 id="34-grpogroup-relative-policy-optimization"><span>3.4.<span class="heti-spacing"> </span></span>策略梯度方法的改进–GRPO（Group Relative Policy Optimization）<a class="headerlink" href="#34-grpogroup-relative-policy-optimization" title="Permanent link">¶</a></h3>
+<p><span>PPO<span class="heti-spacing"> </span></span>算法中的值函数只对最后一个<span class="heti-skip"><span class="heti-spacing"> </span>token<span class="heti-spacing"> </span></span>评估，复杂并且引入额外的不确定性。<span>GRPO<span class="heti-spacing"> </span></span>能够避免值函数估计，使得整个训练过程更加简单，具体来说：</p>
 <div class="arithmatex">\[
 J_{GRPO}(\theta) = \frac{1}{G} \sum_{i=1}^G\frac{1}{|o_i|} \sum_{t=1}^{o_i} \{ 
 \min \left [ 
@@ -1184,23 +1049,23 @@ clip\left(
 -\beta \mathbb{D}_{KL}[\pi_\theta \| \pi_{\theta_{old}}]
 \}
 \]</div>
-<p>对于每个问题<span class="arithmatex">\(q\)</span>，生成<span class="arithmatex">\(G\)</span>个回答<span class="arithmatex">\(o_i, i\in[1..G]\)</span>，每个答案的长度为<span class="arithmatex">\(|o_i|\)</span>。</p>
-<p>GRPO引入了一种全新的优势函数定义：</p>
+<p>对于每个问题<span><span class="heti-spacing"> </span><span class="arithmatex">\(q\)</span></span>，生成<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(G\)</span><span class="heti-spacing"> </span></span>个回答<span><span class="heti-spacing"> </span><span class="arithmatex">\(o_i, i\in[1..G]\)</span></span>，每个答案的长度为<span><span class="heti-spacing"> </span><span class="arithmatex">\(|o_i|\)</span></span>。</p>
+<p><span>GRPO<span class="heti-spacing"> </span></span>引入了一种全新的优势函数定义：</p>
 <div class="arithmatex">\[
 \hat{A}_{i,t} = \frac{r_i - mean(r)}{std(r)}
 \]</div>
-<p>即第<span class="arithmatex">\(i\)</span>个输出的奖励<span class="arithmatex">\(r_i\)</span>，相对整个Group的优势，该式与Batch Normal极为类似。计算这个优势函数只需要计算每个输出的奖励即可，无需再估计值函数。</p>
+<p>即第<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(i\)</span><span class="heti-spacing"> </span></span>个输出的奖励<span><span class="heti-spacing"> </span><span class="arithmatex">\(r_i\)</span></span>，相对整个<span class="heti-skip"><span class="heti-spacing"> </span>Group<span class="heti-spacing"> </span></span>的优势，该式与<span class="heti-skip"><span class="heti-spacing"> </span>Batch Normal<span class="heti-spacing"> </span></span>极为类似。计算这个优势函数只需要计算每个输出的奖励即可，无需再估计值函数。</p>
 <h2 id="deepseek-r1">DeepSeek R1<a class="headerlink" href="#deepseek-r1" title="Permanent link">¶</a></h2>
-<p>奖励是GRPO整个训练的信号来源，DeepSeek R1在训练中主要使用基于规则的奖励。一方面基于规则的奖励能够节约训练资源，另一方面也能避免Reward Hacking问题。</p>
+<p>奖励是<span class="heti-skip"><span class="heti-spacing"> </span>GRPO<span class="heti-spacing"> </span></span>整个训练的信号来源，<span>DeepSeek R1<span class="heti-spacing"> </span></span>在训练中主要使用基于规则的奖励。一方面基于规则的奖励能够节约训练资源，另一方面也能避免<span class="heti-skip"><span class="heti-spacing"> </span>Reward Hacking<span class="heti-spacing"> </span></span>问题。</p>
 <div class="admonition note">
-<p class="admonition-title">什么是Reward Hacking</p>
-<p>Reward Hacking是指强化学习训练时，Agent通过不符合预期的方式，利用奖励函数的漏洞来最大化其奖励，从而破解训练过程。产生Reward Hacking的主要原因在于奖励函数本身不完美，特别是一些基于规则设计的复杂奖励函数，在不限定可行域的时候，经常会导致Agent尝试逃逸到非可行域，从而获得超额奖励。</p>
+<p class="admonition-title">什么是<span><span class="heti-spacing"> </span>Reward Hacking</span></p>
+<p><span>Reward Hacking<span class="heti-spacing"> </span></span>是指强化学习训练时，<span>Agent<span class="heti-spacing"> </span></span>通过不符合预期的方式，利用奖励函数的漏洞来最大化其奖励，从而破解训练过程。产生<span class="heti-skip"><span class="heti-spacing"> </span>Reward Hacking<span class="heti-spacing"> </span></span>的主要原因在于奖励函数本身不完美，特别是一些基于规则设计的复杂奖励函数，在不限定可行域的时候，经常会导致<span class="heti-skip"><span class="heti-spacing"> </span>Agent<span class="heti-spacing"> </span></span>尝试逃逸到非可行域，从而获得超额奖励。</p>
 </div>
 <h4 id="deepseek-r1-zero">DeepSeek R1-Zero<a class="headerlink" href="#deepseek-r1-zero" title="Permanent link">¶</a></h4>
-<p>DeepSeek R1-Zero是纯粹基于强化学习训练的模型，主要采用了两种规则奖励：</p>
+<p><span>DeepSeek R1-Zero<span class="heti-spacing"> </span></span>是纯粹基于强化学习训练的模型，主要采用了两种规则奖励：</p>
 <ul>
 <li>
-<p>Accuracy Rewards：主要同归规则，比如文本匹配和正则表达式来给出奖励，针对LeetCode甚至会使用compiler作为奖励反馈的来源；</p>
+<p>Accuracy Rewards：主要同归规则，比如文本匹配和正则表达式来给出奖励，针对<span class="heti-skip"><span class="heti-spacing"> </span>LeetCode<span class="heti-spacing"> </span></span>甚至会使用<span class="heti-skip"><span class="heti-spacing"> </span>compiler<span class="heti-spacing"> </span></span>作为奖励反馈的来源；</p>
 </li>
 <li>
 <p>Format Rewards：奖励模型将思考过程放入<code>&lt;think&gt;...&lt;/think&gt;</code>标签中；</p>
@@ -1213,30 +1078,30 @@ clip\left(
 </span><span id="__span-0-4"><a href="#__codelineno-0-4" id="__codelineno-0-4" name="__codelineno-0-4"></a>&lt;answer&gt; &lt;/answer&gt; tags, respectively, i.e., &lt;think&gt; reasoning process here &lt;/think&gt;
 </span><span id="__span-0-5"><a href="#__codelineno-0-5" id="__codelineno-0-5" name="__codelineno-0-5"></a>&lt;answer&gt; answer here &lt;/answer&gt;. User: prompt. Assistant:
 </span></code></pre></div>
-<p>在R1-Zero的训练过程中，可以看到模型在Reasoning Task上持续稳定则性能改善。并且观测到了Aha-Moment。</p>
+<p>在<span class="heti-skip"><span class="heti-spacing"> </span>R1-Zero<span class="heti-spacing"> </span></span>的训练过程中，可以看到模型在<span class="heti-skip"><span class="heti-spacing"> </span>Reasoning Task<span class="heti-spacing"> </span></span>上持续稳定则性能改善。并且观测到了<span><span class="heti-spacing"> </span>Aha-Moment</span>。</p>
 <div class="admonition note">
 <p class="admonition-title">Aha Moment</p>
-<p>Aha Moment是指某个人突然理解或者领悟某个概念、问题或者想法的瞬间，中文可以称作“顿悟”时刻，使得对某个问题的解决有一个飞跃。</p>
+<p><span>Aha Moment<span class="heti-spacing"> </span></span>是指某个人突然理解或者领悟某个概念、问题或者想法的瞬间，中文可以称作“顿悟”时刻，使得对某个问题的解决有一个飞跃。</p>
 </div>
 <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../../../../imgs/rl/aha_moment.png"><img alt="alt text" src="../../../../imgs/rl/aha_moment.png"/></a></p>
-<p>虽然R1-Zero表现出了很轻的Reasoning能力，但其输出的可读性较差，并且会中英文。为了让模型的体现更好，又开发了R1，加入human-friendly的冷启动数据。</p>
+<p>虽然<span class="heti-skip"><span class="heti-spacing"> </span>R1-Zero<span class="heti-spacing"> </span></span>表现出了很轻的<span class="heti-skip"><span class="heti-spacing"> </span>Reasoning<span class="heti-spacing"> </span></span>能力，但其输出的可读性较差，并且会中英文。为了让模型的体现更好，又开发了<span><span class="heti-spacing"> </span>R1</span>，加入<span class="heti-skip"><span class="heti-spacing"> </span>human-friendly<span class="heti-spacing"> </span></span>的冷启动数据。</p>
 <h4 id="deepseek-r1_1">DeepSeek R1<a class="headerlink" href="#deepseek-r1_1" title="Permanent link">¶</a></h4>
 <h5 id="cold-start">Cold Start<a class="headerlink" href="#cold-start" title="Permanent link">¶</a></h5>
-<p>使用数千条长CoT数据对模型进行微调：</p>
+<p>使用数千条长<span class="heti-skip"><span class="heti-spacing"> </span>CoT<span class="heti-spacing"> </span></span>数据对模型进行微调：</p>
 <ul>
-<li>数据可读性：主要解决多语言混合问题与Markdown格式缺失问题；</li>
+<li>数据可读性：主要解决多语言混合问题与<span class="heti-skip"><span class="heti-spacing"> </span>Markdown<span class="heti-spacing"> </span></span>格式缺失问题；</li>
 <li>潜力：基于人工先验设计数据；</li>
 </ul>
 <h5 id="reasoning-rl">Reasoning RL<a class="headerlink" href="#reasoning-rl" title="Permanent link">¶</a></h5>
-<p>使用RL提升模型的Reasoning能力，为了避免多语言混合，引入了惩罚项。</p>
-<h5 id="sft">拒绝采样与SFT<a class="headerlink" href="#sft" title="Permanent link">¶</a></h5>
-<p>主要为了提升Reasoning以外的能力，比如写作和对话，通过SFT来实现。数据主要包含：</p>
+<p>使用<span class="heti-skip"><span class="heti-spacing"> </span>RL<span class="heti-spacing"> </span></span>提升模型的<span class="heti-skip"><span class="heti-spacing"> </span>Reasoning<span class="heti-spacing"> </span></span>能力，为了避免多语言混合，引入了惩罚项。</p>
+<h5 id="sft">拒绝采样与<span><span class="heti-spacing"> </span>SFT</span><a class="headerlink" href="#sft" title="Permanent link"><span><span class="heti-spacing"> </span>¶</span></a></h5>
+<p>主要为了提升<span class="heti-skip"><span class="heti-spacing"> </span>Reasoning<span class="heti-spacing"> </span></span>以外的能力，比如写作和对话，通过<span class="heti-skip"><span class="heti-spacing"> </span>SFT<span class="heti-spacing"> </span></span>来实现。数据主要包含：</p>
 <ul>
-<li>Reasoning数据：使用生成式Reward函数，将ground truth和模型输出同时输入给base模型进行判断；以此种方式收集60W训练数据；</li>
-<li>Non-Reasong数据：使用prompt让模型为writing、QA等任务添加CoT，并收集20W输出作为训练数据；</li>
+<li><span>Reasoning<span class="heti-spacing"> </span></span>数据：使用生成式<span class="heti-skip"><span class="heti-spacing"> </span>Reward<span class="heti-spacing"> </span></span>函数，将<span class="heti-skip"><span class="heti-spacing"> </span>ground truth<span class="heti-spacing"> </span></span>和模型输出同时输入给<span class="heti-skip"><span class="heti-spacing"> </span>base<span class="heti-spacing"> </span></span>模型进行判断；以此种方式收集<span class="heti-skip"><span class="heti-spacing"> </span>60W<span class="heti-spacing"> </span></span>训练数据；</li>
+<li><span>Non-Reasong<span class="heti-spacing"> </span></span>数据：使用<span class="heti-skip"><span class="heti-spacing"> </span>prompt<span class="heti-spacing"> </span></span>让模型为<span><span class="heti-spacing"> </span>writing</span>、<span>QA<span class="heti-spacing"> </span></span>等任务添加<span><span class="heti-spacing"> </span>CoT</span>，并收集<span class="heti-skip"><span class="heti-spacing"> </span>20W<span class="heti-spacing"> </span></span>输出作为训练数据；</li>
 </ul>
 <h5 id="rl-for-all-scenarios">RL for all scenarios<a class="headerlink" href="#rl-for-all-scenarios" title="Permanent link">¶</a></h5>
-<p>再次通过RL提升模型的helpness和harmlessness。</p>
+<p>再次通过<span class="heti-skip"><span class="heti-spacing"> </span>RL<span class="heti-spacing"> </span></span>提升模型的<span class="heti-skip"><span class="heti-spacing"> </span>helpness<span class="heti-spacing"> </span></span>和<span><span class="heti-spacing"> </span>harmlessness</span>。</p>
 <aside class="md-source-file">
 <span class="md-source-file__fact">
 <span class="md-icon" title="最后更新">
@@ -1314,7 +1179,7 @@ clip\left(
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.tabs", "navigation.sections", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.tabs", "navigation.sections", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "toc.integrate", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
 <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
 <script src="../../../../assets/_markdown_exec_pyodide.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>

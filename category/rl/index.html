@@ -1,6 +1,4 @@
-
 <!DOCTYPE html>
-
 <html class="no-js" lang="zh">
 <head>
 <meta charset="utf-8"/>
@@ -16,14 +14,15 @@
 <link href="../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css?family=Source+Han+Sans+SC:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
-<style>:root{--md-text-font:"Source Han Sans SC";--md-code-font:"Roboto Mono"}</style>
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"JetBrains Mono"}</style>
 <link href="../../assets/_markdown_exec_pyodide.css" rel="stylesheet"/>
+<link href="../../css/heti.css" rel="stylesheet"/>
 <link href="../../extra.css" rel="stylesheet"/>
 <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
 <script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-LMDTYMWWTF"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-LMDTYMWWTF",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-LMDTYMWWTF",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
 <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
- <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+<link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -38,9 +37,6 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#rl">
-          跳转至
-        </a>
 </div>
 <div data-md-component="announce">
 </div>
@@ -78,7 +74,7 @@
 <label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"></path></svg>
 </label>
-<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="black" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="indigo" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
 <label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"></path></svg>
 </label>
@@ -165,7 +161,7 @@
 <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
-<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" data-md-level="0">
 <label class="md-nav__title" for="__drawer">
 <a aria-label="Overfitting: From Algorithms to Silicon" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Overfitting: From Algorithms to Silicon">
 <svg viewbox="0 0 89 89" xmlns="http://www.w3.org/2000/svg">
@@ -340,17 +336,6 @@
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
-<label class="md-nav__link md-nav__link--active" for="__toc">
-<span class="md-ellipsis">
-    
-  
-    RL
-  
-
-    
-  </span>
-<span class="md-nav__icon md-icon"></span>
-</label>
 <a class="md-nav__link md-nav__link--active" href="./">
 <span class="md-ellipsis">
     
@@ -361,23 +346,6 @@
     
   </span>
 </a>
-<nav aria-label="目录" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#deepseek-r1">
-<span class="md-ellipsis">
-      
-        从强化学习到DeepSeek R1
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../training/">
@@ -536,29 +504,6 @@
 </div>
 </div>
 </div>
-<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav aria-label="目录" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#deepseek-r1">
-<span class="md-ellipsis">
-      
-        从强化学习到DeepSeek R1
-      
-    </span>
-</a>
-</li>
-</ul>
-</nav>
-</div>
-</div>
-</div>
 <div class="md-content" data-md-component="content">
 <div class="md-content__inner">
 <header class="md-typeset">
@@ -585,32 +530,32 @@
 </div>
 </header>
 <div class="md-post__content md-typeset">
-<h2 id="deepseek-r1"><a class="toclink" href="../../2025/02/09/rl_ds_r1/">从强化学习到DeepSeek R1</a></h2>
-<h3 id="1-rl-reinforcement-learning"><a class="toclink" href="../../2025/02/09/rl_ds_r1/#1-rl-reinforcement-learning">1. 什么是强化学习(RL, Reinforcement Learning)</a></h3>
+<h2 id="deepseek-r1"><a class="toclink" href="../../2025/02/09/rl_ds_r1/">从强化学习到<span><span class="heti-spacing"> </span>DeepSeek R1</span></a></h2>
+<h3 id="1-rl-reinforcement-learning"><a class="toclink" href="../../2025/02/09/rl_ds_r1/#1-rl-reinforcement-learning"><span>1.<span class="heti-spacing"> </span></span>什么是强化学习<span><span class="heti-spacing"> </span>(RL, Reinforcement Learning)</span></a></h3>
 <p>传统的机器学习，包括深度学习，其本质是数学性的，严格遵守函数的数学定义：对于给定输入，产生确定的输出</p>
 <div class="arithmatex">\[F(x) = y\]</div>
-<p>随着输入<span class="arithmatex">\(x\)</span>和输出<span class="arithmatex">\(y\)</span>的不同，这一范式可以适配各种不同的任务，比如：</p>
+<p>随着输入<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>和输出<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(y\)</span><span class="heti-spacing"> </span></span>的不同，这一范式可以适配各种不同的任务，比如：</p>
 <ul>
-<li><span class="arithmatex">\(x\)</span> 是图像，<span class="arithmatex">\(y\)</span>是类别，那么<span class="arithmatex">\(F\)</span>就是Resnet这种图像模型；</li>
-<li><span class="arithmatex">\(x\)</span> 是语音信号，<span class="arithmatex">\(y\)</span>是文字，那么<span class="arithmatex">\(F\)</span>就是一个语音识别模型；</li>
-<li><span class="arithmatex">\(x\)</span> 是文本输入，<span class="arithmatex">\(y\)</span>是文本输出，那么<span class="arithmatex">\(F\)</span>就是时下火热的大语言模型；<br/>
+<li><span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>是图像，<span><span class="arithmatex">\(y\)</span><span class="heti-spacing"> </span></span>是类别，那么<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(F\)</span><span class="heti-spacing"> </span></span>就是<span class="heti-skip"><span class="heti-spacing"> </span>Resnet<span class="heti-spacing"> </span></span>这种图像模型；</li>
+<li><span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>是语音信号，<span><span class="arithmatex">\(y\)</span><span class="heti-spacing"> </span></span>是文字，那么<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(F\)</span><span class="heti-spacing"> </span></span>就是一个语音识别模型；</li>
+<li><span><span class="arithmatex">\(x\)</span><span class="heti-spacing"> </span></span>是文本输入，<span><span class="arithmatex">\(y\)</span><span class="heti-spacing"> </span></span>是文本输出，那么<span class="heti-skip"><span class="heti-spacing"> </span><span class="arithmatex">\(F\)</span><span class="heti-spacing"> </span></span>就是时下火热的大语言模型；<br/>
 …</li>
 </ul>
 <p>强化学习（Reinforcement Learning）的本质上则是哲学性的，它探讨三个核心问题：</p>
 <ul>
-<li>我是谁？一个Agent</li>
-<li>我在哪？处于某个State</li>
-<li>到哪里去？采取一个Action</li>
+<li>我是谁？一个<span><span class="heti-spacing"> </span>Agent</span></li>
+<li>我在哪？处于某个<span><span class="heti-spacing"> </span>State</span></li>
+<li>到哪里去？采取一个<span><span class="heti-spacing"> </span>Action</span></li>
 </ul>
-<p>如果站在上帝视角去观测这个Agent，我们还会发现：</p>
+<p>如果站在上帝视角去观测这个<span><span class="heti-spacing"> </span>Agent</span>，我们还会发现：</p>
 <ul>
-<li>Agent处在一个环境中（Environment）</li>
-<li>Agent有一个用来策略（Policy）告诉我该采取什么动作（Action）</li>
-<li>每执行一个动作（Action），环境都会给我反馈 (Reward)</li>
+<li><span>Agent<span class="heti-spacing"> </span></span>处在一个环境中（Environment）</li>
+<li><span>Agent<span class="heti-spacing"> </span></span>有一个用来策略（Policy）告诉我该采取什么动作（Action）</li>
+<li>每执行一个动作（Action<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，环境都会给我反馈<span><span class="heti-spacing"> </span>(Reward)</span></li>
 </ul>
 <p>以上就是强化学习中的主要概念。</p>
 <p><img alt="alt text" src="../../imgs/rl.png"/></p>
-<h3 id="2"><a class="toclink" href="../../2025/02/09/rl_ds_r1/#2">2. 如何进行强化学习</a></h3>
+<h3 id="2"><a class="toclink" href="../../2025/02/09/rl_ds_r1/#2"><span>2.<span class="heti-spacing"> </span></span>如何进行强化学习</a></h3>
 <p>这里以一个迷宫问题为例，介绍如何进行强化学习：</p>
 <p>迷宫：(S: Start, E: End, W: Wall)</p>
 <pre class="mermaid"><code>block-beta
@@ -619,7 +564,7 @@
   S4 S5 S6
   S7["S7(W)"] S8 S9["S9(E)"]
 </code></pre>
-<p>这个迷宫就是一个Environment。我们放置一个机器人在开始处（Start），让机器人自动学习如何走迷宫的策略（Policy）。这个策略可以记成<span class="arithmatex">\(\pi(s)\rightarrow a, s \in [1-9], a \in [上, 下, 左, 右]\)</span>。开始时机器人对于迷宫一无所知，所以<span class="arithmatex">\(\pi(s)会随机输出一个方向\)</span>。</p>
+<p>这个迷宫就是一个<span><span class="heti-spacing"> </span>Environment</span>。我们放置一个机器人在开始处（Start<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>，让机器人自动学习如何走迷宫的策略（Policy<heti-adjacent class="heti-adjacent-half">）</heti-adjacent>。这个策略可以记成<span><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(s)\rightarrow a, s \in [1-9], a \in [上, 下, 左, 右]\)</span></span>。开始时机器人对于迷宫一无所知，所以<span><span class="heti-spacing"> </span><span class="arithmatex">\(\pi(s)会随机输出一个方向\)</span></span>。</p>
 <nav class="md-post__action">
 <a href="../../2025/02/09/rl_ds_r1/">
           继续阅读
@@ -692,7 +637,7 @@
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.tabs", "navigation.sections", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.tabs", "navigation.sections", "navigation.footer", "navigation.indexes", "navigation.top", "navigation.tracking", "toc.integrate", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
 <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
 <script src="../../assets/_markdown_exec_pyodide.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>

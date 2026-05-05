@@ -1,3 +1,9 @@
+@import url("https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-web/style.css");
+@import url("https://cdn.jsdelivr.net/npm/misans-webfont/misans/misans-regular/result.css");
+@import url("https://cdn.jsdelivr.net/npm/misans-webfont/misans/misans-semibold/result.css");
+@import url("https://cdn.jsdelivr.net/npm/harmonyos-sans-sc-webfont-splitted@1.1.0/dist/Regular.css");
+@import url("https://cdn.jsdelivr.net/npm/harmonyos-sans-sc-webfont-splitted@1.1.0/dist/Medium.css");
+
 /* ==========================================================================
  * MkDocs Material – 中文技术博客排版增强
  * --------------------------------------------------------------------------
@@ -18,137 +24,148 @@
 
 /* 1. Theme tokens & 字体设置 ------------------------------------------------ */
 :root {
-  --md-text-font: -apple-system, BlinkMacSystemFont,
-                  "Segoe UI", "PingFang SC", "Hiragino Sans GB",
-                  "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial,
-                  sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  --md-code-font: "SFMono-Regular", "Consolas",
-                  "Liberation Mono", "Menlo", "Courier New",
-                  "Monaco", monospace;
+  --blog-font-body: "MiSans", "HarmonyOS Sans SC", "OPPO Sans",
+                    "Noto Sans SC", var(--md-text-font), sans-serif;
+  --blog-font-title: "LXGW WenKai", "LXGW WenKai Screen",
+                     "Noto Serif SC", serif;
+  --blog-font-heading: "LXGW WenKai", "LXGW WenKai Screen",
+                       "Noto Serif SC", serif;
+  --blog-font-quote: "LXGW WenKai", "LXGW WenKai Screen",
+                     "Noto Serif SC", serif;
+  --blog-font-caption: "LXGW WenKai Screen", "LXGW WenKai",
+                       "FangSong", "STFangsong", "仿宋", serif;
+  --blog-font-mono: "JetBrains Mono", var(--md-code-font), monospace;
+  --blog-text-color: #2f3437;
+  --blog-muted-color: #5f6b73;
+  --blog-rule-color: rgba(15, 23, 42, 0.1);
+  --blog-heading-color: #172033;
+  --blog-link-color: #3b5f97;
+  --blog-link-hover-color: #274a7f;
+  --blog-link-hover-bg: rgba(59, 95, 151, 0.08);
   --blog-inline-code-bg: var(--md-code-bg-color);
   --blog-inline-code-fg: var(--md-accent-fg-color);
-  --blog-strong-color: var(--md-primary-fg-color);
+  --blog-strong-color: #2f5590;
   --blog-blockquote-border: var(--md-accent-fg-color);
   --blog-blockquote-bg: rgba(0, 0, 0, 0.02);
   --blog-blockquote-fg: var(--md-default-fg-color--light);
 }
 
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 /* 2. 基础排版 -------------------------------------------------------------- */
 .md-typeset {
-  font-size: 0.9rem;
-  line-height: 1.8;
-  font-family: var(--md-text-font);
-  counter-reset: h1;
+  color: var(--blog-text-color);
+  font-size: 0.94rem;
+  font-weight: 400;
+  line-height: 1.76;
+  font-family: var(--blog-font-body);
+  font-feature-settings: "halt" 1, "vhal" 1, "kern" 1;
+  -webkit-font-feature-settings: "halt" 1, "vhal" 1, "kern" 1;
+  font-variant-numeric: proportional-nums;
+  letter-spacing: 0.004em;
 }
 
 .md-typeset p {
-  text-align: justify;
-  text-justify: inter-ideograph;
-  margin: 1.2em 0;
+  text-align: left;
+  margin: 1.08em 0;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  hyphens: manual;
+  hanging-punctuation: first last;
 }
 
 .md-typeset hr {
   height: 1px;
-  background-color: #eaecef;
+  background-color: var(--blog-rule-color);
   border: 0;
   margin: 2em 0;
 }
 
-/* 3. 标题体系与自动编号 ---------------------------------------------------- */
+/* 3. 标题体系 -------------------------------------------------------------- */
 .md-typeset h1 {
+  font-family: var(--blog-font-title);
   font-weight: 700;
-  color: var(--md-default-fg-color--dark);
-  margin: 1.5em 0 0.8em;
-  padding-bottom: 0.3em;
-  border-bottom: 2.25px solid #eaecef;
-  line-height: 1.25;
+  color: var(--blog-heading-color);
+  font-size: 1.88rem;
+  margin: 1.15em 0 0.95em;
+  line-height: 1.32;
+  letter-spacing: 0.01em;
   counter-reset: h2;
 }
 
 .md-typeset h2 {
+  font-family: var(--blog-font-heading);
+  color: var(--blog-heading-color);
+  font-size: 1.44rem;
   font-weight: 600;
-  margin: 1.8em 0 0.8em;
-  padding-bottom: 0.2em;
-  border-bottom: 2.25px solid #eaecef;
-  line-height: 1.25;
+  margin: 3rem 0 0.9rem;
+  padding-top: 0.95rem;
+  border-top: 1px solid var(--blog-rule-color);
+  line-height: 1.34;
+  letter-spacing: 0.01em;
   counter-reset: h3;
 }
 
 .md-typeset h3 {
+  font-family: var(--blog-font-heading);
+  color: var(--blog-heading-color);
+  font-size: 1.14rem;
   font-weight: 600;
-  margin: 1.5em 0 0.5em;
-  border-bottom: 1px solid #eaecef;
-  line-height: 1.25;
-  counter-reset: h4;
+  margin: 1.65em 0 0.55em;
+  border-bottom: 0;
+  line-height: 1.34;
 }
 
 .md-typeset h4 {
-  font-weight: 600;
-  margin: 1.3em 0 0.5em;
+  font-family: var(--blog-font-heading);
+  color: var(--blog-heading-color);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 1.5em 0 0.45em;
   line-height: 1.25;
 }
 
 .md-typeset h5,
 .md-typeset h6 {
+  font-family: var(--blog-font-heading);
   font-weight: 600;
   margin: 1.2em 0 0.5em;
   line-height: 1.25;
 }
 
-.md-typeset h1::before {
-  counter-increment: h1;
-  /* content: counter(h1) ". "; */
-  font-weight: 700;
-  margin-right: 0.5em;
-}
-
 .md-typeset h2::before {
   counter-increment: h2;
   content: counter(h2) ". ";
+  color: var(--blog-muted-color);
+  font-size: 0.9em;
   font-weight: 600;
-  margin-right: 0.5em;
+  margin-right: 0.65em;
 }
 
 .md-typeset h3::before {
   counter-increment: h3;
-  content: counter(h2) "." counter(h3) ". ";
+  content: counter(h2) "." counter(h3) " ";
+  color: var(--blog-muted-color);
+  font-size: 0.9em;
   font-weight: 600;
-  margin-right: 0.5em;
-}
-
-article.md-post h2::before {
-  counter-increment: h2;
-  font-weight: 600;
-  margin-right: 0.5em;
-}
-
-article.md-post h3::before {
-  counter-increment: h3;
-  content: counter(h3) ". ";
-  font-weight: 600;
-  margin-right: 0.5em;
-}
-
-article.md-post h4::before {
-  counter-increment: h4;
-  content: counter(h3) ". " counter(h4) ". ";
-  font-weight: 600;
-  margin-right: 0.5em;
+  margin-right: 0.55em;
 }
 
 /* 4. 列表样式 --------------------------------------------------------------- */
 .md-typeset ul,
 .md-typeset ol {
-  margin: 0.5em 0;
-  padding-left: .25em;
+  margin: 0.8em 0 1em;
+  padding-left: 1.35em;
 }
 
 .md-typeset ul li,
 .md-typeset ol li {
-  margin: 0.5em 0;
-  line-height: 1.2;
+  margin: 0.38em 0;
+  line-height: 1.66;
 }
 
 .md-typeset ul ul,
@@ -160,16 +177,18 @@ article.md-post h4::before {
 
 /* 5. 行内文本（链接与强调） ------------------------------------------------ */
 .md-typeset a {
-  color: var(--md-primary-fg-color);
+  color: var(--blog-link-color);
   text-decoration: none;
   border-bottom: 1px dotted transparent;
   transition: all 0.2s ease;
   font-weight: 500;
+  padding: 0 0.05em;
 }
 
 .md-typeset a:hover {
-  color: var(--md-accent-fg-color);
-  border-bottom-color: var(--md-primary-fg-color);
+  color: var(--blog-link-hover-color);
+  border-bottom-color: var(--blog-link-color);
+  background-color: var(--blog-link-hover-bg);
 }
 
 .md-typeset a:focus {
@@ -180,26 +199,33 @@ article.md-post h4::before {
 .md-typeset strong {
   color: var(--blog-strong-color);
   font-weight: 600;
+  letter-spacing: 0.004em;
 }
 
 .md-typeset em {
-  color: rgba(0, 0, 0, 0.8);
-  font-style: italic;
+  color: var(--blog-muted-color);
+  font-style: normal;
+  background: none;
+  padding: 0;
 }
 
 /* 6. 代码与预格式内容 ------------------------------------------------------ */
 .md-typeset code {
-  font-family: var(--md-code-font);
+  font-family: var(--blog-font-mono);
   background-color: var(--blog-inline-code-bg);
   color: var(--blog-inline-code-fg);
-  padding: 0.15em 0.35em;
+  padding: 0.16em 0.38em;
   border-radius: 4px;
-  font-size: 0.9em;
-  word-break: break-word;
+  font-size: 0.84em;
+  font-variant-ligatures: none;
+  font-weight: 500;
+  margin: 0 0.1em;
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
 .md-typeset pre {
-  font-family: var(--md-code-font);
+  font-family: var(--blog-font-mono);
   line-height: 1.5;
   border-radius: 6px;
   margin: 1.5em 0;
@@ -216,6 +242,7 @@ article.md-post h4::before {
   padding: 0;
   border-radius: 0;
   color: inherit;
+  font-size: 0.8rem;
   word-break: normal;
   overflow-wrap: normal;
   white-space: pre;
@@ -223,16 +250,19 @@ article.md-post h4::before {
 
 /* 7. 引用 ----------------------------------------------------------------- */
 .md-typeset blockquote {
-  padding: 0.8em 1.2em;
-  margin: 1.5em 0;
+  font-family: var(--blog-font-quote);
+  font-weight: 400;
+  padding: 1.15em 1.45em;
+  margin: 1.85em 0;
   border-left: 3px solid var(--blog-blockquote-border);
   background-color: var(--blog-blockquote-bg);
-  border-radius: 0 4px 4px 0;
+  border-radius: 0 6px 6px 0;
   color: var(--blog-blockquote-fg);
+  font-style: normal;
 }
 
 .md-typeset blockquote p {
-  margin: 0.5em 0;
+  margin: 0.4em 0;
 }
 
 .md-typeset blockquote p:first-child {
@@ -257,10 +287,13 @@ article.md-post h4::before {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
   border-radius: 6px;
   border-collapse: collapse;
-  display: block; /* 恢复表格本义，利于可访问性 */
+  display: table;
   width: auto;    /* 根据内容决定宽度 */
   max-width: 100%;
   margin: 1.5em auto; /* 居中 */
+  font-size: 0.78rem;
+  overflow: hidden;
+  font-variant-numeric: tabular-nums;
 }
 
 .md-typeset table:not([class]) th {
@@ -269,30 +302,146 @@ article.md-post h4::before {
   font-weight: 600;
   padding: 0.75em 1em;
   border: 1px solid rgba(0, 0, 0, 0.08);
+  white-space: nowrap;
 }
 
 .md-typeset table:not([class]) td {
-  padding: 0.75em 1em;
+  padding: 0.65em 1em;
   border: 1px solid rgba(0, 0, 0, 0.08);
+  vertical-align: top;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .md-typeset table:not([class]) tr:nth-child(2n) {
   background-color: rgba(0, 0, 0, 0.02);
 }
 
+.md-typeset table:not([class]) tbody tr:hover {
+  background-color: rgba(59, 95, 151, 0.08);
+}
+
+.md-typeset table:not([class]) tbody tr:has(.table-row-highlight) td {
+  background-color: rgba(59, 95, 151, 0.08);
+}
+
+.md-typeset .table-row-highlight {
+  font-weight: 600;
+}
+
+.md-typeset small {
+  display: block;
+  font-family: var(--blog-font-caption);
+  color: var(--blog-muted-color);
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.55;
+  margin: 0.45em auto 1.45em;
+  max-width: min(78%, 42rem);
+  text-align: center;
+}
+
+/* 8.1 脚注 --------------------------------------------------------------- */
+.md-typeset a.footnote-ref {
+  font-size: 0.85em;
+  font-weight: 500;
+  vertical-align: baseline;
+  text-decoration: none;
+  color: var(--md-accent-fg-color);
+  padding: 0 0.05em;
+}
+
+.md-typeset a.footnote-ref::before { content: "["; }
+.md-typeset a.footnote-ref::after { content: "]"; }
+
+.md-typeset .footnote hr {
+  display: none;
+}
+
+.md-typeset .footnote {
+  margin-top: 1.5em;
+}
+
+.md-typeset .footnote ol {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+  counter-reset: blog-ref;
+}
+
+.md-typeset .footnote li {
+  counter-increment: blog-ref;
+  display: grid;
+  grid-template-columns: 2.2em 1fr;
+  column-gap: 0.3em;
+  align-items: start;
+  margin: 0.5em 0;
+}
+
+.md-typeset .footnote li::before {
+  content: "[" counter(blog-ref) "]";
+  font-weight: 600;
+  color: var(--md-default-fg-color--light);
+  justify-self: start;
+}
+
+.md-typeset .footnote li > * {
+  grid-column: 2;
+  margin: 0;
+}
+
+.md-typeset .footnote li > * + * {
+  margin-top: 0.4em;
+}
+
+.md-typeset .footnote a.footnote-backref {
+  text-decoration: none;
+  opacity: 0.6;
+}
+
+.md-typeset .footnote a.footnote-backref:hover {
+  opacity: 1;
+}
+
 /* 9. 媒体资源 -------------------------------------------------------------- */
 .md-typeset img {
-  border-radius: 6px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  margin: 1.5em auto;
-  max-width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+  margin: 0 auto;
+  max-width: min(86%, 54rem);
   height: auto;
   display: block;
 }
 
+.md-typeset p:has(> img:only-child) {
+  width: min(62rem, calc(100vw - 2rem));
+  margin: 2.15rem 0 0.55rem 50%;
+  padding: 1.1rem 0;
+  transform: translateX(-50%);
+  overflow-x: auto;
+  border-top: 1px solid var(--blog-rule-color);
+  border-bottom: 1px solid var(--blog-rule-color);
+  background:
+    linear-gradient(180deg, rgba(59, 95, 151, 0.035), transparent 42%),
+    rgba(15, 23, 42, 0.012);
+}
+
 .md-typeset p > img:only-child {
   display: block;
-  margin: 1.5em auto;
+  max-width: min(86%, 54rem);
+  min-width: min(100%, 42rem);
+  margin: 0 auto;
+}
+
+.md-typeset p:has(> img:only-child) + h2,
+.md-typeset p:has(> img:only-child) + h3,
+.md-typeset p:has(> img:only-child) + h4 {
+  margin-top: 1.25em;
+}
+
+.md-typeset p:has(> img:only-child) + p > small:only-child {
+  margin-top: -0.15em;
 }
 
 .md-typeset .mermaid {
@@ -311,14 +460,29 @@ article.md-post h4::before {
 }
 
 /* 10. 导航与目录 ----------------------------------------------------------- */
+.md-content__inner {
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .md-nav {
-  font-size: 0.75rem;
-  line-height: 1.5;
+  font-family: var(--blog-font-body);
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.md-header,
+.md-tabs,
+.md-search,
+.md-footer,
+.md-post__meta {
+  font-family: var(--blog-font-body);
 }
 
 .md-nav__title {
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.7);
+  color: var(--blog-muted-color);
 }
 
 .md-nav__link {
@@ -340,11 +504,81 @@ article.md-post h4::before {
 }
 
 /* 12. 主题配色适配 -------------------------------------------------------- */
-html[data-md-color-scheme="slate"] {
+[data-md-color-scheme="slate"] {
+  --blog-text-color: #d6dbe1;
+  --blog-muted-color: #9aa4b2;
+  --blog-rule-color: rgba(226, 232, 240, 0.16);
+  --blog-heading-color: #f3f6fa;
+  --blog-link-color: #9db7f0;
+  --blog-link-hover-color: #c4d3ff;
+  --blog-link-hover-bg: rgba(157, 183, 240, 0.12);
   --blog-inline-code-bg: rgba(255, 255, 255, 0.08);
   --blog-inline-code-fg: var(--md-code-fg-color);
-  --blog-strong-color: var(--md-accent-fg-color);
+  --blog-strong-color: #a9c0f5;
   --blog-blockquote-border: var(--md-primary-fg-color);
   --blog-blockquote-bg: rgba(255, 255, 255, 0.04);
-  --blog-blockquote-fg: var(--md-default-fg-color);
+  --blog-blockquote-fg: #d6dbe1;
+}
+
+[data-md-color-scheme="slate"] .md-typeset {
+  color: var(--blog-text-color);
+}
+
+[data-md-color-scheme="slate"] .md-typeset h1,
+[data-md-color-scheme="slate"] .md-typeset h2,
+[data-md-color-scheme="slate"] .md-typeset h3,
+[data-md-color-scheme="slate"] .md-typeset h4,
+[data-md-color-scheme="slate"] .md-typeset h5,
+[data-md-color-scheme="slate"] .md-typeset h6 {
+  color: var(--blog-heading-color);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) tr:nth-child(2n) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) th,
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) td {
+  border-color: rgba(226, 232, 240, 0.14);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) tbody tr:hover {
+  background-color: rgba(157, 183, 240, 0.12);
+}
+
+[data-md-color-scheme="slate"] .md-typeset img {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32);
+}
+
+[data-md-color-scheme="slate"] .md-typeset p:has(> img:only-child) {
+  background:
+    linear-gradient(180deg, rgba(157, 183, 240, 0.08), transparent 42%),
+    rgba(255, 255, 255, 0.025);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition-title {
+  border-bottom-color: rgba(226, 232, 240, 0.12);
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+@media screen and (max-width: 76.1875em) {
+  .md-typeset {
+    font-size: 0.88rem;
+    line-height: 1.76;
+    letter-spacing: 0.003em;
+  }
+
+  .md-typeset p {
+    text-align: left;
+    text-justify: auto;
+  }
+
+  .md-typeset table:not([class]) {
+    font-size: 0.7rem;
+  }
+
+  .md-typeset table:not([class]) th,
+  .md-typeset table:not([class]) td {
+    padding: 0.5em 0.75em;
+  }
 }

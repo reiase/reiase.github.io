@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="650" viewBox="0 0 1180 650" role="img" aria-labelledby="title desc">
+  <title id="title">环境与沙箱系统三层架构</title>
+  <desc id="desc">展示环境和沙箱系统的三层结构：轨迹采集层、沙箱运行时层、调度平台层，以及它们与轨迹数据和训练回流的关系。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#2563eb"/></marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.12"/></filter>
+    <style>
+      .bg{fill:#f8fafc}.layer{fill:#fff;stroke:#e2e8f0;stroke-width:2;filter:url(#shadow)}.collect{fill:#eef2ff;stroke:#818cf8;stroke-width:2}.runtime{fill:#ecfdf5;stroke:#86efac;stroke-width:2}.platform{fill:#fff7ed;stroke:#fdba74;stroke-width:2}.data{fill:#ecfeff;stroke:#67e8f9;stroke-width:2}.train{fill:#fdf2f8;stroke:#f9a8d4;stroke-width:2}.title{font:700 30px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#172033}.subtitle{font:15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#475569}.label{font:700 19px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#172033}.small{font:13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#64748b}.tiny{font:12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#64748b}.arrow{stroke:#2563eb;stroke-width:3;fill:none;marker-end:url(#arrow)}.dash{stroke:#64748b;stroke-width:2;stroke-dasharray:7 7;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1180" height="650" rx="30"/>
+  <text class="title" x="54" y="58">环境与沙箱系统的三层架构</text>
+  <text class="subtitle" x="54" y="88">轨迹采集层决定数据形态，沙箱运行时层决定执行能力，调度平台层决定规模化生产。</text>
+
+  <rect class="layer" x="70" y="130" width="720" height="118" rx="22"/>
+  <rect class="collect" x="96" y="158" width="188" height="64" rx="16"/>
+  <text class="label" x="128" y="196">轨迹采集层</text>
+  <text class="small" x="316" y="164">Rollout protocol · trace schema · observation / reward</text>
+  <text class="small" x="316" y="190">训推框架、rollout worker、工具调用协议</text>
+  <text class="small" x="316" y="216">沙箱内最小静态 server：exec / file / env / metrics</text>
+
+  <rect class="layer" x="70" y="286" width="720" height="118" rx="22"/>
+  <rect class="runtime" x="96" y="314" width="188" height="64" rx="16"/>
+  <text class="label" x="128" y="352">沙箱运行时层</text>
+  <text class="small" x="316" y="320">Execution substrate · isolation · environment semantics</text>
+  <text class="small" x="316" y="346">Function call / container / microVM / fullVM</text>
+  <text class="small" x="316" y="372">镜像加载、文件系统、网络、TTY、命令执行</text>
+
+  <rect class="layer" x="70" y="442" width="720" height="118" rx="22"/>
+  <rect class="platform" x="96" y="470" width="188" height="64" rx="16"/>
+  <text class="label" x="128" y="508">调度平台层</text>
+  <text class="small" x="316" y="476">Orchestration · lifecycle · density · recovery</text>
+  <text class="small" x="316" y="502">API gateway / per-host agent / cluster watcher</text>
+  <text class="small" x="316" y="528">资源调度、镜像分发、抢占恢复、监控与配额</text>
+
+  <rect class="data" x="870" y="194" width="220" height="94" rx="18"/>
+  <text class="label" x="930" y="230">轨迹数据</text>
+  <text class="small" x="902" y="258">trace / artifact / snapshot</text>
+  <text class="small" x="902" y="280">metadata / reward / provenance</text>
+
+  <rect class="train" x="870" y="374" width="220" height="94" rx="18"/>
+  <text class="label" x="930" y="410">训练回流</text>
+  <text class="small" x="910" y="438">SFT / RL / OPD</text>
+  <text class="small" x="910" y="460">Evaluation / Regression</text>
+
+  <path class="arrow" d="M790 188 L864 230"/>
+  <path class="arrow" d="M790 346 L864 260"/>
+  <path class="arrow" d="M790 502 L864 438"/>
+  <path class="arrow" d="M980 288 L980 368"/>
+  <path class="dash" d="M870 430 C748 608 180 608 160 560"/>
+  <text class="tiny" x="248" y="608">训练后的模型进入下一轮 rollout，持续生产新轨迹</text>
+</svg>

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="680" viewBox="0 0 1180 680" role="img" aria-labelledby="title desc">
+  <title id="title">轨迹系统整体架构</title>
+  <desc id="desc">展示轨迹从沙箱采集进入轨迹存储，再经过检索分析、再加工和质量治理，最后回流到 SFT、RL、OPD 和评测的闭环。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#2563eb"/></marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#64748b"/></marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.12"/></filter>
+    <style>
+      .bg{fill:#f8fafc}.panel{fill:#fff;stroke:#e2e8f0;stroke-width:2;filter:url(#shadow)}.collect{fill:#eef2ff;stroke:#818cf8;stroke-width:2}.store{fill:#ecfeff;stroke:#67e8f9;stroke-width:2}.analyze{fill:#f0fdf4;stroke:#86efac;stroke-width:2}.process{fill:#fff7ed;stroke:#fdba74;stroke-width:2}.train{fill:#fdf2f8;stroke:#f9a8d4;stroke-width:2}.govern{fill:#f1f5f9;stroke:#94a3b8;stroke-width:2;stroke-dasharray:8 7}.title{font:700 30px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#172033}.subtitle{font:15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#475569}.label{font:700 18px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#172033}.small{font:13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#64748b}.tiny{font:12px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#64748b}.arrow{stroke:#2563eb;stroke-width:3;fill:none;marker-end:url(#arrow)}.gray{stroke:#64748b;stroke-width:2;fill:none;marker-end:url(#arrow-gray)}.loop{stroke:#7c3aed;stroke-width:3;stroke-dasharray:7 7;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1180" height="680" rx="30"/>
+  <text class="title" x="54" y="60">轨迹系统：从采集到训练回流的闭环</text>
+  <text class="subtitle" x="54" y="90">沙箱负责产生真实交互，轨迹系统负责把交互沉淀为可检索、可分析、可再加工、可训练的数据资产。</text>
+
+  <rect class="panel" x="48" y="126" width="1084" height="410" rx="26"/>
+
+  <rect class="collect" x="82" y="196" width="180" height="122" rx="18"/>
+  <text class="label" x="128" y="232">轨迹采集</text>
+  <text class="small" x="112" y="262">Sandbox Rollout</text>
+  <text class="small" x="112" y="286">Action / Observation</text>
+  <text class="small" x="112" y="310">Trace / Diff / Reward</text>
+
+  <rect class="store" x="322" y="178" width="190" height="158" rx="18"/>
+  <text class="label" x="372" y="216">轨迹湖</text>
+  <text class="small" x="350" y="248">Raw Trace Store</text>
+  <text class="small" x="350" y="272">Metadata / Index</text>
+  <text class="small" x="350" y="296">Artifacts / Snapshots</text>
+  <text class="small" x="350" y="320">Versioned Dataset</text>
+
+  <rect class="analyze" x="572" y="154" width="198" height="120" rx="18"/>
+  <text class="label" x="626" y="192">检索与分析</text>
+  <text class="small" x="604" y="222">按任务 / 模型 / 错误检索</text>
+  <text class="small" x="604" y="246">失败归因与聚类</text>
+
+  <rect class="analyze" x="572" y="314" width="198" height="120" rx="18"/>
+  <text class="label" x="626" y="352">质量治理</text>
+  <text class="small" x="604" y="382">去重 / 过滤 / 审计</text>
+  <text class="small" x="604" y="406">Verifier 校准</text>
+
+  <rect class="process" x="830" y="178" width="220" height="158" rx="18"/>
+  <text class="label" x="890" y="216">轨迹再加工</text>
+  <text class="small" x="862" y="248">切片：step / subtask</text>
+  <text class="small" x="862" y="272">重标注：reward / rubric</text>
+  <text class="small" x="862" y="296">压缩：summary / memory</text>
+  <text class="small" x="862" y="320">合成：训练样本</text>
+
+  <rect class="train" x="352" y="450" width="476" height="62" rx="18"/>
+  <text class="label" x="390" y="488">训练回流：SFT / RL / OPD / Evaluation / Regression</text>
+
+  <rect class="govern" x="92" y="560" width="996" height="74" rx="20"/>
+  <text class="label" x="130" y="592">横向能力：版本、权限、成本、血缘与可复现</text>
+  <text class="tiny" x="130" y="616">model version · image digest · tool schema · verifier version · dataset split · provenance · privacy / permission · storage lifecycle</text>
+
+  <path class="arrow" d="M262 257 L316 257"/>
+  <path class="arrow" d="M512 238 L566 208"/>
+  <path class="arrow" d="M512 282 L566 364"/>
+  <path class="arrow" d="M770 214 L824 238"/>
+  <path class="arrow" d="M770 374 L824 302"/>
+  <path class="arrow" d="M940 336 C920 420 856 464 834 480"/>
+  <path class="arrow" d="M417 336 C424 400 466 432 510 448"/>
+  <path class="loop" d="M352 482 C242 478 154 410 154 324"/>
+  <text class="tiny" x="92" y="430">新模型继续 rollout，产生下一轮轨迹</text>
+
+  <path class="gray" d="M590 512 L590 554"/>
+  <path class="gray" d="M420 178 L420 132"/>
+  <text class="tiny" x="350" y="128">冷热分层：对象存储 / 向量索引 / 元数据表</text>
+</svg>

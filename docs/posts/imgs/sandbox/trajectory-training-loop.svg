@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="520" viewBox="0 0 1040 520" role="img" aria-labelledby="title desc">
+  <title id="title">从 RL 轨迹到 SFT 与 OPD 的能力回流</title>
+  <desc id="desc">展示基础模型通过 RL 探索生成高奖励轨迹，再经过筛选格式化进入 SFT 和 OPD，最终回流为模型能力的过程。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#3b5bdb"/></marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#1f2937" flood-opacity="0.12"/></filter>
+    <style>.bg{fill:#f8fafc}.card{fill:#fff;stroke:#dbe4ff;stroke-width:2;filter:url(#shadow)}.blue{fill:#edf2ff;stroke:#91a7ff;stroke-width:2}.green{fill:#ebfbee;stroke:#8ce99a;stroke-width:2}.orange{fill:#fff4e6;stroke:#ffc078;stroke-width:2}.title{font:700 28px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#172033}.label{font:700 19px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#172033}.text{font:15px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#475569}.small{font:13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#64748b}.arrow{stroke:#3b5bdb;stroke-width:3;fill:none;marker-end:url(#arrow)}.dash{stroke:#94a3b8;stroke-width:2;stroke-dasharray:6 6;fill:none;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect class="bg" width="1040" height="520" rx="28"/>
+  <text class="title" x="52" y="58">轨迹成为能力迁移的中间形态</text>
+  <text class="text" x="52" y="88">RL 负责探索有效行为，SFT / OPD 负责把被验证的行为压缩回模型参数。</text>
+  <rect class="card" x="52" y="150" width="180" height="110" rx="18"/><text class="label" x="92" y="192">Base Model</text><text class="small" x="82" y="222">已有知识与初始策略</text>
+  <rect class="blue" x="300" y="132" width="190" height="146" rx="18"/><text class="label" x="344" y="178">RL 探索</text><text class="small" x="328" y="210">在环境中行动</text><text class="small" x="328" y="234">获得 observation</text><text class="small" x="328" y="258">根据 reward 更新策略</text>
+  <rect class="green" x="558" y="132" width="210" height="146" rx="18"/><text class="label" x="606" y="178">高质量轨迹</text><text class="small" x="590" y="210">推理过程</text><text class="small" x="590" y="234">工具调用与环境反馈</text><text class="small" x="590" y="258">验证结果与 reward</text>
+  <rect class="orange" x="834" y="116" width="154" height="78" rx="16"/><text class="label" x="884" y="150">SFT</text><text class="small" x="865" y="174">行为被稳定模仿</text>
+  <rect class="orange" x="834" y="232" width="154" height="78" rx="16"/><text class="label" x="880" y="266">OPD</text><text class="small" x="855" y="290">在学生分布上蒸馏</text>
+  <rect class="card" x="392" y="360" width="260" height="92" rx="18"/><text class="label" x="452" y="397">能力内化</text><text class="small" x="430" y="426">模型学到可复用的行为模式</text>
+  <path class="arrow" d="M232 205 L294 205"/><path class="arrow" d="M490 205 L552 205"/><path class="arrow" d="M768 186 C798 170 806 154 828 154"/><path class="arrow" d="M768 222 C798 240 806 270 828 270"/><path class="arrow" d="M910 194 C906 336 726 388 658 402"/><path class="arrow" d="M834 292 C770 352 704 386 658 404"/><path class="dash" d="M400 360 C318 330 244 288 178 262"/>
+  <text class="small" x="228" y="324">轨迹可以回流为下一轮训练数据</text>
+</svg>

@@ -20,22 +20,22 @@ theme:
   language: zh
   custom_dir: overrides
   font:
-      text: Source Han Sans SC
-      code: Roboto Mono
+      text: Noto Sans SC
+      code: JetBrains Mono
   palette:
   # Light mode
   - media: "(prefers-color-scheme: light)"
     scheme: default
     primary: indigo
-    # accent: light blue
+    accent: indigo
     toggle:
       icon: material/toggle-switch-off-outline
       name: Switch to dark mode
   # Dark mode
   - media: "(prefers-color-scheme: dark)"
     scheme: slate
-    primary: black
-    # accent: indigo
+    primary: indigo
+    accent: indigo
     toggle:
       icon: material/toggle-switch
       name: Switch to light mode
@@ -68,6 +68,7 @@ theme:
     - navigation.indexes
     - navigation.top
     - navigation.tracking
+    - toc.integrate
     - search.highlight
     - search.share
     - search.suggest
@@ -107,6 +108,7 @@ plugins:
   - callouts
   - glightbox
   - markdown-exec
+  - heti
 
 # Additional configuration
 extra:
@@ -142,6 +144,7 @@ markdown_extensions:
   - tables
   - toc:
       permalink: true
+      toc_depth: 2-3
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.betterem:

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="460" height="650" viewBox="0 0 460 650" role="img" aria-labelledby="title desc"><title id="title">审查发生在什么时候</title><desc id="desc">竖排时间顺序对比。两种方式均需要前置边界；沙盘内部修改可延后接收。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#617186"/></marker></defs>
+<rect x="0" y="0" width="460" height="650" rx="0" fill="#f8fafc"/>
+<text x="24" y="40" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="24" font-weight="600" fill="#192739">把判断放到信息更充分的时候</text>
+<text x="24" y="72" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="17" font-weight="400" fill="#617186">示意顺序，不表示执行耗时</text>
+<text x="114" y="118" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="22" font-weight="600" fill="#ad683c">逐次审批</text>
+<text x="343" y="118" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="22" font-weight="600" fill="#27745b">沙盘</text>
+<line x1="45" y1="150" x2="45" y2="520" stroke="#617186" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="275" y1="150" x2="275" y2="520" stroke="#27745b" stroke-width="3" marker-end="url(#arrow)"/>
+<circle cx="45" cy="160" r="6" fill="#617186"/>
+<text x="65" y="167" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#192739">读取项目</text>
+<circle cx="275" cy="160" r="6" fill="#27745b"/>
+<text x="295" y="167" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#192739">读取项目</text>
+<text x="64" y="209" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="16" font-weight="400" fill="#ad683c">停下，判断权限</text>
+<circle cx="45" cy="250" r="6" fill="#617186"/>
+<text x="65" y="257" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#192739">写临时脚本</text>
+<circle cx="275" cy="250" r="6" fill="#27745b"/>
+<text x="295" y="257" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#192739">写临时脚本</text>
+<text x="64" y="299" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="16" font-weight="400" fill="#ad683c">停下，判断权限</text>
+<circle cx="45" cy="340" r="6" fill="#617186"/>
+<text x="65" y="347" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#192739">修改实现</text>
+<circle cx="275" cy="340" r="6" fill="#27745b"/>
+<text x="295" y="347" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#192739">修改实现</text>
+<text x="64" y="389" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="16" font-weight="400" fill="#ad683c">停下，判断权限</text>
+<circle cx="45" cy="430" r="6" fill="#617186"/>
+<text x="65" y="437" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#192739">运行测试</text>
+<circle cx="275" cy="430" r="6" fill="#27745b"/>
+<text x="295" y="437" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#192739">运行测试</text>
+<circle cx="45" cy="520" r="8" fill="#617186"/>
+<text x="65" y="527" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#192739">结束</text>
+<circle cx="275" cy="520" r="10" fill="#27745b"/>
+<text x="295" y="517" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#27745b">审查差异</text>
+<text x="295" y="547" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#27745b">选择接收</text>
+<line x1="230" y1="107" x2="230" y2="558" stroke="#d7e0e9" stroke-width="2"/>
+<text x="24" y="597" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">资源边界先确定；外部访问、任务澄清</text>
+<text x="24" y="626" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">仍可能需要中途处理。</text>
+</svg>

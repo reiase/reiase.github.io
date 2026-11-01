@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="1134" viewBox="0 0 480 1134" role="img" aria-labelledby="title desc"><title id="title">透明 VM 的分层架构</title><desc id="desc">Guest 内核、虚拟设备、宿主文件服务和网络出口的竖版结构。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#617186"/></marker></defs>
+<rect x="0" y="0" width="480" height="1134" rx="0" fill="#f8fafc"/>
+<text x="22" y="40" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="27" font-weight="600" fill="#192739">独立内核，沿用宿主环境</text>
+<text x="22" y="74" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">Linux host-root 路径</text>
+<rect x="20" y="96" width="440" height="330" rx="7" fill="#eef3fc" stroke="#b6c8e4"/>
+<text x="38" y="129" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#4266ad">Guest Linux</text>
+<rect x="36" y="145" width="408" height="83" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="52" y="174" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#192739">Agent / Shell / 编译器</text>
+<text x="52" y="203" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">pvisor-guest 启动与收尾</text>
+<rect x="36" y="244" width="194" height="100" rx="7" fill="#f9fbff" stroke="#d7e0e9"/>
+<text x="52" y="273" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#4266ad">文件</text>
+<text x="52" y="302" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">VFS / 文件缓存</text>
+<text x="52" y="329" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">virtio-fs 驱动</text>
+<rect x="250" y="244" width="194" height="100" rx="7" fill="#f9fbff" stroke="#d7e0e9"/>
+<text x="266" y="273" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#4266ad">网络</text>
+<text x="266" y="302" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">TCP/IP / socket</text>
+<text x="266" y="329" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">virtio-net 驱动</text>
+<text x="38" y="386" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#4266ad">独立进程、地址空间与内核状态</text>
+<line x1="133" y1="426" x2="133" y2="485" stroke="#4266ad" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="347" y1="426" x2="347" y2="485" stroke="#4266ad" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="175" y="461" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">virtqueue</text>
+<rect x="20" y="486" width="440" height="385" rx="7" fill="#f3f6f8" stroke="#d7e0e9"/>
+<text x="38" y="520" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#192739">宿主用户空间</text>
+<rect x="36" y="535" width="408" height="85" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="52" y="564" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#192739">pvisor-vm runner</text>
+<text x="52" y="593" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">vCPU / RAM / 虚拟设备与队列</text>
+<rect x="36" y="638" width="194" height="210" rx="7" fill="#edf7f1" stroke="#d7e0e9"/>
+<text x="52" y="667" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#27745b">文件服务</text>
+<text x="52" y="696" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">virtio-fs 后端</text>
+<text x="52" y="723" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">FilesystemService</text>
+<text x="52" y="750" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">OverlayCore</text>
+<text x="52" y="777" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">lower + upper</text>
+<rect x="250" y="638" width="194" height="210" rx="7" fill="#fff5eb" stroke="#d7e0e9"/>
+<text x="266" y="667" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#ad683c">网络出口</text>
+<text x="266" y="696" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">virtio-net 帧</text>
+<text x="266" y="723" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">OverlayNet</text>
+<text x="266" y="750" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">smoltcp / 策略</text>
+<text x="266" y="777" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">host connector</text>
+<line x1="133" y1="871" x2="133" y2="922" stroke="#27745b" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="347" y1="871" x2="347" y2="922" stroke="#ad683c" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="20" y="923" width="440" height="184" rx="7" fill="#e9eef4" stroke="#d7e0e9"/>
+<text x="38" y="958" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#192739">宿主 Linux 内核</text>
+<text x="38" y="999" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#4266ad">KVM：运行 vCPU</text>
+<text x="38" y="1040" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#27745b">VFS：访问原文件与私有写层</text>
+<text x="38" y="1080" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#ad683c">TCP/IP：建立获准的外部连接</text>
+</svg>

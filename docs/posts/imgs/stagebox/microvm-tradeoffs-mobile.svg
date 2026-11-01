@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="960" viewBox="0 0 480 960" role="img" aria-labelledby="title desc"><title id="title">快照与文件接收</title><desc id="desc">快照分出独立尝试；文件 Apply 还需检查用户是否修改了原项目。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#617186"/></marker></defs>
+<rect x="0" y="0" width="480" height="960" rx="0" fill="#f8fafc"/>
+<text x="22" y="40" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="25" font-weight="600" fill="#192739">保存执行分支，或接收文件修改</text>
+<rect x="20" y="66" width="440" height="365" rx="7" fill="#eef3fc" stroke="#b6c8e4"/>
+<text x="38" y="103" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#4266ad">快照 / fork：从保存状态继续</text>
+<rect x="132" y="126" width="216" height="85" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="148" y="155" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#4266ad">保存的 VM 状态</text>
+<text x="148" y="184" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">进程 / 内存 / 私有磁盘</text>
+<path d="M 240 211 L 240 239 L 132 239 L 132 266" fill="none" stroke="#4266ad" stroke-width="2"/>
+<path d="M 240 239 L 348 239 L 348 266" fill="none" stroke="#4266ad" stroke-width="2"/>
+<circle cx="240" cy="239" r="5" fill="#4266ad"/>
+<rect x="38" y="267" width="190" height="86" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="54" y="296" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#4266ad">尝试一</text>
+<text x="54" y="325" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">自己的后续状态</text>
+<rect x="252" y="267" width="190" height="86" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="268" y="296" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#4266ad">尝试二</text>
+<text x="268" y="325" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">自己的后续状态</text>
+<text x="38" y="386" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#4266ad">保留现场、并行探索和恢复执行。</text>
+<text x="38" y="414" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#617186">接回项目仍需工作流安排。</text>
+<rect x="20" y="452" width="440" height="430" rx="7" fill="#edf7f1" stroke="#b7d8c7"/>
+<text x="38" y="490" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#27745b">Stagebox：修改等待检查与接收</text>
+<rect x="148" y="512" width="184" height="80" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="164" y="541" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#27745b">原文件 A</text>
+<text x="164" y="570" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">Agent 已读取</text>
+<path d="M 240 592 L 240 620 L 132 620 L 132 650" fill="none" stroke="#27745b" stroke-width="2"/>
+<path d="M 240 620 L 348 620 L 348 650" fill="none" stroke="#27745b" stroke-width="2"/>
+<circle cx="240" cy="620" r="5" fill="#27745b"/>
+<rect x="38" y="651" width="190" height="106" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="54" y="680" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#192739">用户改成 B</text>
+<text x="54" y="709" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">继续修改原项目</text>
+<text x="54" y="736" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">当前内容已变化</text>
+<rect x="252" y="651" width="190" height="106" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="268" y="680" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#27745b">Agent 写出 C</text>
+<text x="268" y="709" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">留在私有 upper</text>
+<text x="268" y="736" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">等待 Apply</text>
+<path d="M 348 757 L 348 786 L 132 786 L 132 757" fill="none" stroke="#ad683c" stroke-width="2"/>
+<text x="240" y="819" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#ad683c">A ≠ B → 报告冲突</text>
+<text x="38" y="858" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#617186">不能直接用候选 C 覆盖用户的 B。</text>
+<text x="22" y="918" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">两种机制可以组合；恢复一个 VM 分支，</text>
+<text x="22" y="947" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">不会自动解决与当前项目的文件冲突。</text>
+</svg>

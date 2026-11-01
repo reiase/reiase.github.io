@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="1380" viewBox="0 0 480 1380" role="img" aria-labelledby="title desc"><title id="title">三种执行路径的内核边界</title><desc id="desc">竖版图分别展示直接 microVM、嵌套 Firecracker 和用户态 gVisor。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#617186"/></marker></defs>
+<rect x="0" y="0" width="480" height="1380" rx="0" fill="#f8fafc"/>
+<text x="22" y="40" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="26" font-weight="600" fill="#192739">Guest 内核究竟放在哪里？</text>
+<rect x="20" y="66" width="440" height="408" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="38" y="102" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="24" font-weight="600" fill="#192739">直接运行 microVM</text>
+<rect x="38" y="123" width="404" height="51" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="54" y="156" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="500" fill="#192739">Agent / 应用</text>
+<line x1="240" y1="174" x2="240" y2="198" stroke="#617186" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="38" y="198" width="404" height="51" rx="7" fill="#eef3fc" stroke="#d7e0e9"/>
+<text x="54" y="231" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="500" fill="#4266ad">Guest Linux 内核</text>
+<line x1="240" y1="249" x2="240" y2="273" stroke="#617186" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="38" y="273" width="404" height="51" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="54" y="306" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="500" fill="#192739">VMM → 宿主虚拟化接口</text>
+<line x1="240" y1="324" x2="240" y2="348" stroke="#617186" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="38" y="348" width="404" height="51" rx="7" fill="#e9eef4" stroke="#d7e0e9"/>
+<text x="54" y="381" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="500" fill="#192739">宿主系统：KVM / WHP / HVF 等</text>
+<text x="38" y="444" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">如 NVX、smolvm、pVisor VM</text>
+<rect x="20" y="496" width="440" height="408" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="38" y="532" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="24" font-weight="600" fill="#192739">ArcBox Agent sandbox</text>
+<rect x="38" y="553" width="404" height="51" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="54" y="586" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="500" fill="#192739">Agent / 应用</text>
+<line x1="240" y1="604" x2="240" y2="628" stroke="#617186" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="38" y="628" width="404" height="51" rx="7" fill="#eef3fc" stroke="#d7e0e9"/>
+<text x="54" y="661" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="500" fill="#4266ad">内层 Guest Linux 内核</text>
+<line x1="240" y1="679" x2="240" y2="703" stroke="#617186" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="38" y="703" width="404" height="51" rx="7" fill="#edf7f1" stroke="#d7e0e9"/>
+<text x="54" y="736" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="500" fill="#27745b">Firecracker / 外层 Linux System VM</text>
+<line x1="240" y1="754" x2="240" y2="778" stroke="#617186" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="38" y="778" width="404" height="51" rx="7" fill="#e9eef4" stroke="#d7e0e9"/>
+<text x="54" y="811" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="500" fill="#192739">macOS / VZ：运行外层 Linux 内核</text>
+<text x="38" y="874" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">M3+、macOS 15+，依赖嵌套虚拟化</text>
+<rect x="20" y="926" width="440" height="408" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="38" y="962" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="24" font-weight="600" fill="#192739">Sandstorm 的 gVisor 后端</text>
+<rect x="38" y="983" width="404" height="51" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="54" y="1016" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="500" fill="#192739">应用 / Linux 用户空间</text>
+<line x1="240" y1="1034" x2="240" y2="1058" stroke="#617186" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="38" y="1058" width="404" height="51" rx="7" fill="#fff5eb" stroke="#d7e0e9"/>
+<text x="54" y="1091" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="500" fill="#ad683c">Sentry：用户态系统调用实现</text>
+<line x1="240" y1="1109" x2="240" y2="1133" stroke="#617186" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="38" y="1133" width="404" height="51" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="54" y="1166" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="500" fill="#192739">runsc → 受限的宿主系统调用</text>
+<line x1="240" y1="1184" x2="240" y2="1208" stroke="#617186" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="38" y="1208" width="404" height="51" rx="7" fill="#e9eef4" stroke="#d7e0e9"/>
+<text x="54" y="1241" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="500" fill="#192739">宿主 Linux 内核</text>
+<text x="38" y="1304" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">没有额外的 Guest Linux 内核，不要求 KVM</text>
+</svg>

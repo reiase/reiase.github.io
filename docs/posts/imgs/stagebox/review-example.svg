@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="515" viewBox="0 0 960 515" role="img" aria-labelledby="title desc"><title id="title">一次可以审查的修复</title><desc id="desc">slugify 的代码差异，新增空白测试和未接收的实验笔记。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#617186"/></marker></defs>
+<rect x="0" y="0" width="960" height="515" rx="0" fill="#f8fafc"/>
+<text x="24" y="40" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="25" font-weight="600" fill="#192739">接收前，用户可以检查什么</text>
+<rect x="24" y="65" width="912" height="215" rx="7" fill="#ffffff" stroke="#d7e0e9"/>
+<text x="42" y="97" text-anchor="start" font-family="DejaVu Sans Mono,monospace" font-size="19" font-weight="600" fill="#4266ad">slugify.py</text>
+<line x1="24" y1="113" x2="936" y2="113" stroke="#d7e0e9" stroke-width="2"/>
+<text x="42" y="146" text-anchor="start" font-family="DejaVu Sans Mono,monospace" font-size="21" font-weight="400" fill="#192739">def slugify(text):</text>
+<rect x="32" y="160" width="896" height="45" rx="0" fill="#fff0f0"/>
+<rect x="32" y="209" width="896" height="45" rx="0" fill="#eaf6ee"/>
+<text x="40" y="189" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="22" font-weight="400" fill="#b84f55">−</text>
+<text x="63" y="189" text-anchor="start" font-family="DejaVu Sans Mono,monospace" font-size="21" font-weight="400" fill="#b84f55">return text.lower().replace(&quot; &quot;, &quot;-&quot;)</text>
+<text x="40" y="238" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="22" font-weight="400" fill="#27745b">+</text>
+<text x="63" y="238" text-anchor="start" font-family="DejaVu Sans Mono,monospace" font-size="21" font-weight="400" fill="#27745b">return &quot;-&quot;.join(text.lower().split())</text>
+<text x="32" y="322" text-anchor="start" font-family="DejaVu Sans Mono,monospace" font-size="19" font-weight="600" fill="#4266ad">test_slugify.py</text>
+<text x="32" y="358" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">保留：普通空格、首尾空白、tab 与换行</text>
+<text x="32" y="393" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#27745b">新增：纯空白输入返回空字符串</text>
+<rect x="602" y="302" width="326" height="110" rx="7" fill="#eaf6ee"/>
+<text x="623" y="337" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#27745b">示例测试</text>
+<text x="623" y="380" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#27745b">3 项 / 2 失败 → 4 项 / 全通过</text>
+<path d="M 30 445 Q 460 433 930 445" fill="none" stroke="#ad683c" stroke-width="1"/>
+<text x="32" y="482" text-anchor="start" font-family="DejaVu Sans Mono,monospace" font-size="18" font-weight="400" fill="#ad683c">experiment-notes.txt</text>
+<text x="320" y="482" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#617186">尝试记录保留在沙盘中，不接收。</text>
+</svg>

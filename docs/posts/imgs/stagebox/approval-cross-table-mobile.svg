@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 510" role="img" aria-labelledby="title desc">
+<title id="title">危险权限提示：人工与自动模式的判定</title>
+<desc id="desc">1053名专业测试者的受控编码实验。双方拦截137次，仅人工拦截6次，仅自动模式拦截800次，双方允许110次。命令不会实际执行，不能视为生产事故率。</desc>
+<metadata>Source: https://claude.com/resources/articles/auto-mode-default-in-claude-code; four cells derived from published counts; N=1053.</metadata>
+<rect width="400" height="510" rx="10" fill="#f8fafc"/>
+<g font-family="Noto Sans CJK SC, Noto Sans SC, sans-serif" fill="#233a43">
+<text x="20" y="34" font-size="22" text-anchor="start" font-weight="600">一次危险提示，怎样被判定？</text>
+<text x="20" y="62" font-size="16" text-anchor="start" font-weight="400" fill="#526773">1,053 人 · 受控编码任务</text>
+<text x="20" y="87" font-size="16" text-anchor="start" font-weight="400" fill="#526773">危险命令不会实际执行</text>
+<text x="151.0" y="126" font-size="16" text-anchor="middle" font-weight="400">自动：拦截</text>
+<text x="307.0" y="126" font-size="16" text-anchor="middle" font-weight="400">自动：允许</text>
+<text x="14" y="197" font-size="16" text-anchor="start" font-weight="400">人工</text>
+<text x="14" y="222" font-size="16" text-anchor="start" font-weight="400">拦截</text>
+<text x="14" y="329" font-size="16" text-anchor="start" font-weight="400">人工</text>
+<text x="14" y="354" font-size="16" text-anchor="start" font-weight="400">允许</text>
+<text x="20" y="433" font-size="17" text-anchor="start" font-weight="400">人工共拦截 143 次（13.6%）</text>
+<text x="20" y="462" font-size="17" text-anchor="start" font-weight="400">自动共拦截 937 次（89.0%）</text>
+<text x="20" y="490" font-size="13" text-anchor="start" font-weight="400" fill="#526773">计数交叉表，格子面积不代表比例</text>
+<rect x="78" y="145" width="146" height="122" rx="7" fill="#dbece8"/>
+<text x="151.0" y="202" font-size="38" text-anchor="middle" font-weight="600">137</text>
+<text x="151.0" y="234" font-size="16" text-anchor="middle" font-weight="400">双方拦截</text>
+<rect x="234" y="145" width="146" height="122" rx="7" fill="#e8eee8"/>
+<text x="307.0" y="202" font-size="38" text-anchor="middle" font-weight="600">6</text>
+<text x="307.0" y="234" font-size="16" text-anchor="middle" font-weight="400">仅人工拦截</text>
+<rect x="78" y="277" width="146" height="122" rx="7" fill="#dce8f3"/>
+<text x="151.0" y="334" font-size="38" text-anchor="middle" font-weight="600">800</text>
+<text x="151.0" y="366" font-size="16" text-anchor="middle" font-weight="400">仅自动拦截</text>
+<rect x="234" y="277" width="146" height="122" rx="7" fill="#f3e3d6"/>
+<text x="307.0" y="334" font-size="38" text-anchor="middle" font-weight="600">110</text>
+<text x="307.0" y="366" font-size="16" text-anchor="middle" font-weight="400">双方允许</text>
+</g></svg>

@@ -1,0 +1,5 @@
+human,auto,count,denominator,source,note
+拦截,拦截,137,1053,https://claude.com/resources/articles/auto-mode-default-in-claude-code,由原文边际计数和交叉计数推导；受控实验，非生产事故率
+拦截,允许,6,1053,https://claude.com/resources/articles/auto-mode-default-in-claude-code,由原文边际计数和交叉计数推导；受控实验，非生产事故率
+允许,拦截,800,1053,https://claude.com/resources/articles/auto-mode-default-in-claude-code,由原文边际计数和交叉计数推导；受控实验，非生产事故率
+允许,允许,110,1053,https://claude.com/resources/articles/auto-mode-default-in-claude-code,由原文边际计数和交叉计数推导；受控实验，非生产事故率

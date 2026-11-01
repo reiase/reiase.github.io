@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" role="img" aria-labelledby="title desc">
+<title id="title">危险权限提示：人工与自动模式的判定</title>
+<desc id="desc">1053名专业测试者的受控编码实验。双方拦截137次，仅人工拦截6次，仅自动模式拦截800次，双方允许110次。命令不会实际执行，不能视为生产事故率。</desc>
+<metadata>Source: https://claude.com/resources/articles/auto-mode-default-in-claude-code; four cells derived from published counts; N=1053.</metadata>
+<rect width="800" height="460" rx="10" fill="#f8fafc"/>
+<g font-family="Noto Sans CJK SC, Noto Sans SC, sans-serif" fill="#233a43">
+<text x="28" y="42" font-size="26" text-anchor="start" font-weight="600">一次危险提示，人工和自动模式怎样判定？</text>
+<text x="28" y="74" font-size="17" text-anchor="start" font-weight="400" fill="#526773">1,053 名专业测试者 · 受控编码任务 · 危险命令不会实际执行</text>
+<text x="309.0" y="116" font-size="20" text-anchor="middle" font-weight="400">自动：拦截</text>
+<text x="617.0" y="116" font-size="20" text-anchor="middle" font-weight="400">自动：允许</text>
+<text x="28" y="202" font-size="20" text-anchor="start" font-weight="400">人工：拦截</text>
+<text x="28" y="329" font-size="20" text-anchor="start" font-weight="400">人工：允许</text>
+<text x="28" y="414" font-size="20" text-anchor="start" font-weight="400">人工共拦截 143 次（13.6%）；自动共拦截 937 次（89.0%）</text>
+<text x="28" y="441" font-size="14" text-anchor="start" font-weight="400" fill="#526773">计数交叉表，格子面积不代表比例。实验结果不代表生产风险或 pVisor 的表现。</text>
+<rect x="162" y="136" width="294" height="113" rx="7" fill="#dbece8"/>
+<text x="309.0" y="193" font-size="40" text-anchor="middle" font-weight="600">137</text>
+<text x="309.0" y="225" font-size="18" text-anchor="middle" font-weight="400">双方拦截</text>
+<rect x="470" y="136" width="294" height="113" rx="7" fill="#e8eee8"/>
+<text x="617.0" y="193" font-size="40" text-anchor="middle" font-weight="600">6</text>
+<text x="617.0" y="225" font-size="18" text-anchor="middle" font-weight="400">仅人工拦截</text>
+<rect x="162" y="263" width="294" height="113" rx="7" fill="#dce8f3"/>
+<text x="309.0" y="320" font-size="40" text-anchor="middle" font-weight="600">800</text>
+<text x="309.0" y="352" font-size="18" text-anchor="middle" font-weight="400">仅自动拦截</text>
+<rect x="470" y="263" width="294" height="113" rx="7" fill="#f3e3d6"/>
+<text x="617.0" y="320" font-size="40" text-anchor="middle" font-weight="600">110</text>
+<text x="617.0" y="352" font-size="18" text-anchor="middle" font-weight="400">双方允许</text>
+</g></svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="1030" viewBox="0 0 480 1030" role="img" aria-labelledby="title desc"><title id="title">内存何时开始共享</title><desc id="desc">共同模板保留已有共享；运行期物理池在独立启动后发现并验证相同页。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#617186"/></marker></defs>
+<rect x="0" y="0" width="480" height="1030" rx="0" fill="#f8fafc"/>
+<text x="22" y="40" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="26" font-weight="600" fill="#192739">相同的页，何时开始共享？</text>
+<text x="22" y="73" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">字母代表内容，不代表 Guest 地址</text>
+<rect x="20" y="94" width="440" height="306" rx="7" fill="#eef3fc" stroke="#b6c8e4"/>
+<text x="38" y="132" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#4266ad">共同模板：从同一基线开始</text>
+<rect x="148" y="154" width="48" height="46" rx="4" fill="#d5ebdf"/>
+<text x="172.0" y="185" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#27745b">A</text>
+<rect x="204" y="154" width="48" height="46" rx="4" fill="#d5ebdf"/>
+<text x="228.0" y="185" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#27745b">B</text>
+<rect x="260" y="154" width="48" height="46" rx="4" fill="#d5ebdf"/>
+<text x="284.0" y="185" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#27745b">C</text>
+<path d="M 240 200 L 240 227 L 134 227 L 134 248" fill="none" stroke="#4266ad" stroke-width="2"/>
+<path d="M 240 227 L 346 227 L 346 248" fill="none" stroke="#4266ad" stroke-width="2"/>
+<rect x="38" y="250" width="192" height="53" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="134" y="284" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#4266ad">VM 1 私有映射</text>
+<rect x="250" y="250" width="192" height="53" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="346" y="284" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#4266ad">VM 2 私有映射</text>
+<text x="38" y="340" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">读共享，写入时分出私有页。</text>
+<text x="38" y="377" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#617186">无需在启动后重新发现这些相同页。</text>
+<rect x="20" y="421" width="440" height="512" rx="7" fill="#edf7f1" stroke="#b7d8c7"/>
+<text x="38" y="460" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#27745b">物理页池：独立启动后再合并</text>
+<text x="38" y="501" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="22" font-weight="400" fill="#192739">VM 1</text>
+<rect x="118" y="474" width="48" height="46" rx="4" fill="#e8edf3"/>
+<text x="142.0" y="505" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#617186">A</text>
+<rect x="174" y="474" width="48" height="46" rx="4" fill="#d5ebdf"/>
+<text x="198.0" y="505" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#27745b">B</text>
+<rect x="230" y="474" width="48" height="46" rx="4" fill="#e8edf3"/>
+<text x="254.0" y="505" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#617186">C</text>
+<text x="38" y="569" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="22" font-weight="400" fill="#192739">VM 2</text>
+<rect x="118" y="542" width="48" height="46" rx="4" fill="#e8edf3"/>
+<text x="142.0" y="573" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#617186">D</text>
+<rect x="174" y="542" width="48" height="46" rx="4" fill="#d5ebdf"/>
+<text x="198.0" y="573" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#27745b">B</text>
+<rect x="230" y="542" width="48" height="46" rx="4" fill="#e8edf3"/>
+<text x="254.0" y="573" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#617186">E</text>
+<line x1="240" y1="588" x2="240" y2="620" stroke="#27745b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="76" y="622" width="328" height="99" rx="7" fill="#fff" stroke="#b7d8c7"/>
+<text x="240" y="653" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#27745b">两次静止窗口与内容复核</text>
+<text x="240" y="691" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">把相同 B 映射到同一槽位</text>
+<line x1="240" y1="721" x2="240" y2="750" stroke="#27745b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="38" y="785" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="22" font-weight="400" fill="#192739">VM 1</text>
+<rect x="118" y="758" width="48" height="46" rx="4" fill="#e8edf3"/>
+<text x="142.0" y="789" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#617186">A</text>
+<rect x="174" y="758" width="48" height="46" rx="4" fill="#d5ebdf"/>
+<text x="198.0" y="789" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#27745b">B</text>
+<rect x="230" y="758" width="48" height="46" rx="4" fill="#e8edf3"/>
+<text x="254.0" y="789" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#617186">C</text>
+<text x="38" y="853" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="22" font-weight="400" fill="#192739">VM 2</text>
+<rect x="118" y="826" width="48" height="46" rx="4" fill="#e8edf3"/>
+<text x="142.0" y="857" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#617186">D</text>
+<rect x="174" y="826" width="48" height="46" rx="4" fill="#d5ebdf"/>
+<text x="198.0" y="857" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#27745b">B</text>
+<rect x="230" y="826" width="48" height="46" rx="4" fill="#e8edf3"/>
+<text x="254.0" y="857" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="23" font-weight="600" fill="#617186">E</text>
+<text x="38" y="906" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#27745b">地址不变，B 的物理内容已经共享。</text>
+<text x="22" y="974" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">任一 VM 写 B，只生成自己的私有 B′。</text>
+<text x="22" y="1007" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#617186">其他 VM 仍然读取原来的共享 B。</text>
+</svg>

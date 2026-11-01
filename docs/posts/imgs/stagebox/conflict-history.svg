@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="436" viewBox="0 0 960 436" role="img" aria-labelledby="title desc"><title id="title">为什么首次读取也要留下原像</title><desc id="desc">Agent 读取 A 后用户把目标改为 B，Agent 写出 C；A 和 B 不一致，拒绝接收 C。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#617186"/></marker></defs>
+<rect x="0" y="0" width="960" height="436" rx="0" fill="#f8fafc"/>
+<text x="28" y="43" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="27" font-weight="600" fill="#192739">config.py：同一文件的两条历史</text>
+<text x="28" y="79" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#617186">冲突基线保留 A，不随着用户的后续编辑更新</text>
+<text x="28" y="137" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="600" fill="#4266ad">Agent</text>
+<text x="28" y="281" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="600" fill="#ad683c">目标</text>
+<line x1="155" y1="157" x2="860" y2="157" stroke="#4266ad" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="155" y1="300" x2="860" y2="300" stroke="#ad683c" stroke-width="3" marker-end="url(#arrow)"/>
+<circle cx="190" cy="157" r="17" fill="#4266ad"/>
+<text x="190" y="164" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#fff">A</text>
+<circle cx="640" cy="157" r="17" fill="#4266ad"/>
+<text x="640" y="164" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#fff">C</text>
+<circle cx="190" cy="300" r="17" fill="#ad683c"/>
+<text x="190" y="307" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#fff">A</text>
+<circle cx="445" cy="300" r="17" fill="#ad683c"/>
+<text x="445" y="307" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#fff">B</text>
+<circle cx="820" cy="300" r="17" fill="#ad683c"/>
+<text x="820" y="307" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#fff">B</text>
+<text x="190" y="121" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#4266ad">首次读到</text>
+<text x="640" y="121" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#4266ad">基于 A 修改</text>
+<text x="445" y="341" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#ad683c">用户另行编辑</text>
+<line x1="190" y1="177" x2="190" y2="278" stroke="#617186" stroke-width="1" stroke-dasharray="5 5"/>
+<text x="210" y="230" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#617186">记录 A 的指纹</text>
+<path d="M 820 278 L 820 215 L 650 215" fill="none" stroke="#b84f55" stroke-width="2"/>
+<text x="540" y="253" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#b84f55">Apply 比较 A 与 B</text>
+<text x="28" y="404" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="22" font-weight="400" fill="#b84f55">结果：拒绝用 C 覆盖 B，保留目标与候选，交给用户处理冲突。</text>
+</svg>

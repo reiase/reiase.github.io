@@ -326,15 +326,6 @@ LayerFS 把文件历史做到了每次调用。直接文件写操作可以形成
 
 快照和 fork 可以保存执行状态，让我们从同一起点试不同方案。等到只想拿回其中两个文件时，还得核对当前项目有没有变化，以及这两个文件是否依赖其他修改；恢复整个分支不会替我们完成这一步。
 
-<figure class="stagebox-figure" markdown="1">
-
-![整机状态分支与文件接收：前者从保存状态继续运行，后者将候选修改与当前项目逐项比较](imgs/stagebox/microvm-tradeoffs.svg){.stagebox-wide}
-
-![竖版对比：快照用于继续执行，Apply 需要与当前项目检查冲突](imgs/stagebox/microvm-tradeoffs-mobile.svg){.stagebox-narrow}
-
-<figcaption>图 10：快照、fork 与文件接收可以组合使用。图中的 A、B、C 分别表示原内容、我们的新修改和 Agent 的候选修改；恢复 C 所在的 VM 不会自动解决 B 与 C 的冲突。</figcaption>
-</figure>
-
 接收这一步牵扯的实现不少。程序按原来的方式读写，文件服务就得保留重命名、硬链接和删除的语义；我们继续改原项目，首次读取时留下的原像就得跟着任务保存；Guest 退出后要等设备完成写入，Apply 中断后还得能继续。给 VM 接上共享目录，只解决了文件怎么访问，这些后续工作仍要有人处理。
 
 沿用当前环境，首先要接受输入会变。镜像工作流固定 digest 以后，基础用户空间可以保持一致，再固定输入、约束外部依赖，任务比较容易重复。host-root 用 live lower，任务可能在不同时刻读到不同状态；原像检查能发现接收目标的变化，却不能把前面的读取变成一致快照。训练评测、批量 CI 这类需要固定输入的任务，用镜像或不可变基线更合适。
@@ -354,15 +345,6 @@ LayerFS 把文件历史做到了每次调用。直接文件写操作可以形成
 
 回到前面的 `slugify` 修复。它只替换普通空格，遇到制表符和换行就出错；README 是我们没提交的草稿，不能动，Agent 过程中写的实验笔记也不算交付物。
 
-<figure class="stagebox-figure" markdown="1">
-
-![slugify 修复的具体代码差异、测试变化与待丢弃的实验笔记](imgs/stagebox/review-example.svg){.stagebox-wide}
-
-![手机竖版的源码差异和测试结果示例](imgs/stagebox/review-example-mobile.svg){.stagebox-narrow}
-
-<figcaption>图 11：教程示例的代码与测试差异，不是产品界面截图。示例代码用 Python 标准库测试验证：原有 3 项中 2 项失败，修复并补充用例后 4 项通过。</figcaption>
-</figure>
-
 修好并补充用例后，四项测试全过。我们要接收 `slugify.py` 和 `test_slugify.py`，README 草稿保留，实验笔记丢掉。如果这期间我们也改了原文件，事情就多一步：Agent 先读到 A，我们补上一句说明，文件变成 B；Agent 仍按 A 写出 C，修复有了，说明却没了。最后交付的 D，需要把两处修改都留下。
 
 ```python
@@ -381,7 +363,7 @@ microsandbox 用 owned volume 可以保住私有候选，接回项目时仍要�
 
 ![三种运行方式的文件接收流程，手机竖版](imgs/stagebox/case-solutions-mobile.svg){.stagebox-narrow}
 
-<figcaption>图 12：三种方案都能得到 D。直写挂载会立即影响原目录；独立副本需要配套的比较与合并流程；Stagebox 将原像检查和选择性接收纳入运行时。</figcaption>
+<figcaption>图 10：三种方案都能得到 D。直写挂载会立即影响原目录；独立副本需要配套的比较与合并流程；Stagebox 将原像检查和选择性接收纳入运行时。</figcaption>
 </figure>
 
 这个任务可以离线运行：Docker 和 pVisor stage 用 `--network none`，microsandbox 用 `--no-net`[^msb-cli]。Docker 和 microsandbox 需要提前备好镜像，pVisor 的 host-root 路径使用宿主现有环境。
@@ -424,7 +406,7 @@ pvisor drop last
 
 ![一次文件读取的竖版数据路径，以及写入私有 upper 的分支](imgs/stagebox/virtio-file-request-mobile.svg){.stagebox-narrow}
 
-<figcaption>图 13：需要后端 I/O 的读取路径。队列和缓冲区都在 Guest RAM；宿主校验地址和读写方向后才访问，完成时写回结果并发布 used 条目。Guest 缓存命中和 tmpfs 操作可以留在 Guest 内。</figcaption>
+<figcaption>图 11：需要后端 I/O 的读取路径。队列和缓冲区都在 Guest RAM；宿主校验地址和读写方向后才访问，完成时写回结果并发布 used 条目。Guest 缓存命中和 tmpfs 操作可以留在 Guest 内。</figcaption>
 </figure>
 
 宿主不能直接相信 Guest 给的地址。设备实现先检查 descriptor 的地址范围、长度和读写方向，确认落在允许的 Guest RAM 内，再调用共享文件服务。OverlayCore 挑 upper 或 lower，做访问检查和原像观察，最后由宿主文件接口取内容。响应写回 Guest 缓冲区后，队列 owner 发布 used 条目，Guest 才能结束这次请求、重用缓冲区。

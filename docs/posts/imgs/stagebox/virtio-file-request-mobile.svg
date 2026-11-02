@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="966" viewBox="0 0 480 966" role="img" aria-labelledby="title desc"><title id="title">文件读取跨边界</title><desc id="desc">Guest 提交请求、宿主校验与读取、完成发布后 Guest 重用缓冲区。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#617186"/></marker></defs>
+<rect x="0" y="0" width="480" height="966" rx="0" fill="#f8fafc"/>
+<text x="22" y="39" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="26" font-weight="600" fill="#192739">一次未命中缓存的 read</text>
+<rect x="22" y="78" width="436" height="128" rx="7" fill="#eef3fc" stroke="#d7e0e9"/>
+<text x="38" y="107" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#4266ad">1  Guest Linux</text>
+<text x="38" y="136" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">read → VFS → virtio-fs</text>
+<text x="38" y="163" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">发布 available 请求</text>
+<line x1="240" y1="206" x2="240" y2="240" stroke="#4266ad" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="22" y="240" width="436" height="128" rx="7" fill="#f0f3f7" stroke="#d7e0e9"/>
+<text x="38" y="269" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#192739">2  Guest RAM 中的队列</text>
+<text x="38" y="298" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">descriptor 指向请求 / 响应区</text>
+<text x="38" y="325" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">包含 GPA、长度和读写方向</text>
+<line x1="240" y1="368" x2="240" y2="402" stroke="#192739" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="22" y="402" width="436" height="128" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="38" y="431" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#192739">3  宿主设备处理</text>
+<text x="38" y="460" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">验证地址与缓冲区方向</text>
+<text x="38" y="487" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">持有 RAM lease，调用文件服务</text>
+<line x1="240" y1="530" x2="240" y2="564" stroke="#192739" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="22" y="564" width="436" height="128" rx="7" fill="#edf7f1" stroke="#d7e0e9"/>
+<text x="38" y="593" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#27745b">4  OverlayCore + 宿主 VFS</text>
+<text x="38" y="622" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">检查权限，读取 upper 或 lower</text>
+<text x="38" y="649" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">写请求则修改私有 upper</text>
+<line x1="240" y1="692" x2="240" y2="726" stroke="#27745b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="22" y="726" width="436" height="128" rx="7" fill="#eef3fc" stroke="#d7e0e9"/>
+<text x="38" y="755" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#4266ad">5  完成后返回 Guest</text>
+<text x="38" y="784" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">写回响应，队列 owner 发布 used</text>
+<text x="38" y="811" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">通知 Guest，缓冲区可以重用</text>
+<text x="22" y="916" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#617186">设备完成前，相关 RAM 必须持续有效。</text>
+<text x="22" y="946" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#617186">缓存命中与 tmpfs 可以留在 Guest 内。</text>
+</svg>

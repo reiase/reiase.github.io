@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="430" viewBox="0 0 960 430" role="img" aria-labelledby="title desc"><title id="title">审查发生在什么时候</title><desc id="desc">同一任务，逐次审批会在内部动作间打断；沙盘把可暂存的文件结果集中到停止后审查。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#617186"/></marker></defs>
+<rect x="0" y="0" width="960" height="430" rx="0" fill="#f8fafc"/>
+<text x="30" y="44" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="28" font-weight="600" fill="#192739">沿一次修复任务，看人的介入位置</text>
+<text x="30" y="78" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">示意时间顺序 · 不代表耗时或实测收益</text>
+<text x="30" y="131" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="22" font-weight="600" fill="#ad683c">逐次审批</text>
+<line x1="165" y1="164" x2="908" y2="164" stroke="#617186" stroke-width="3" marker-end="url(#arrow)"/>
+<circle cx="180" cy="164" r="7" fill="#617186"/>
+<text x="180" y="200" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">读取</text>
+<circle cx="345" cy="164" r="7" fill="#617186"/>
+<text x="345" y="200" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">写脚本</text>
+<circle cx="510" cy="164" r="7" fill="#617186"/>
+<text x="510" y="200" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">修改</text>
+<circle cx="675" cy="164" r="7" fill="#617186"/>
+<text x="675" y="200" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">测试</text>
+<circle cx="855" cy="164" r="7" fill="#617186"/>
+<text x="855" y="200" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">结束</text>
+<line x1="266" y1="150" x2="266" y2="178" stroke="#ad683c" stroke-width="4"/>
+<line x1="274" y1="150" x2="274" y2="178" stroke="#ad683c" stroke-width="4"/>
+<text x="270" y="137" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="17" font-weight="400" fill="#ad683c">判断</text>
+<line x1="431" y1="150" x2="431" y2="178" stroke="#ad683c" stroke-width="4"/>
+<line x1="439" y1="150" x2="439" y2="178" stroke="#ad683c" stroke-width="4"/>
+<text x="435" y="137" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="17" font-weight="400" fill="#ad683c">判断</text>
+<line x1="596" y1="150" x2="596" y2="178" stroke="#ad683c" stroke-width="4"/>
+<line x1="604" y1="150" x2="604" y2="178" stroke="#ad683c" stroke-width="4"/>
+<text x="600" y="137" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="17" font-weight="400" fill="#ad683c">判断</text>
+<line x1="761" y1="150" x2="761" y2="178" stroke="#ad683c" stroke-width="4"/>
+<line x1="769" y1="150" x2="769" y2="178" stroke="#ad683c" stroke-width="4"/>
+<text x="765" y="137" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="17" font-weight="400" fill="#ad683c">判断</text>
+<line x1="30" y1="230" x2="930" y2="230" stroke="#d7e0e9" stroke-width="2"/>
+<text x="30" y="280" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="22" font-weight="600" fill="#27745b">沙盘</text>
+<line x1="165" y1="312" x2="908" y2="312" stroke="#27745b" stroke-width="3" marker-end="url(#arrow)"/>
+<circle cx="180" cy="312" r="7" fill="#27745b"/>
+<text x="180" y="348" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">读取</text>
+<circle cx="345" cy="312" r="7" fill="#27745b"/>
+<text x="345" y="348" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">写脚本</text>
+<circle cx="510" cy="312" r="7" fill="#27745b"/>
+<text x="510" y="348" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">修改</text>
+<circle cx="675" cy="312" r="7" fill="#27745b"/>
+<text x="675" y="348" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">测试</text>
+<circle cx="855" cy="312" r="13" fill="#27745b"/>
+<text x="855" y="276" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#27745b">审查文件结果</text>
+<text x="855" y="348" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#27745b">接收 / 丢弃</text>
+<text x="30" y="401" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#617186">共同前提：先确定可访问资源；超出边界的操作仍要限制。</text>
+</svg>

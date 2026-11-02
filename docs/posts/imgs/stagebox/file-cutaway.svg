@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="462" viewBox="0 0 960 462" role="img" aria-labelledby="title desc"><title id="title">文件修改怎样对任务可见</title><desc id="desc">lower 保留原文件，upper 保存修改和删除标记，merged 合成 Agent 的目录。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#617186"/></marker></defs>
+<rect x="0" y="0" width="960" height="462" rx="0" fill="#f8fafc"/>
+<text x="24" y="40" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="25" font-weight="600" fill="#192739">程序看到的目录，从两处合成</text>
+<text x="24" y="75" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">私有修改可见，原目录等待接收</text>
+<rect x="29" y="125" width="288" height="228" rx="7" fill="#e4eaf0"/>
+<rect x="24" y="120" width="288" height="228" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<rect x="24" y="120" width="288" height="46" rx="7" fill="#f0f3f7"/>
+<text x="40" y="151" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="600" fill="#192739">lower · 原文件</text>
+<path d="M 42 187 h 11 l 5 5 v 13 h -16 z" fill="none" stroke="#617186" stroke-width="1.2"/>
+<text x="67" y="203" text-anchor="start" font-family="DejaVu Sans Mono,monospace" font-size="18" font-weight="400" fill="#617186">slugify.py</text>
+<text x="67" y="223" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="15" font-weight="400" fill="#617186">旧实现</text>
+<path d="M 42 237 h 11 l 5 5 v 13 h -16 z" fill="none" stroke="#617186" stroke-width="1.2"/>
+<text x="67" y="253" text-anchor="start" font-family="DejaVu Sans Mono,monospace" font-size="18" font-weight="400" fill="#617186">README.md</text>
+<text x="67" y="273" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="15" font-weight="400" fill="#617186">原内容</text>
+<path d="M 42 287 h 11 l 5 5 v 13 h -16 z" fill="none" stroke="#617186" stroke-width="1.2"/>
+<text x="67" y="303" text-anchor="start" font-family="DejaVu Sans Mono,monospace" font-size="18" font-weight="400" fill="#617186">old.txt</text>
+<text x="67" y="323" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="15" font-weight="400" fill="#617186">原文件</text>
+<rect x="341" y="125" width="288" height="228" rx="7" fill="#e4eaf0"/>
+<rect x="336" y="120" width="288" height="228" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<rect x="336" y="120" width="288" height="46" rx="7" fill="#eef7f2"/>
+<text x="352" y="151" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="600" fill="#192739">upper · 私有变化</text>
+<path d="M 354 187 h 11 l 5 5 v 13 h -16 z" fill="none" stroke="#27745b" stroke-width="1.2"/>
+<text x="379" y="203" text-anchor="start" font-family="DejaVu Sans Mono,monospace" font-size="18" font-weight="400" fill="#27745b">slugify.py</text>
+<text x="379" y="223" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="15" font-weight="400" fill="#27745b">新实现</text>
+<path d="M 354 237 h 11 l 5 5 v 13 h -16 z" fill="none" stroke="#27745b" stroke-width="1.2"/>
+<text x="379" y="253" text-anchor="start" font-family="DejaVu Sans Mono,monospace" font-size="18" font-weight="400" fill="#27745b">notes.txt</text>
+<text x="379" y="273" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="15" font-weight="400" fill="#27745b">新文件</text>
+<path d="M 354 287 h 11 l 5 5 v 13 h -16 z" fill="none" stroke="#b84f55" stroke-width="1.2"/>
+<text x="379" y="303" text-anchor="start" font-family="DejaVu Sans Mono,monospace" font-size="18" font-weight="400" fill="#b84f55">.wh.old.txt</text>
+<text x="379" y="323" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="15" font-weight="400" fill="#b84f55">删除标记</text>
+<rect x="653" y="125" width="288" height="228" rx="7" fill="#e4eaf0"/>
+<rect x="648" y="120" width="288" height="228" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<rect x="648" y="120" width="288" height="46" rx="7" fill="#eef2fa"/>
+<text x="664" y="151" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="600" fill="#4266ad">merged · 任务可见</text>
+<path d="M 666 187 h 11 l 5 5 v 13 h -16 z" fill="none" stroke="#27745b" stroke-width="1.2"/>
+<text x="691" y="203" text-anchor="start" font-family="DejaVu Sans Mono,monospace" font-size="18" font-weight="400" fill="#27745b">slugify.py</text>
+<text x="691" y="223" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="15" font-weight="400" fill="#27745b">来自 upper</text>
+<path d="M 666 237 h 11 l 5 5 v 13 h -16 z" fill="none" stroke="#617186" stroke-width="1.2"/>
+<text x="691" y="253" text-anchor="start" font-family="DejaVu Sans Mono,monospace" font-size="18" font-weight="400" fill="#617186">README.md</text>
+<text x="691" y="273" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="15" font-weight="400" fill="#617186">来自 lower</text>
+<path d="M 666 287 h 11 l 5 5 v 13 h -16 z" fill="none" stroke="#27745b" stroke-width="1.2"/>
+<text x="691" y="303" text-anchor="start" font-family="DejaVu Sans Mono,monospace" font-size="18" font-weight="400" fill="#27745b">notes.txt</text>
+<text x="691" y="323" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="15" font-weight="400" fill="#27745b">来自 upper</text>
+<text x="24" y="396" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="400" fill="#617186">upper 覆盖同名文件；未修改的内容继续来自 lower。</text>
+<text x="24" y="433" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="400" fill="#617186">删除标记让 old.txt 消失，merged 不会再额外复制整棵目录。</text>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="1072" viewBox="0 0 480 1072" role="img" aria-labelledby="title desc"><title id="title">Guest 与宿主的两条 TCP 连接</title><desc id="desc">网络流先经过名称恢复和策略，再建立宿主 upstream 连接。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#617186"/></marker></defs>
+<rect x="0" y="0" width="480" height="1072" rx="0" fill="#f8fafc"/>
+<text x="22" y="40" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="25" font-weight="600" fill="#192739">两条 TCP，在宿主数据面衔接</text>
+<rect x="22" y="77" width="436" height="111" rx="7" fill="#f1f4fa" stroke="#d7e0e9"/>
+<text x="38" y="106" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#4266ad">合成 DNS</text>
+<text x="38" y="135" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">api.example.com ↔ 198.18.x.x</text>
+<text x="38" y="162" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">按 Attempt 保存名称映射</text>
+<rect x="22" y="216" width="436" height="131" rx="7" fill="#eef3fc" stroke="#d7e0e9"/>
+<text x="38" y="245" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#4266ad">Guest Linux</text>
+<text x="38" y="274" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">应用 socket → Guest TCP/IP</text>
+<text x="38" y="301" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">virtio-net 输出 Ethernet 帧</text>
+<line x1="240" y1="347" x2="240" y2="399" stroke="#4266ad" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="259" y="379" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="17" font-weight="400" fill="#617186">帧传输</text>
+<rect x="22" y="400" width="436" height="158" rx="7" fill="#fff5eb" stroke="#d7e0e9"/>
+<text x="38" y="429" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#ad683c">OverlayNet / smoltcp</text>
+<text x="38" y="458" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">接收 Guest TCP，暂停 SYN 握手</text>
+<text x="38" y="485" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">恢复域名，检查地址、端口和任务策略</text>
+<text x="38" y="512" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">Guest 连接由这一侧终止</text>
+<line x1="240" y1="558" x2="240" y2="614" stroke="#ad683c" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="259" y="593" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="17" font-weight="400" fill="#ad683c">授权通过</text>
+<rect x="22" y="615" width="436" height="158" rx="7" fill="#edf7f1" stroke="#d7e0e9"/>
+<text x="38" y="644" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#27745b">宿主 TCP 出口</text>
+<text x="38" y="673" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">创建另一条 upstream TCP</text>
+<text x="38" y="700" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">通过宿主网络 / connector 连到远端</text>
+<text x="38" y="727" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">成功后才继续 Guest 握手</text>
+<text x="22" y="815" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#192739">两条连接分别管理缓冲、背压与关闭。</text>
+<line x1="22" y1="848" x2="458" y2="848" stroke="#617186" stroke-width="2" stroke-dasharray="6 5"/>
+<text x="22" y="882" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#617186">普通 HTTPS 不在这里自动解密：</text>
+<text x="22" y="916" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#617186">TLS 仍由 Guest 应用与远端处理。</text>
+<rect x="22" y="945" width="436" height="103" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="38" y="981" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">当前：合成 DNS + IPv4 TCP</text>
+<text x="38" y="1017" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#617186">通用 UDP / IPv6 / QUIC 等失败关闭</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="460" height="652" viewBox="0 0 460 652" role="img" aria-labelledby="title desc"><title id="title">首次读取后的冲突</title><desc id="desc">A 是观察基线，B 是用户新内容，C 是候选；Apply 拒绝覆盖。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#617186"/></marker></defs>
+<rect x="0" y="0" width="460" height="652" rx="0" fill="#f8fafc"/>
+<text x="24" y="40" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="24" font-weight="600" fill="#192739">先读后写，也要保护用户改动</text>
+<text x="24" y="78" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#617186">config.py 的两条历史</text>
+<text x="118" y="126" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="600" fill="#4266ad">Agent</text>
+<text x="343" y="126" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="600" fill="#ad683c">目标工作区</text>
+<line x1="118" y1="157" x2="118" y2="490" stroke="#4266ad" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="343" y1="157" x2="343" y2="490" stroke="#ad683c" stroke-width="3" marker-end="url(#arrow)"/>
+<circle cx="118" cy="175" r="17" fill="#4266ad"/>
+<text x="118" y="182" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#fff">A</text>
+<circle cx="343" cy="175" r="17" fill="#ad683c"/>
+<text x="343" y="182" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#fff">A</text>
+<circle cx="343" cy="300" r="17" fill="#ad683c"/>
+<text x="343" y="307" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#fff">B</text>
+<circle cx="118" cy="425" r="17" fill="#4266ad"/>
+<text x="118" y="432" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#fff">C</text>
+<circle cx="343" cy="425" r="17" fill="#ad683c"/>
+<text x="343" y="432" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#fff">B</text>
+<rect x="16" y="200" width="208" height="30" rx="0" fill="#f8fafc"/>
+<text x="24" y="220" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#4266ad">首次读取，记录 A</text>
+<rect x="235" y="324" width="200" height="30" rx="0" fill="#f8fafc"/>
+<text x="242" y="344" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#ad683c">用户改成 B</text>
+<rect x="16" y="448" width="210" height="30" rx="0" fill="#f8fafc"/>
+<text x="24" y="468" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#4266ad">仍基于 A 写出 C</text>
+<line x1="118" y1="510" x2="343" y2="510" stroke="#b84f55" stroke-width="2"/>
+<text x="230" y="553" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="22" font-weight="600" fill="#b84f55">Apply：A 与 B 不一致</text>
+<text x="230" y="591" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#b84f55">拒绝接收 C，保留冲突现场</text>
+<text x="230" y="627" text-anchor="middle" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">不能中途把基线更新成 B。</text>
+</svg>

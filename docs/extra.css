@@ -582,3 +582,118 @@ html {
     padding: 0.5em 0.75em;
   }
 }
+
+/* Stagebox article: keep diagrams and captions in the reading column. */
+.md-content__inner:has(> .stagebox-post) {
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+}
+
+.md-content__inner:has(> .stagebox-post) h1 {
+  font-size: 1.72rem;
+  line-height: 1.42;
+  margin: 0.85em 0 0.75em;
+}
+
+.md-content__inner:has(> .stagebox-post) h2 {
+  font-size: 1.25rem;
+  margin-top: 2.1rem;
+  padding-top: 0.8rem;
+  scroll-margin-top: 4rem;
+  line-height: 1.5;
+}
+
+.md-content__inner:has(> .stagebox-post) h2::before {
+  content: none;
+}
+
+.md-typeset .stagebox-figure {
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin: 1.4rem 0 1.5rem;
+  text-align: left;
+}
+
+.md-typeset .stagebox-figure p {
+  margin: 0;
+  padding: 0;
+  width: auto;
+  transform: none;
+  border: 0;
+  background: none;
+}
+
+.md-typeset .stagebox-figure img {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.md-typeset .stagebox-figure figcaption {
+  margin: 0.6rem 0 0;
+  max-width: none;
+  font-style: normal;
+  font-family: var(--blog-font-body);
+  font-size: 0.73rem;
+  line-height: 1.65;
+  color: var(--blog-muted-color);
+  text-align: left;
+}
+
+.md-typeset .stagebox-figure p:has(.stagebox-narrow) {
+  display: none;
+}
+
+.md-content__inner:has(> .stagebox-post) table:not([class]) {
+  width: 100%;
+  margin: 0.7rem 0;
+  box-shadow: none;
+  font-size: 0.76rem;
+}
+
+.md-content__inner:has(> .stagebox-post) table:not([class]) th {
+  background: var(--md-code-bg-color);
+  color: var(--blog-heading-color);
+  white-space: normal;
+}
+
+.md-content__inner:has(> .stagebox-post) pre {
+  box-shadow: none;
+  border: 1px solid var(--blog-rule-color);
+  padding: 0.85em 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+@media screen and (max-width: 600px) {
+  .md-content__inner:has(> .stagebox-post) h1 {
+    font-size: 1.45rem;
+  }
+
+  .md-content__inner:has(> .stagebox-post) h2 {
+    font-size: 1.12rem;
+  }
+
+  .md-typeset .stagebox-figure p:has(.stagebox-wide) {
+    display: none;
+  }
+
+  .md-typeset .stagebox-figure p:has(.stagebox-narrow) {
+    display: block;
+  }
+
+  .md-typeset .stagebox-figure figcaption {
+    font-size: 0.72rem;
+  }
+}
+
+.md-typeset .stagebox-figure p > a {
+  display: block;
+  padding: 0;
+  border: 0;
+  line-height: 0;
+}

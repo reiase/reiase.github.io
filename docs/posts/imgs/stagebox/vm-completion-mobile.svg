@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="814" viewBox="0 0 480 814" role="img" aria-labelledby="title desc"><title id="title">从 Guest 退出到文件接收</title><desc id="desc">工作负载退出、同步挂载、宿主收尾、stage 同步封存，最后人工接收。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#617186"/></marker></defs>
+<rect x="0" y="0" width="480" height="814" rx="0" fill="#f8fafc"/>
+<text x="22" y="40" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="26" font-weight="600" fill="#192739">退出之后，结果如何留下来</text>
+<text x="22" y="77" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">顺序示意，不表示耗时</text>
+<circle cx="38" cy="131" r="10" fill="#4266ad"/>
+<line x1="38" y1="141" x2="38" y2="254" stroke="#d7e0e9" stroke-width="2"/>
+<text x="65" y="136" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#4266ad">Guest：工作负载退出</text>
+<text x="65" y="173" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">退出码说明程序结果</text>
+<circle cx="38" cy="264" r="10" fill="#4266ad"/>
+<line x1="38" y1="274" x2="38" y2="387" stroke="#d7e0e9" stroke-width="2"/>
+<text x="65" y="269" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#4266ad">Guest：同步 virtio-fs 挂载</text>
+<text x="65" y="306" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">再向宿主报告退出</text>
+<circle cx="38" cy="397" r="10" fill="#192739"/>
+<line x1="38" y1="407" x2="38" y2="520" stroke="#d7e0e9" stroke-width="2"/>
+<text x="65" y="402" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#192739">宿主：完成执行器与 I/O 收尾</text>
+<text x="65" y="439" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">确认写入路径已停止</text>
+<circle cx="38" cy="530" r="10" fill="#27745b"/>
+<line x1="38" y1="540" x2="38" y2="653" stroke="#d7e0e9" stroke-width="2"/>
+<text x="65" y="535" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#27745b">Stage：同步日志与 upper</text>
+<text x="65" y="572" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">最后发布 sealed-v1</text>
+<circle cx="38" cy="663" r="10" fill="#ad683c"/>
+<text x="65" y="668" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#ad683c">用户：审查具体文件结果</text>
+<text x="65" y="705" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">Apply 接收；Drop 丢弃剩余候选</text>
+<text x="22" y="785" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#617186">文件完成标记不代表 CPU / RAM 已快照。</text>
+</svg>

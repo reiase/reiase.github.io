@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="634" viewBox="0 0 1000 634" role="img" aria-labelledby="title desc"><title id="title">一次 read 的设备路径</title><desc id="desc">未命中 Guest 缓存的文件请求，通过共享内存队列到 OverlayCore，再写回响应。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#617186"/></marker></defs>
+<rect x="0" y="0" width="1000" height="634" rx="0" fill="#f8fafc"/>
+<text x="26" y="42" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="28" font-weight="600" fill="#192739">read 的往返：从 Guest VFS 到宿主文件</text>
+<text x="26" y="76" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="19" font-weight="400" fill="#617186">只有需要后端 I/O 的请求进入这条路径</text>
+<rect x="28" y="112" width="260" height="109" rx="7" fill="#eef3fc" stroke="#d7e0e9"/>
+<text x="44" y="141" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#4266ad">Guest Linux</text>
+<text x="44" y="170" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">read → VFS → virtio-fs</text>
+<text x="44" y="197" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">填入请求并发布 available</text>
+<rect x="359" y="112" width="282" height="109" rx="7" fill="#f0f3f7" stroke="#d7e0e9"/>
+<text x="375" y="141" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#192739">Guest RAM</text>
+<text x="375" y="170" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">descriptor + 请求 / 响应区</text>
+<text x="375" y="197" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">GPA · 长度 · 读写方向</text>
+<rect x="712" y="112" width="260" height="109" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="728" y="141" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#192739">宿主设备处理</text>
+<text x="728" y="170" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">校验描述符与 RAM 范围</text>
+<text x="728" y="197" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">取得覆盖处理期的 RAM lease</text>
+<line x1="288" y1="165" x2="359" y2="165" stroke="#4266ad" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="641" y1="165" x2="712" y2="165" stroke="#4266ad" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="842" y1="221" x2="842" y2="274" stroke="#27745b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="712" y="275" width="260" height="123" rx="7" fill="#edf7f1" stroke="#d7e0e9"/>
+<text x="728" y="304" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#27745b">FilesystemService</text>
+<text x="728" y="333" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">OverlayCore：访问检查</text>
+<text x="728" y="360" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">选择 upper / lower</text>
+<text x="728" y="387" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">记录需要的原像</text>
+<rect x="359" y="275" width="282" height="123" rx="7" fill="#edf7f1" stroke="#d7e0e9"/>
+<text x="375" y="304" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="21" font-weight="600" fill="#27745b">宿主 VFS / 文件存储</text>
+<text x="375" y="333" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">读取所选内容</text>
+<text x="375" y="360" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">写入则 copy-up 到 upper</text>
+<text x="375" y="387" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="18" font-weight="400" fill="#617186">原目标等待 Apply</text>
+<line x1="712" y1="336" x2="641" y2="336" stroke="#27745b" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 500 398 L 500 454 L 158 454 L 158 221" fill="none" stroke="#4266ad" stroke-width="2"/>
+<text x="220" y="483" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#4266ad">写回响应，发布 used，通知 Guest</text>
+<rect x="28" y="497" width="944" height="108" rx="7" fill="#fff" stroke="#d7e0e9"/>
+<text x="46" y="530" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#192739">队列 owner 管理 available / used ring；worker 处理可重叠的后端 I/O。</text>
+<text x="46" y="566" text-anchor="start" font-family="Noto Sans CJK SC,Noto Sans SC,sans-serif" font-size="20" font-weight="400" fill="#617186">完成发布前保持 RAM lease；暂停 CPU 不会自动停止宿主 worker。</text>
+</svg>
